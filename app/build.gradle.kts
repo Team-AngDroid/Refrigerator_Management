@@ -1,0 +1,61 @@
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
+}
+
+android {
+    namespace = DefaultConfig.APPLICATION_ID
+    compileSdk = DefaultConfig.COMPILE_SDK
+
+    defaultConfig {
+        applicationId = DefaultConfig.APPLICATION_ID
+        minSdk = DefaultConfig.MIN_SDK
+        targetSdk = DefaultConfig.TARGET_SDK
+        versionCode = DefaultConfig.VERSION_CODE
+        versionName = DefaultConfig.VERSION_NAME
+
+        testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile ("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = DefaultConfig.JVM_TARGET
+    }
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+}
+
+dependencies {
+
+
+    addAndroidXDependencies()
+    addNetworkDependencies()
+    addNavigationDependencies()
+    addDaggerHiltDependencies()
+    implementation(AndroidXDependencies.lifecycleJava8)
+    addLifecycleDependencies()
+    addRoomDependencies()
+    addTestDependencies()
+    implementation(ThirdPartyDependencies.timber)
+    implementation(ThirdPartyDependencies.coil)
+    implementation(ThirdPartyDependencies.lottie)
+    implementation(KotlinDependencies.coroutines)
+    implementation(AndroidXDependencies.coroutines)
+    implementation(ThirdPartyDependencies.gson)
+    implementation(KotlinDependencies.kotlinxSerialization)
+}

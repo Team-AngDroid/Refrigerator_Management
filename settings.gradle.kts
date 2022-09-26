@@ -13,4 +13,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "Refrigerator_Manament"
-include ':app'
+include(":app")
