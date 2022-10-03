@@ -3,6 +3,7 @@ buildscript {
     dependencies {
         classpath(Plugins.HILT_PLUGIN)
         classpath(Plugins.SAFE_ARGS_PLUGIN)
+        classpath("com.google.gms:google-services:4.3.13")
     }
 }
 plugins {

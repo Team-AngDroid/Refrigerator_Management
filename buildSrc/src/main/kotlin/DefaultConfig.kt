@@ -8,3 +8,4 @@ object DefaultConfig {
     const val JVM_TARGET = "1.8"
     const val TEST_INSTRUMENTATION_RUNNER = "androidx.test.runner.AndroidJUnitRunner"
 }
+

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "242591405862",
+    "project_id": "team-angdroid",
+    "storage_bucket": "team-angdroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242591405862:android:856d7931cc2c647d6893e7",
+        "android_client_info": {
+          "package_name": "com.angdroid.refrigerator_manament"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242591405862-h652cs72tthhnnps13fnfdagm8etpl0h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.angdroid.refrigerator_manament",
+            "certificate_hash": "06da7c34083416a31578df6473bbf118c3d61538"
+          }
+        },
+        {
+          "client_id": "242591405862-n14m73cpkn0fds6ca0cbcn4j7obh01vq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCgXRnKGTzXDyKIpC2jNozlpboIvP4USM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242591405862-n14m73cpkn0fds6ca0cbcn4j7obh01vq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
