@@ -51,8 +51,8 @@ android {
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-firestore-ktx:24.0.2")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.0.2")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.3.1")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.8")
     addAndroidXDependencies()
     addNetworkDependencies()
     addNavigationDependencies()
@@ -68,6 +68,6 @@ dependencies {
     implementation(AndroidXDependencies.coroutines)
     implementation(ThirdPartyDependencies.gson)
     implementation(KotlinDependencies.kotlinxSerialization)
-    implementation("com.google.firebase:firebase-bom:30.4.1")
+    implementation("com.google.firebase:firebase-bom:30.5.0")
     platform("com.google.firebase:firebase-analytics-ktx")
 }
