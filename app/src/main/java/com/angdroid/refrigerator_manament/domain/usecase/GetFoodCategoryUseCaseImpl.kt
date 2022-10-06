@@ -1,7 +1,7 @@
 package com.angdroid.refrigerator_manament.domain.usecase
 
-class SetUserFoodDetailImpl : SetUserFoodDetail {
-    override fun invoke() {
+class GetFoodCategoryUseCaseImpl:GetFoodCategoryUseCase {
+    override fun invoke(): List<String> {
         TODO("Not yet implemented")
     }
 }

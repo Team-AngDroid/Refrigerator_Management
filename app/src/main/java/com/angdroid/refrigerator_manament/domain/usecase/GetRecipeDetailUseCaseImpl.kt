@@ -1,6 +1,6 @@
 package com.angdroid.refrigerator_manament.domain.usecase
 
-class GetRecipeListImpl:GetRecipeList {
+class GetRecipeDetailUseCaseImpl : GetRecipeDetailUseCase {
     override fun invoke(): List<String> {
         TODO("Not yet implemented")
     }

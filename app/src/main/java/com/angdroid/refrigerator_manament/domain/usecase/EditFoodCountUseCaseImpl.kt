@@ -1,6 +1,6 @@
 package com.angdroid.refrigerator_manament.domain.usecase
 
-class GetUserProfileImpl : GetUserProfile {
+class EditFoodCountUseCaseImpl :EditFoodCountUseCase {
     override fun invoke() {
         TODO("Not yet implemented")
     }

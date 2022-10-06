@@ -1,5 +1,5 @@
 package com.angdroid.refrigerator_manament.domain.usecase
 
-interface EditFoodCount {
+interface DeleteFoodCountUseCase {
     operator fun invoke()
 }
