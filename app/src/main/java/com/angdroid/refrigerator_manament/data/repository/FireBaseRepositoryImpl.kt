@@ -8,8 +8,9 @@ import com.angdroid.refrigerator_manament.domain.entity.FoodEntity
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
+import javax.inject.Inject
 
-class FireBaseRepositoryImpl(
+class FireBaseRepositoryImpl @Inject constructor(
     private val foodInfoController: FoodInfoController,
     private val userInfoDataSource: UserInfoDataSource,
     private val recipeDataSource: RecipeDataSource,
