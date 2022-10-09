@@ -3,7 +3,8 @@ package com.angdroid.refrigerator_manament.presentation.home.model
 import java.time.LocalDate
 
 data class Food(
-    val id: Int,
+    val id: String,
+    val foodId: Int,
     val expirationDate: LocalDate,
     val name: String,
     val image: String,
