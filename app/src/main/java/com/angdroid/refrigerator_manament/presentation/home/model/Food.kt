@@ -8,9 +8,10 @@ data class Food(
     val expirationDate: LocalDate,
     val name: String,
     val image: String,
-    val categoryId: Int,
+    private val categoryId: Int,
     val foodCount: Int
 ) : BaseType {
     override fun getType(): Int = 0
     override fun getCount(): Int = foodCount
+    override fun getCategoryId(): Int = categoryId
 }
