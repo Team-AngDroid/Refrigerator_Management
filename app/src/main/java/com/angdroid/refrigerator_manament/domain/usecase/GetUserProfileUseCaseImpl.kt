@@ -5,8 +5,8 @@ import javax.inject.Inject
 
 
 //Todo("User Profile 보여줄지 고민)
-class GetUserProfileImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
-    GetUserProfile {
+class GetUserProfileUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
+    GetUserProfileUseCase {
     override fun invoke() {
         TODO("Not yet implemented")
     }

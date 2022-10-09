@@ -13,39 +13,38 @@ abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToDeleteFoodCount(deleteFoodCountImpl: DeleteFoodCountImpl):DeleteFoodCount
+    abstract fun bindToDeleteFoodCount(deleteFoodCountImpl: DeleteFoodCountUseCaseImpl):DeleteFoodCountUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindEditFoodCount(editFoodCountImpl: EditFoodCountImpl):EditFoodCount
+    abstract fun bindEditFoodCount(editFoodCountImpl: EditFoodCountUseCaseImpl):EditFoodCountUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetFoodCategory(getFoodCategoryImpl: GetFoodCategoryImpl):GetFoodCategory
+    abstract fun bindToGetFoodCategory(getFoodCategoryImpl: GetFoodCategoryUseCaseImpl):GetFoodCategoryUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetRecipeDetail(getRecipeDetailImpl: GetRecipeDetailImpl):GetRecipeDetail
+    abstract fun bindToGetRecipeDetail(getRecipeDetailImpl: GetRecipeDetailUseCaseImpl):GetRecipeDetailUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetRecipeList(getRecipeListImpl: GetRecipeListImpl):GetRecipeList
+    abstract fun bindToGetRecipeList(getRecipeListImpl: GetRecipeListImplUseCase):GetRecipeListUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetUserFoodCategoryList(getUserFoodCategoryListImpl: GetUserFoodCategoryListImpl):GetUserFoodCategoryList
+    abstract fun bindToGetUserFoodCategoryList(getUserFoodCategoryListImpl: GetUserFoodCategoryListUseCaseImpl):GetUserFoodCategoryListUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToUserFoodDetail(getUserFoodDetailImpl: GetUserFoodDetailImpl):GetUserFoodDetail
+    abstract fun bindToUserFoodDetail(getUserFoodDetailImpl: GetUserFoodDetailUseCaseImpl):GetUserFoodDetailUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetUserProfile(getUserProfileImpl: GetUserProfileImpl):GetUserProfile
+    abstract fun bindToGetUserProfile(getUserProfileImpl: GetUserProfileUseCaseImpl):GetUserProfileUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToSetUserFoodDetail(setUserFoodDetailImpl: SetUserFoodDetailImpl):SetUserFoodDetail
-
+    abstract fun bindToSetUserFoodDetail(setUserFoodDetailImpl: SetUserFoodDetailUseCaseImpl):SetUserFoodDetailUseCase
 
 }
