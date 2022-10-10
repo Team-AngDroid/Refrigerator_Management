@@ -1,5 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.home
 
+import android.annotation.SuppressLint
 import android.content.ClipData.Item
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -62,14 +63,23 @@ class CategoryListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        return if (item.getType() == 0) ITEM else CATEGORY
+        return if (item.type == 0) ITEM else CATEGORY
     }
 
-    inner class GridSpanSizeLookup : GridLayoutManager.SpanSizeLookup() {
-        override fun getSpanSize(position: Int): Int {
-            return if (getItemViewType(position) == 2) 1 else 3
+    fun getSpanSizeLookUp() : GridLayoutManager.SpanSizeLookup {
+        return object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (getItemViewType(position) == 2) 1 else 3
+            }
         }
     }
+
+
+    class CategoryViewHolder(val binding: ItemCategoryListBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    class CategoryTitleViewHolder(val binding: ItemCategoryTitleBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     companion object {
         const val CATEGORY = 1
@@ -77,21 +87,12 @@ class CategoryListAdapter(
 
         private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseType>() {
             override fun areItemsTheSame(oldItem: BaseType, newItem: BaseType): Boolean {
-                return if (oldItem.getType() == 0 && newItem.getType() == 0) {
-                    (oldItem as Food).id == (newItem as Food).id
-                } else {
-                    oldItem.getType() == newItem.getType()
-                }
+                return oldItem.id == 0 && newItem.id == 0
             }
 
-            override fun areContentsTheSame(oldItem: BaseType, newItem: BaseType): Boolean =
-                oldItem.hashCode() == newItem.hashCode()
+            override fun areContentsTheSame(oldItem: BaseType, newItem: BaseType): Boolean {
+                return oldItem.count == newItem.count
+            }
         }
     }
-
-    class CategoryViewHolder(val binding: ItemCategoryListBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    class CategoryTitleViewHolder(val binding: ItemCategoryTitleBinding) :
-        RecyclerView.ViewHolder(binding.root)
 }

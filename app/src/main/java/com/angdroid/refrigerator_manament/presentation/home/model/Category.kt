@@ -1,7 +1,17 @@
 package com.angdroid.refrigerator_manament.presentation.home.model
 
-data class Category(val categoryName:String, val categoryCount:Int, private val categoryId:Int):BaseType{
-    override fun getType():Int = categoryId
-    override fun getCount(): Int = categoryCount
-    override fun getCategoryId(): Int = categoryId
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Category(val categoryName: String, val categoryCount: Int, private val categoryId: Int) :
+    BaseType, Parcelable {
+    override val id: Int
+        get() = categoryId
+    override val type: Int
+        get() = categoryId
+    override val count: Int
+        get() = categoryCount
+    override val category: Int
+        get() = categoryId
 }
