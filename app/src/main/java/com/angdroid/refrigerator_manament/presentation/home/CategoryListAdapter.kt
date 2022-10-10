@@ -4,6 +4,7 @@ import android.content.ClipData.Item
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -20,16 +21,24 @@ class CategoryListAdapter(
     private val itemRemoveListener: (Food) -> Unit
 ) : ListAdapter<BaseType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
 
-    var currentCategoryType: CategoryType? = null
     private lateinit var inflater: LayoutInflater
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (!::inflater.isInitialized) {
             inflater = LayoutInflater.from(parent.context)
         }
-        return CategoryViewHolder(
-            ItemCategoryListBinding.inflate(inflater, parent, false)
-        )
+        return when (viewType) {
+            Companion.ITEM -> {
+                CategoryViewHolder(
+                    ItemCategoryListBinding.inflate(inflater, parent, false)
+                )
+            }
+            else -> {
+                CategoryTitleViewHolder(
+                    ItemCategoryTitleBinding.inflate(inflater, parent, false)
+                )
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -42,8 +51,8 @@ class CategoryListAdapter(
                     binding.ivRemove.setOnClickListener { itemRemoveListener(currentItem as Food) }
                 }
             }
-            Companion.CATEGORY->{
-                with(holder as CategoryTitleViewHolder){
+            Companion.CATEGORY -> {
+                with(holder as CategoryTitleViewHolder) {
                     binding.setVariable(BR.titleModel, (currentItem as Category))
                 }
             }
@@ -53,13 +62,18 @@ class CategoryListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         val item = getItem(position)
-        return if(item.getType()==0) ITEM else CATEGORY
+        return if (item.getType() == 0) ITEM else CATEGORY
+    }
+
+    inner class GridSpanSizeLookup : GridLayoutManager.SpanSizeLookup() {
+        override fun getSpanSize(position: Int): Int {
+            return if (getItemViewType(position) == 2) 1 else 3
+        }
     }
 
     companion object {
-
-        private const val CATEGORY = 1
-        private const val ITEM = 2
+        const val CATEGORY = 1
+        const val ITEM = 2
 
         private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseType>() {
             override fun areItemsTheSame(oldItem: BaseType, newItem: BaseType): Boolean {
@@ -69,6 +83,7 @@ class CategoryListAdapter(
                     oldItem.getType() == newItem.getType()
                 }
             }
+
             override fun areContentsTheSame(oldItem: BaseType, newItem: BaseType): Boolean =
                 oldItem.hashCode() == newItem.hashCode()
         }
