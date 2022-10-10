@@ -1,17 +1,25 @@
 package com.angdroid.refrigerator_manament.presentation.home.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
+@Parcelize
 data class Food(
-    val id: String,
+    val fid: String,
     val foodId: Int,
     val expirationDate: LocalDate,
     val name: String,
     val image: String,
-    private val categoryId: Int,
+    val categoryId: Int,
     val foodCount: Int
-) : BaseType {
-    override fun getType(): Int = 0
-    override fun getCount(): Int = foodCount
-    override fun getCategoryId(): Int = categoryId
+) : Parcelable, BaseType {
+    override val id: Int
+        get() = foodId
+    override val type: Int
+        get() = 0
+    override val count: Int
+        get() = foodCount
+    override val category: Int
+        get() = categoryId
 }
