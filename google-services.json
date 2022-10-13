@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "242591405862-40m2ctmui9edvn66et3f9ugesm2dlo9p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.angdroid.refrigerator_manament",
+            "certificate_hash": "a455fb03bb242aa05e84443d8a1e1e41168450a3"
+          }
+        },
+        {
           "client_id": "242591405862-h652cs72tthhnnps13fnfdagm8etpl0h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

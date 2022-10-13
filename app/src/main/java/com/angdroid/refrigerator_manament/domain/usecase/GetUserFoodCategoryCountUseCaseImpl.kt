@@ -3,9 +3,9 @@ package com.angdroid.refrigerator_manament.domain.usecase
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import javax.inject.Inject
 
-class GetFoodCategoryImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
-    GetFoodCategory {
-    override fun invoke(): List<String> {
+class GetUserFoodCategoryCountUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
+    GetUserFoodCategoryCountUseCase {
+    override fun invoke(): List<Int> {
         TODO("Not yet implemented")
     }
 }

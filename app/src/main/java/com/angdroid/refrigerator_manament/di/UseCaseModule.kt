@@ -13,39 +13,54 @@ abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToDeleteFoodCount(deleteFoodCountImpl: DeleteFoodCountImpl):DeleteFoodCount
+    abstract fun bindToDeleteUserFoodCount(deleteUserFoodCountUseCaseImpl: DeleteUserFoodCountUseCaseImpl):DeleteUserFoodCountUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindEditFoodCount(editFoodCountImpl: EditFoodCountImpl):EditFoodCount
+    abstract fun bindEditUserFoodCount(editUserFoodCountUseCaseImpl: EditUserFoodCountUseCaseImpl):EditUserFoodCountUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetFoodCategory(getFoodCategoryImpl: GetFoodCategoryImpl):GetFoodCategory
+    abstract fun bindToGetRecipeDetail(getRecipeDetailUseCaseImpl: GetRecipeDetailUseCaseImpl):GetRecipeDetailUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetRecipeDetail(getRecipeDetailImpl: GetRecipeDetailImpl):GetRecipeDetail
+    abstract fun bindToGetRecipeList(getRecipeListUseCaseImpl: GetRecipeListUseCaseImpl):GetRecipeListUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetRecipeList(getRecipeListImpl: GetRecipeListImpl):GetRecipeList
+    abstract fun bindToGetRecommendedRecipeList(getGetRecommendedRecipeListUseCaseImpl: GetRecommendedRecipeListUseCaseImpl):GetRecommendedRecipeListUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetUserFoodCategoryList(getUserFoodCategoryListImpl: GetUserFoodCategoryListImpl):GetUserFoodCategoryList
+    abstract fun bindToGetDefaultFoodDetail(getDefaultFoodDetailUseCaseImpl: GetDefaultFoodDetailUseCaseImpl):GetDefaultFoodDetailUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToUserFoodDetail(getUserFoodDetailImpl: GetUserFoodDetailImpl):GetUserFoodDetail
+    abstract fun bindToGetDefaultFoodCategoryName(getDefaultFoodCategoryNameUseCaseImpl: GetDefaultFoodCategoryNameUseCaseImpl):GetDefaultFoodCategoryNameUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToGetUserProfile(getUserProfileImpl: GetUserProfileImpl):GetUserProfile
+    abstract fun bindToGetUserFoodCategoryTitle(getUserFoodCategoryTitleUseCaseImpl: GetUserFoodCategoryTitleUseCaseImpl):GetUserFoodCategoryTitleUseCase
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToSetUserFoodDetail(setUserFoodDetailImpl: SetUserFoodDetailImpl):SetUserFoodDetail
+    abstract fun bindToGetUserFoodCategoryCount(getUserFoodCategoryCountUseCaseImpl: GetUserFoodCategoryCountUseCaseImpl):GetUserFoodCategoryCountUseCase
 
+    @Binds
+    @ViewModelScoped
+    abstract fun bindToGetUserFoodCategoryList(getUserFoodCategoryListUseCaseImpl: GetUserFoodCategoryListUseCaseImpl):GetUserFoodCategoryListUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindToGetUserFoodDetailList(getUserFoodDetailListUseCaseImpl: GetUserFoodDetailListUseCaseImpl):GetUserFoodDetailListUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindToGetUserProfile(getUserProfileUseCaseImpl: GetUserProfileUseCaseImpl):GetUserProfileUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindToSetUserFoodDetail(setUserFoodDetailUseCaseImpl: SetUserFoodDetailUseCaseImpl):SetUserFoodDetailUseCase
 
 }

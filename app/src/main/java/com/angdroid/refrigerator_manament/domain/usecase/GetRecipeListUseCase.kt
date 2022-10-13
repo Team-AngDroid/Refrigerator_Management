@@ -1,5 +1,8 @@
 package com.angdroid.refrigerator_manament.domain.usecase
 
-interface GetRecipeList { // 레피시이름 리스트를 가져오는 함수
+/**
+ * 레피시정보 리스트를 가져오는 함수
+ */
+interface GetRecipeListUseCase {
     operator fun invoke():List<String>
 }
