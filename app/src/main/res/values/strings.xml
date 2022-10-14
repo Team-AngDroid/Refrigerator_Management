@@ -7,5 +7,9 @@
     <string name="floating_btn">FloatingButton</string>
     <string name="refrigerator">냉장고</string>
     <string name="recipe">레시피</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="refrigerator_fragment">Refrigerator fragment</string>
+    <string name="recipe_fragment">Recipe fragment</string>
+    <string name="camera_fragment">Camera fragment</string>
 
 </resources>
