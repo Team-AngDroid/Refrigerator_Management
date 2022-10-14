@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_refrigerator"
+        android:iconTint="@color/gray2"
+        android:icon="@drawable/ic_refrigerator"
+        android:title="@string/refrigerator" />
+
+    <item
+        android:id="@+id/nav_gallery"
+        android:iconTint="@color/gray2"
+        android:icon="@drawable/ic_recipe"
+        android:title="@string/recipe" />
+
+
+</menu>
