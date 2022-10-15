@@ -20,7 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="@style/Widget.TextView.Pretendard16_Black_Medium.TextAppearance"
-            android:textColor="@color/black"
+            android:textColor="@color/black_second"
             app:category_text="@{titleModel.category}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
