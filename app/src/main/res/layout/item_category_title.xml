@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,12 +19,13 @@
             android:id="@+id/tvCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:category_text="@{titleModel.category}"
+            android:textAppearance="@style/Widget.TextView.Pretendard16_Black_Medium.TextAppearance"
             android:textColor="@color/black"
-            android:textSize="16dp"
+            app:category_text="@{titleModel.category}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ㅇ" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
