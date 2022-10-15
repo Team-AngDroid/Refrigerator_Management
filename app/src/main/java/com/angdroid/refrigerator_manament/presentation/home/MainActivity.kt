@@ -10,6 +10,7 @@ import com.angdroid.refrigerator_manament.presentation.home.model.BaseType
 import com.angdroid.refrigerator_manament.presentation.home.model.Category
 import com.angdroid.refrigerator_manament.presentation.home.model.Food
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
+import com.angdroid.refrigerator_manament.presentation.util.types.CategoryType
 import java.time.LocalDate
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -34,11 +35,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         array.sortBy { it.category }
-        /*val intenttt = Intent(this, MainActivity2::class.java)
-        intenttt.putExtra("data", (array[1] as Food))
-        startActivity(intenttt)
-        finish()*/
-
         val result = array.groupingBy { it.id }
             .aggregate { _, accumulator: BaseType?, element, first ->
                 if (first) element
@@ -50,8 +46,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             }.values.toMutableList()
         result.sortBy { it.category }
 
-
-        Log.e("Result!!", "$result")
         var categoryTemp: Pair<Int, Int> =
             Pair(result[result.size - 1].category, result[result.size - 1].count)
         for (i in result.size - 1 downTo 0) {
@@ -60,7 +54,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                     result.add(
                         i + 1,
                         Category(
-                            resources.getString(categoryList[categoryTemp.first - 1]),
+                            resources.getString(CategoryType.categoryList[categoryTemp.first - 1]),
                             categoryTemp.second,
                             categoryTemp.first
                         )
@@ -74,7 +68,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         result.add(
             0,
             Category(
-                resources.getString(categoryList[categoryTemp.first - 1]),
+                resources.getString(CategoryType.categoryList[categoryTemp.first - 1]),
                 categoryTemp.second,
                 categoryTemp.first
             )
@@ -83,12 +77,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         binding.rvList.layoutManager = DynamicGridLayoutManager(this, adapter.getSpanSizeLookUp())
         binding.rvList.adapter = adapter
         adapter.submitList(result)
-    }
-
-    companion object CategoryType {
-        val categoryList = listOf<Int>(
-            R.string.category_vegetable, R.string.category_fruit,
-            R.string.category_meat, R.string.category_seasoning
-        )
     }
 }
