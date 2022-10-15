@@ -5,7 +5,6 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.presentation.util.types.CategoryType
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
 

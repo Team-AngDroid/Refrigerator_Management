@@ -13,6 +13,7 @@ import com.angdroid.refrigerator_manament.databinding.ItemCategoryTitleBinding
 import com.angdroid.refrigerator_manament.presentation.home.model.BaseIngredientType
 import com.angdroid.refrigerator_manament.presentation.home.model.Category
 import com.angdroid.refrigerator_manament.presentation.home.model.Food
+import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class CategoryListAdapter(
     private val itemClickListener: (Food) -> Unit,
@@ -45,13 +46,21 @@ class CategoryListAdapter(
             Companion.ITEM -> {
                 with(holder as CategoryViewHolder) {
                     binding.setVariable(BR.food, (currentItem as Food))
-                    binding.root.setOnClickListener { itemClickListener(currentItem as Food) }
-                    binding.ivRemove.setOnClickListener { itemRemoveListener(currentItem as Food) }
+                    binding.root.setOnClickListener { itemClickListener(currentItem) }
+                    binding.ivRemove.setOnClickListener { itemRemoveListener(currentItem) }
+                    if (position == itemCount - 1) {
+                        binding.clFood.layoutParams =
+                            (binding.clFood.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                                bottomMargin = 24.dpToPx(binding.root.context)
+                            }
+                    }
                 }
             }
             Companion.CATEGORY -> {
                 with(holder as CategoryTitleViewHolder) {
                     binding.setVariable(BR.titleModel, (currentItem as Category))
+
+
                 }
             }
 
@@ -63,7 +72,7 @@ class CategoryListAdapter(
         return if (item.type == 0) ITEM else CATEGORY
     }
 
-    fun getSpanSizeLookUp() : GridLayoutManager.SpanSizeLookup {
+    fun getSpanSizeLookUp(): GridLayoutManager.SpanSizeLookup {
         return object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (getItemViewType(position) == 2) 1 else 3
@@ -83,11 +92,17 @@ class CategoryListAdapter(
         const val ITEM = 2
 
         private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseIngredientType>() {
-            override fun areItemsTheSame(oldItem: BaseIngredientType, newItem: BaseIngredientType): Boolean {
+            override fun areItemsTheSame(
+                oldItem: BaseIngredientType,
+                newItem: BaseIngredientType
+            ): Boolean {
                 return oldItem.id == 0 && newItem.id == 0
             }
 
-            override fun areContentsTheSame(oldItem: BaseIngredientType, newItem: BaseIngredientType): Boolean {
+            override fun areContentsTheSame(
+                oldItem: BaseIngredientType,
+                newItem: BaseIngredientType
+            ): Boolean {
                 return oldItem.count == newItem.count
             }
         }
