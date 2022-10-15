@@ -10,6 +10,7 @@
 
         <TextView
             style="@style/Widget.TextView.Pretendard20_Black_Bold.TextAppearance"
+            android:textAppearance="@style/Widget.TextView.Pretendard20_Black_Bold.TextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/camera_fragment"

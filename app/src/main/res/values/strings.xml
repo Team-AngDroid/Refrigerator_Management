@@ -6,6 +6,7 @@
     <string name="category_seasoning">조미료</string>
     <string name="floating_btn">FloatingButton</string>
     <string name="refrigerator">냉장고</string>
+    <string name="my_refrigerator">내 냉장고</string>
     <string name="recipe">레시피</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="refrigerator_fragment">Refrigerator fragment</string>

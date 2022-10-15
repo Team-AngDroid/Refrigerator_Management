@@ -9,16 +9,17 @@
         android:layout_height="match_parent"
         tools:context=".presentation.home.MainActivity">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            style="@style/Widget.TextView.Pretendard20_Black_Bold.TextAppearance"
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_space"
             android:backgroundTint="@color/white"
-            android:text="@string/default_web_client_id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/my_refrigerator"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/Widget.TextView.Pretendard20_Black_Bold.TextAppearance"
             tools:text="테스트" />
 
         <androidx.fragment.app.FragmentContainerView
@@ -30,7 +31,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bottom_nav_main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+            app:layout_constraintTop_toBottomOf="@+id/appbar"
 
             app:navGraph="@navigation/refrigerator_nav_graph"
             tools:layout="@layout/fragment_camera" />
@@ -42,17 +43,19 @@
             android:backgroundTint="@color/primary_skyblue"
             android:contentDescription="@string/floating_btn"
             android:src="@drawable/ic_add_food"
-            android:tint="@color/white"
             app:elevation="9dp"
             app:fabCustomSize="@dimen/app_bar_space"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:tint="@color/white" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav_main"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_space"
+            app:itemIconTint="@drawable/selector_bottom_navigation"
+            app:itemTextColor="@drawable/selector_bottom_navigation"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_nav_menu" />
 
