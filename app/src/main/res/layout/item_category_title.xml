@@ -5,7 +5,7 @@
 
         <variable
             name="titleModel"
-            type="com.angdroid.refrigerator_manament.presentation.home.model.Category" />
+            type="com.angdroid.refrigerator_manament.presentation.home.model.IngredientType.Category" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/Widget.TextView.Pretendard16_Black_Medium.TextAppearance"
             android:textColor="@color/black_second"
-            app:category_text="@{titleModel.category}"
+            app:category_text="@{titleModel.categoryId}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

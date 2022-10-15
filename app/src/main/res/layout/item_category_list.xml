@@ -6,12 +6,8 @@
     <data>
 
         <variable
-            name="category"
-            type="String" />
-
-        <variable
             name="food"
-            type="com.angdroid.refrigerator_manament.presentation.home.model.Food" />
+            type="com.angdroid.refrigerator_manament.presentation.home.model.IngredientType.Food" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
