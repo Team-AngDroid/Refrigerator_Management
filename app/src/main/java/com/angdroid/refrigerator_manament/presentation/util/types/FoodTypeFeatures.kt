@@ -1,8 +1,10 @@
 package com.angdroid.refrigerator_manament.presentation.util.types
 
+import androidx.annotation.DrawableRes
 import com.angdroid.refrigerator_manament.R
 
-enum class FoodTypeFeatures(val imageRes: Int) {
+
+enum class FoodTypeFeatures(@DrawableRes val imageRes: Int) {
     당근(R.drawable.carrot), 오이(R.drawable.cucumber), 무우(R.drawable.moo),
     사과(R.drawable.apple), 배(R.drawable.pear), 귤(R.drawable.tangerine),
     계란(R.drawable.egg), 생닭(R.drawable.chicken), 우유(R.drawable.milk),
