@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:includeFontPadding">false</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -21,134 +22,115 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_24</item>
         <item name="android:fontFamily">@font/pretendard_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard20_Black_Bold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_20</item>
         <item name="android:fontFamily">@font/pretendard_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard20_Black_SemiBold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_20</item>
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard18_Black_Bold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_18</item>
         <item name="android:fontFamily">@font/pretendard_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard18_Black_SemiBold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_18</item>
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard16_Black_Bold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_16</item>
         <item name="android:fontFamily">@font/pretendard_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_16</item>
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard16_Black_Medium.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_16</item>
         <item name="android:fontFamily">@font/pretendard_medium</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard16_SkyBlue_Medium.TextAppearance" parent="">
         <item name="android:textColor">@color/primary_skyblue</item>
         <item name="android:textSize">@dimen/text_font_16</item>
         <item name="android:fontFamily">@font/pretendard_medium</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard15_Black_SemiBold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_15</item>
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
-        <item name="android:includeFontPadding">false</item>
+
     </style>
 
     <style name="Widget.TextView.Pretendard15_Black_Regular.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_15</item>
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard14_Black_Regular.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_14</item>
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard13_Black_SemiBold.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_13</item>
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard13_Black_Medium.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_13</item>
         <item name="android:fontFamily">@font/pretendard_medium</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard12_Black_Medium.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_12</item>
         <item name="android:fontFamily">@font/pretendard_medium</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Widget.TextView.Pretendard12_Black_Regular.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_12</item>
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
 
     <!-- Default fontfamily -->
     <style name="Bold.TextAppearance" parent="">
         <item name="android:fontFamily">@font/pretendard_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Semi_Bold.TextAppearance" parent="">
         <item name="android:fontFamily">@font/pretendard_semi_bold</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Medium.TextAppearance" parent="">
         <item name="android:fontFamily">@font/pretendard_medium</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="Regular.TextAppearance" parent="">
         <item name="android:fontFamily">@font/pretendard_regular</item>
-        <item name="android:includeFontPadding">false</item>
     </style>
 
 

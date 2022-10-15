@@ -1,7 +1,5 @@
 package com.angdroid.refrigerator_manament.presentation.home
 
-import android.annotation.SuppressLint
-import android.content.ClipData.Item
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,17 +8,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
-import com.angdroid.refrigerator_manament.data.dto.CategoryType
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryListBinding
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryTitleBinding
-import com.angdroid.refrigerator_manament.presentation.home.model.BaseType
+import com.angdroid.refrigerator_manament.presentation.home.model.BaseIngredientType
 import com.angdroid.refrigerator_manament.presentation.home.model.Category
 import com.angdroid.refrigerator_manament.presentation.home.model.Food
+import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class CategoryListAdapter(
     private val itemClickListener: (Food) -> Unit,
     private val itemRemoveListener: (Food) -> Unit
-) : ListAdapter<BaseType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
+) : ListAdapter<BaseIngredientType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
 
     private lateinit var inflater: LayoutInflater
 
@@ -48,13 +46,21 @@ class CategoryListAdapter(
             Companion.ITEM -> {
                 with(holder as CategoryViewHolder) {
                     binding.setVariable(BR.food, (currentItem as Food))
-                    binding.root.setOnClickListener { itemClickListener(currentItem as Food) }
-                    binding.ivRemove.setOnClickListener { itemRemoveListener(currentItem as Food) }
+                    binding.root.setOnClickListener { itemClickListener(currentItem) }
+                    binding.ivRemove.setOnClickListener { itemRemoveListener(currentItem) }
+                    if (position == itemCount - 1) {
+                        binding.clFood.layoutParams =
+                            (binding.clFood.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                                bottomMargin = 24.dpToPx(binding.root.context)
+                            }
+                    }
                 }
             }
             Companion.CATEGORY -> {
                 with(holder as CategoryTitleViewHolder) {
                     binding.setVariable(BR.titleModel, (currentItem as Category))
+
+
                 }
             }
 
@@ -66,7 +72,7 @@ class CategoryListAdapter(
         return if (item.type == 0) ITEM else CATEGORY
     }
 
-    fun getSpanSizeLookUp() : GridLayoutManager.SpanSizeLookup {
+    fun getSpanSizeLookUp(): GridLayoutManager.SpanSizeLookup {
         return object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 return if (getItemViewType(position) == 2) 1 else 3
@@ -85,12 +91,18 @@ class CategoryListAdapter(
         const val CATEGORY = 1
         const val ITEM = 2
 
-        private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseType>() {
-            override fun areItemsTheSame(oldItem: BaseType, newItem: BaseType): Boolean {
+        private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseIngredientType>() {
+            override fun areItemsTheSame(
+                oldItem: BaseIngredientType,
+                newItem: BaseIngredientType
+            ): Boolean {
                 return oldItem.id == 0 && newItem.id == 0
             }
 
-            override fun areContentsTheSame(oldItem: BaseType, newItem: BaseType): Boolean {
+            override fun areContentsTheSame(
+                oldItem: BaseIngredientType,
+                newItem: BaseIngredientType
+            ): Boolean {
                 return oldItem.count == newItem.count
             }
         }
