@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_base_space">16dp</dimen>
+    <dimen name="app_bar_space">60dp</dimen>
+    <dimen name="app_nav_space">108dp</dimen>
+    <dimen name="sub_space_6">6dp</dimen>
+    <dimen name="sub_space_8">8dp</dimen>
+    <dimen name="sub_space_11">11dp</dimen>
+    <dimen name="sub_space_12">12dp</dimen>
+    <dimen name="sub_space_16">16dp</dimen>
+    <dimen name="sub_space_17.5">17.5dp</dimen>
+    <dimen name="sub_space_19">19dp</dimen>
+    <dimen name="sub_space_20">20dp</dimen>
+    <dimen name="sub_space_21">21dp</dimen>
+    <dimen name="sub_space_23">23dp</dimen>
+    <dimen name="sub_space_24">24dp</dimen>
+    <dimen name="sub_space_29">29dp</dimen>
+    <dimen name="sub_space_51">51dp</dimen>
+    <dimen name="sub_space_54">54dp</dimen>
+    <dimen name="sub_space_80">80dp</dimen>
+    <dimen name="sub_space_130">130dp</dimen>
+    <dimen name="sub_space_200">200dp</dimen>
+
+    <dimen name="sub_space_192">192dp</dimen>
+
+
+    <dimen name="corner_radius_12">12dp</dimen>
+    <dimen name="corner_radius_25">25dp</dimen>
+
+    <dimen name="text_font_24">24sp</dimen>
+    <dimen name="text_font_20">20sp</dimen>
+    <dimen name="text_font_18">18sp</dimen>
+    <dimen name="text_font_16">16sp</dimen>
+    <dimen name="text_font_15">15sp</dimen>
+    <dimen name="text_font_14">14sp</dimen>
+    <dimen name="text_font_13">13sp</dimen>
+    <dimen name="text_font_12">12sp</dimen>
+    <dimen name="text_font_10">10sp</dimen>
+</resources>
