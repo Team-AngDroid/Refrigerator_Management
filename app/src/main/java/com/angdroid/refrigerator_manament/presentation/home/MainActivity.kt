@@ -1,12 +1,11 @@
 package com.angdroid.refrigerator_manament.presentation.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityMainBinding
 import com.angdroid.refrigerator_manament.presentation.DynamicGridLayoutManager
-import com.angdroid.refrigerator_manament.presentation.home.model.BaseType
+import com.angdroid.refrigerator_manament.presentation.home.model.BaseIngredientType
 import com.angdroid.refrigerator_manament.presentation.home.model.Category
 import com.angdroid.refrigerator_manament.presentation.home.model.Food
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
@@ -15,7 +14,7 @@ import java.time.LocalDate
 
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    private val array = arrayListOf<BaseType>(
+    private val array = arrayListOf<BaseIngredientType>(
         Food("123", 107, LocalDate.now(), "계란", "", 3, 6),
         Food("123", 107, LocalDate.now(), "계란", "", 3, 1),
         Food("123", 107, LocalDate.now(), "계란", "", 3, 2),
@@ -36,11 +35,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         array.sortBy { it.category }
         val result = array.groupingBy { it.id }
-            .aggregate { _, accumulator: BaseType?, element, first ->
+            .aggregate { _, accumulator: BaseIngredientType?, element, first ->
                 if (first) element
                 else {
                     (accumulator as Food).foodCount = accumulator.count + element.count
-                    Log.e("Accumulator", accumulator.toString())
                     accumulator
                 }
             }.values.toMutableList()

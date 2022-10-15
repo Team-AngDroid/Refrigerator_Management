@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryListBinding
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryTitleBinding
-import com.angdroid.refrigerator_manament.presentation.home.model.BaseType
+import com.angdroid.refrigerator_manament.presentation.home.model.BaseIngredientType
 import com.angdroid.refrigerator_manament.presentation.home.model.Category
 import com.angdroid.refrigerator_manament.presentation.home.model.Food
 
 class CategoryListAdapter(
     private val itemClickListener: (Food) -> Unit,
     private val itemRemoveListener: (Food) -> Unit
-) : ListAdapter<BaseType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
+) : ListAdapter<BaseIngredientType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
 
     private lateinit var inflater: LayoutInflater
 
@@ -82,12 +82,12 @@ class CategoryListAdapter(
         const val CATEGORY = 1
         const val ITEM = 2
 
-        private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseType>() {
-            override fun areItemsTheSame(oldItem: BaseType, newItem: BaseType): Boolean {
+        private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseIngredientType>() {
+            override fun areItemsTheSame(oldItem: BaseIngredientType, newItem: BaseIngredientType): Boolean {
                 return oldItem.id == 0 && newItem.id == 0
             }
 
-            override fun areContentsTheSame(oldItem: BaseType, newItem: BaseType): Boolean {
+            override fun areContentsTheSame(oldItem: BaseIngredientType, newItem: BaseIngredientType): Boolean {
                 return oldItem.count == newItem.count
             }
         }

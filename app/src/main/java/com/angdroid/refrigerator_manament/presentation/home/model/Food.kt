@@ -13,7 +13,7 @@ data class Food(
     val image: String,
     val categoryId: Int,
     var foodCount: Int
-) : Parcelable, BaseType {
+) : Parcelable, BaseIngredientType {
     override val id: Int
         get() = foodId
     override val type: Int
