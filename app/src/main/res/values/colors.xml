@@ -7,4 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_label_secondary">#8A8A8E</color>
+    <!-- 쓰이긴 하나 아직 이름이 없는 색들 임시로 이름 넣어줌-->
+    <color name="primary_skyblue">#0D99FF</color>
+    <color name="warn_red">#ED5D77</color>
+    <color name="gray1">#555555</color>
+    <color name="gray2">#888888</color>
+    <color name="search_light_gray">#E2EBF1</color>
+    <color name="search_gray">#9DABB4</color>
+    <color name="white_detail_title">#FAFBFC</color>
 </resources>
