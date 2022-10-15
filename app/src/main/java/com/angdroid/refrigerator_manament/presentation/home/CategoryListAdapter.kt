@@ -1,7 +1,5 @@
 package com.angdroid.refrigerator_manament.presentation.home
 
-import android.annotation.SuppressLint
-import android.content.ClipData.Item
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,7 +8,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
-import com.angdroid.refrigerator_manament.data.dto.CategoryType
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryListBinding
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryTitleBinding
 import com.angdroid.refrigerator_manament.presentation.home.model.BaseType
