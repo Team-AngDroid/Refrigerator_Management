@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -15,19 +15,34 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
         app:layout_constraintEnd_toStartOf="@+id/iv_remove"
         app:layout_constraintStart_toStartOf="@+id/iv_remove">
+
+        <ImageView
+            android:id="@+id/iv_ingredient"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:load_default_ingredient="@{food.name}"
+            tools:src="@drawable/temp1" />
 
         <TextView
             android:id="@+id/iv_remove"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{food.name}"
-            android:textSize="40sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp"
+            android:text="@{@string/ingredient(food.name,food.foodCount)}"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_ingredient"
+            app:layout_constraintStart_toStartOf="@+id/iv_ingredient"
+            app:layout_constraintTop_toBottomOf="@id/iv_ingredient"
             tools:text="무우" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

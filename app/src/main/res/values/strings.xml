@@ -4,4 +4,7 @@
     <string name="category_fruit">과일</string>
     <string name="category_meat">육류</string>
     <string name="category_seasoning">조미료</string>
+
+
+    <string name="ingredient">%s <font color="#0D99FF">%d개</font></string>
 </resources>
