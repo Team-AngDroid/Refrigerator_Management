@@ -1,18 +1,16 @@
 package com.angdroid.refrigerator_manament.presentation.home
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
-import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
     private lateinit var navController: NavController
