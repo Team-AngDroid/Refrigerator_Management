@@ -27,5 +27,5 @@ fun ImageView.loadDefaultIngredient(foodName: String) {
 
 @BindingAdapter("app:category_text")
 fun TextView.categoryText(categoryId: Int) {
-    text = resources.getText(CategoryType.categoryList[categoryId - 1])
+    text = resources.getText(CategoryType.categoryIdList[categoryId - 1])
 }
