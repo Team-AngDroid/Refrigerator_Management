@@ -23,7 +23,6 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout="@layout/fragment_camera"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@+id/bottom_nav_home"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +38,7 @@
             android:backgroundTint="@color/primary_skyblue"
             android:contentDescription="@string/floating_btn"
             android:src="@drawable/ic_add_food"
-            app:elevation="9dp"
+            app:elevation="8.1dp"
             app:fabCustomSize="@dimen/app_bar_space"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,12 +48,12 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav_home"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/app_bar_space"
+            android:layout_height="@dimen/app_nav_space"
             app:itemIconTint="@drawable/selector_bottom_navigation"
+            app:itemRippleColor="@color/primary_skyblue"
             app:itemTextColor="@drawable/selector_bottom_navigation"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:menu="@menu/bottom_nav_menu"
-            tools:layout_editor_absoluteX="0dp" />
+            app:menu="@menu/bottom_nav_menu" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
