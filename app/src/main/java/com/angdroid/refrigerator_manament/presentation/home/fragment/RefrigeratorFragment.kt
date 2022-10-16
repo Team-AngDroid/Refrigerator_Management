@@ -2,8 +2,12 @@ package com.angdroid.refrigerator_manament.presentation.home.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRefrigeratorBinding
+import com.angdroid.refrigerator_manament.presentation.DynamicGridLayoutManager
+import com.angdroid.refrigerator_manament.presentation.home.CategoryListAdapter
+import com.angdroid.refrigerator_manament.presentation.home.IngredientViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import com.startup.meetiing.presentation.state.UiState
@@ -27,9 +31,18 @@ class RefrigeratorFragment :
         collectingIngredientList()
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            RefrigeratorFragment()
+    private fun collectingIngredientList() {
+        collectFlowWhenStarted(ingredientViewModel.ingredient) { result ->
+            when (result) {
+                is UiState.Loading -> {}
+                is UiState.Empty -> {}
+                is UiState.Success -> {
+                    adapter.submitList(result.data)
+                }
+                is UiState.Error -> {}
+                else -> {}
+            }
+        }
     }
+
 }
