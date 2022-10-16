@@ -1,4 +1,4 @@
-package com.angdroid.refrigerator_manament.presentation.util.types
+package com.angdroid.refrigerator_manament.util
 
 import com.angdroid.refrigerator_manament.R
 

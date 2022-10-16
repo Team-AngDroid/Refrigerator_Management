@@ -8,7 +8,7 @@ import com.angdroid.refrigerator_manament.domain.entity.FoodEntity
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
-import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import java.time.LocalDate
 import javax.inject.Inject
 

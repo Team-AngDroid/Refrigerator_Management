@@ -7,7 +7,7 @@
 
         <variable
             name="food"
-            type="com.angdroid.refrigerator_manament.presentation.home.model.IngredientType.Food" />
+            type="com.angdroid.refrigerator_manament.domain.entity.model.IngredientType.Food" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

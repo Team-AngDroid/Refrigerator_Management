@@ -5,7 +5,7 @@
 
         <variable
             name="titleModel"
-            type="com.angdroid.refrigerator_manament.presentation.home.model.IngredientType.Category" />
+            type="com.angdroid.refrigerator_manament.domain.entity.model.IngredientType.Category" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

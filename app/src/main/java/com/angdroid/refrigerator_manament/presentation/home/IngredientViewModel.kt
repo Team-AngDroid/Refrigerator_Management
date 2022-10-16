@@ -3,7 +3,7 @@ package com.angdroid.refrigerator_manament.presentation.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angdroid.refrigerator_manament.domain.usecase.EnterRefrigeratorPageUseCase
-import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.startup.meetiing.presentation.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,4 +1,4 @@
-package com.angdroid.refrigerator_manament.presentation.home.model
+package com.angdroid.refrigerator_manament.domain.entity.model
 
 import java.time.LocalDate
 

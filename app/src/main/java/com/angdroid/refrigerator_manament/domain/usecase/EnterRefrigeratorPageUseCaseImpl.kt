@@ -1,15 +1,16 @@
 package com.angdroid.refrigerator_manament.domain.usecase
 
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
-import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
-import com.angdroid.refrigerator_manament.presentation.util.types.CategoryType
+import com.angdroid.refrigerator_manament.util.CategoryType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class EnterRefrigeratorPageUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) : EnterRefrigeratorPageUseCase {
+class EnterRefrigeratorPageUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
+    EnterRefrigeratorPageUseCase {
     override suspend fun invoke(): Flow<List<IngredientType>> = flow {
         val result = fireBaseRepository.getFoodList().groupingBy { it.id }
             .aggregate { _, accumulator: IngredientType?, element, first ->

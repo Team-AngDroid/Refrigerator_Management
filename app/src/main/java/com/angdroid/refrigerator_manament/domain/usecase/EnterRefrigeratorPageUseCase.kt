@@ -1,6 +1,6 @@
 package com.angdroid.refrigerator_manament.domain.usecase
 
-import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import kotlinx.coroutines.flow.Flow
 
 interface EnterRefrigeratorPageUseCase {
