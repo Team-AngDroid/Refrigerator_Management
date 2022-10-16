@@ -2,7 +2,7 @@
 <resources>
     <dimen name="app_base_space">16dp</dimen>
     <dimen name="app_bar_space">60dp</dimen>
-    <dimen name="app_nav_space">108dp</dimen>
+    <dimen name="app_nav_space">80dp</dimen>
     <dimen name="sub_space_6">6dp</dimen>
     <dimen name="sub_space_8">8dp</dimen>
     <dimen name="sub_space_11">11dp</dimen>

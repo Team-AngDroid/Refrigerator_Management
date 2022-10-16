@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refrigerator_nav_graph"
+    app:startDestination="@id/fragment_refrigerator">
+
+    <fragment
+        android:id="@+id/fragment_refrigerator"
+        android:name="com.angdroid.refrigerator_manament.presentation.home.fragment.RefrigeratorFragment"
+        android:label="@string/my_refrigerator"
+        tools:layout="@layout/fragment_refrigerator" />
+    <fragment
+        android:id="@+id/fragment_recipe"
+        android:name="com.angdroid.refrigerator_manament.presentation.home.fragment.RecipeFragment"
+        android:label="@string/recipe"
+        tools:layout="@layout/fragment_recipe" />
+
+</navigation>
