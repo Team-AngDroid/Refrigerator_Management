@@ -13,11 +13,15 @@
         android:theme="@style/Theme.Refrigerator_Manament"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.home.HomeActivity"
+            android:name=".presentation.camera.AddIngredientActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".presentation.home.MainActivity"
+            android:name=".presentation.camera.CameraActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".presentation.home.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.home.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

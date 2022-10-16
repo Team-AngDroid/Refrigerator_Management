@@ -21,6 +21,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setNavigation()
+        setOnClickListener()
     }
 
     private fun setNavigation() {
@@ -35,6 +36,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                 R.id.fragment_refrigerator -> destination.label
                 else -> ""
             }
+        }
+    }
+
+    private fun setOnClickListener(){
+        binding.fabCamera.setOnClickListener {
+            startActivity(Intent(this, CameraActivity::class.java))
         }
     }
 
