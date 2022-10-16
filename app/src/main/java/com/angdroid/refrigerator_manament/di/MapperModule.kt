@@ -13,5 +13,5 @@ object MapperModule {
 
     @Provides
     @Singleton
-    fun bindToMapper(): UserMapper = UserMapper()
+    fun provideToMapper(): UserMapper = UserMapper()
 }
