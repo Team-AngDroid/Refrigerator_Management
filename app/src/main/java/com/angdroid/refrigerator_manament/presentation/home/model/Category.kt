@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Category(val categoryName: String, val categoryCount: Int, private val categoryId: Int) :
-    BaseType, Parcelable {
+    BaseIngredientType, Parcelable {
     override val id: Int
         get() = categoryId
     override val type: Int

@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="black_second">#222222</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_label_secondary">#8A8A8E</color>
     <!-- 쓰이긴 하나 아직 이름이 없는 색들 임시로 이름 넣어줌-->
