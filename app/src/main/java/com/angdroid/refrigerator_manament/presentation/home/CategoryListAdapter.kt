@@ -10,18 +10,14 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryListBinding
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryTitleBinding
-import com.angdroid.refrigerator_manament.presentation.home.model.BaseIngredientType
-import com.angdroid.refrigerator_manament.presentation.home.model.Category
-import com.angdroid.refrigerator_manament.presentation.home.model.Food
+import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class CategoryListAdapter(
-    private val itemClickListener: (Food) -> Unit,
-    private val itemRemoveListener: (Food) -> Unit
-) : ListAdapter<BaseIngredientType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
-
+    private val itemClickListener: (IngredientType.Food) -> Unit,
+    private val itemRemoveListener: (IngredientType.Food) -> Unit
+) : ListAdapter<IngredientType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
     private lateinit var inflater: LayoutInflater
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (!::inflater.isInitialized) {
             inflater = LayoutInflater.from(parent.context)
@@ -45,7 +41,7 @@ class CategoryListAdapter(
         when (holder.itemViewType) {
             Companion.ITEM -> {
                 with(holder as CategoryViewHolder) {
-                    binding.setVariable(BR.food, (currentItem as Food))
+                    binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.root.setOnClickListener { itemClickListener(currentItem) }
                     binding.ivRemove.setOnClickListener { itemRemoveListener(currentItem) }
                     if (position == itemCount - 1) {
@@ -58,7 +54,7 @@ class CategoryListAdapter(
             }
             Companion.CATEGORY -> {
                 with(holder as CategoryTitleViewHolder) {
-                    binding.setVariable(BR.titleModel, (currentItem as Category))
+                    binding.setVariable(BR.titleModel, (currentItem as IngredientType.Category))
 
 
                 }
@@ -91,19 +87,19 @@ class CategoryListAdapter(
         const val CATEGORY = 1
         const val ITEM = 2
 
-        private object FoodListDiffCallBack : DiffUtil.ItemCallback<BaseIngredientType>() {
+        private object FoodListDiffCallBack : DiffUtil.ItemCallback<IngredientType>() {
             override fun areItemsTheSame(
-                oldItem: BaseIngredientType,
-                newItem: BaseIngredientType
+                oldItem: IngredientType,
+                newItem: IngredientType
             ): Boolean {
                 return oldItem.id == 0 && newItem.id == 0
             }
 
             override fun areContentsTheSame(
-                oldItem: BaseIngredientType,
-                newItem: BaseIngredientType
+                oldItem: IngredientType,
+                newItem: IngredientType
             ): Boolean {
-                return oldItem.count == newItem.count
+                return oldItem == newItem
             }
         }
     }
