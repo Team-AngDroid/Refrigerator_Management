@@ -26,7 +26,3 @@ inline fun <T, R> R.collectFlow(
 inline fun <T, R> R.collectFlowWhenStarted(
     flow: Flow<T>, crossinline block: suspend (T) -> Unit
 ) = collectFlow(flow, block)
-
-inline fun <T, R> R.collectFlowWhenCreated(
-    flow: Flow<T>, crossinline block: suspend (T) -> Unit
-) = collectFlow(flow, block)

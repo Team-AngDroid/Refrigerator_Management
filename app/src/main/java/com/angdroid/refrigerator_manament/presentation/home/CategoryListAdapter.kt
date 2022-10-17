@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryListBinding
 import com.angdroid.refrigerator_manament.databinding.ItemCategoryTitleBinding
-import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class CategoryListAdapter(

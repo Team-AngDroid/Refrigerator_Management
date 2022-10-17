@@ -5,7 +5,9 @@ import android.view.View
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RecipeFragment : BaseFragment<FragmentRecipeBinding>(R.layout.fragment_recipe) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

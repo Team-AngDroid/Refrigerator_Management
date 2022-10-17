@@ -9,7 +9,7 @@
         tools:context=".presentation.camera.CameraActivity">
 
         <include
-            android:id="appbar_camera"
+            android:id="@+id/appbar_camera"
             layout="@layout/layout_material_appbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
