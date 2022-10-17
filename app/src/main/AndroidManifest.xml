@@ -22,9 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".presentation.home.MainActivity"
-            android:exported="false"/>
     </application>
 
 </manifest>
