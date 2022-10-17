@@ -9,14 +9,16 @@
         android:layout_height="match_parent"
         tools:context=".presentation.home.MainActivity">
 
-        <include
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/appbar_home"
-            layout="@layout/layout_material_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_space"
+            android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/my_refrigerator" />
-
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/Widget.TextView.Pretendard20_Black_Bold.TextAppearance" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_container"
