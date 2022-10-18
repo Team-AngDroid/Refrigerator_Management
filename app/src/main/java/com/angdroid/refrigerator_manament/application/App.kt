@@ -19,20 +19,12 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        firestoreCollectionReference = Firebase.firestore.collection("refrigeratorManagement")
-        firestoreCollectionReference.run {
-            firebaseUserReference = this.document("User")
-            firebaseFoodReference = this.document("Food")
-            firebaseRecipeReference = this.document("Recipe")
-        }
+        fireStoreUserReference = Firebase.firestore.collection("User").document(BuildConfig.USER_ID)
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 
     companion object {
-        lateinit var firestoreCollectionReference: CollectionReference
-        lateinit var firebaseUserReference: DocumentReference
-        lateinit var firebaseFoodReference: DocumentReference
-        lateinit var firebaseRecipeReference: DocumentReference
+        lateinit var fireStoreUserReference: DocumentReference
         private lateinit var instance: App
         fun getInstance(): Context {
             return instance.applicationContext
