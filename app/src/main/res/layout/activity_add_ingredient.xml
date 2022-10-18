@@ -9,13 +9,13 @@
         tools:context=".presentation.camera.AddIngredientActivity">
 
         <include
-            android:id="@+id/appbar_camera"
+            android:id="@+id/appbar_ingredient"
             layout="@layout/layout_material_appbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_right"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/sub_space_16"
@@ -23,19 +23,23 @@
             android:textAppearance="@style/Widget.TextView.Pretendard24_Black_Bold.TextAppearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appbar_camera" />
+            app:layout_constraintTop_toBottomOf="@+id/appbar_ingredient" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_ingredients"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="@dimen/sub_space_16"
             android:layout_marginVertical="@dimen/sub_space_20"
-            app:layout_constraintBottom_toTopOf="@+id/appCompatButton"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/btn_ingredients_add"
+            app:layout_constraintTop_toBottomOf="@+id/tv_right"
+            app:spanCount="3"
+            tools:listitem="@layout/item_self_ingredients" />
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton"
+            android:id="@+id/btn_ingredients_add"
             style="@style/Button.Style"
             android:layout_width="match_parent"
             android:layout_height="@dimen/sub_space_51"

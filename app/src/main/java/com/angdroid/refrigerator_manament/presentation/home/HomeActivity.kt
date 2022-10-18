@@ -4,11 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
-import com.angdroid.refrigerator_manament.presentation.camera.AddIngredientActivity
+import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 
 
@@ -39,7 +38,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
     private fun setOnClickListener() {
         binding.fabCamera.setOnClickListener {
-            startActivity(Intent(this, AddIngredientActivity::class.java))
+            startActivity(Intent(this, CameraActivity::class.java))
         }
     }
 
