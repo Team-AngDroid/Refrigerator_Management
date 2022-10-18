@@ -1,5 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angdroid.refrigerator_manament.domain.usecase.EnterRefrigeratorPageUseCase
@@ -22,15 +23,19 @@ class IngredientViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            enterRefrigeratorPageUseCase().onStart {
-                _ingredient.value = UiState.Loading(true)
-            }.catch {
-                _ingredient.value = UiState.Error(this.toString())
-            }.collect {
-                if (it.isEmpty()) {
-                    _ingredient.value = UiState.Empty(true)
-                } else {
-                    _ingredient.value = UiState.Success(it)
+            enterRefrigeratorPageUseCase(viewModelScope) {
+                it.onStart {
+                    _ingredient.value = UiState.Loading(true)
+                    Log.e("onStart???", "WHY?!?!?!?")
+                }.catch {
+                    Log.e("onCatch???", "WHY?!?!?!?")
+                    _ingredient.value = UiState.Error(this.toString())
+                }.collect { collect ->
+                    if (collect.isEmpty()) {
+                        _ingredient.value = UiState.Empty(true)
+                    } else {
+                        _ingredient.value = UiState.Success(collect)
+                    }
                 }
             }
         }
