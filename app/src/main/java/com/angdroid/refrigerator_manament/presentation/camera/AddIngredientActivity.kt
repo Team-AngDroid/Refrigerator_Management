@@ -16,9 +16,8 @@ class AddIngredientActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppbar()
-        adapter = AddIngredientAdapter(this, {}, {}, {})
-        binding.rcvIngredients.adapter = adapter
-        adapter.submitList(getIngredients().toList())
+        initAdapter()
+
     }
 
     private fun setAppbar() {
@@ -31,6 +30,12 @@ class AddIngredientActivity :
                 else -> false
             }
         }
+    }
+
+    private fun initAdapter(){
+        adapter = AddIngredientAdapter(this, {}, {})
+        binding.rcvIngredients.adapter = adapter
+        adapter.submitList(getIngredients().toList())
     }
 
     private fun getIngredients(): ArrayList<IngredientType.Food> {
