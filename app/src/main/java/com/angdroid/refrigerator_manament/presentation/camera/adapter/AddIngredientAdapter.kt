@@ -131,15 +131,16 @@ class AddIngredientAdapter(
                 oldItem: IngredientType.Food,
                 newItem: IngredientType.Food
             ): Boolean {
-                return oldItem.foodId == newItem.foodId
+                //return oldItem.foodId == newItem.foodId // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
+                return oldItem.fid == newItem.fid //모든 아이템의 fid를 "123"처럼 다 같도록 통일하고 하면 가장 원하는대로 동작
+                //return false // <- 이경우에는 리스트가 계속 깜빡이지만 원하는대로 동작
             }
 
-            @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
                 oldItem: IngredientType.Food,
                 newItem: IngredientType.Food
             ): Boolean {
-                return oldItem === newItem
+                return oldItem == newItem
             }
         }
     }
