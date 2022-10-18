@@ -9,7 +9,7 @@ data class FoodDto(
     val foodId: Int,
     val expirationDate: String,
     val name: String,
-    val image: String,
+    val image: String?,
     val categoryId: Int,
     var foodCount: Int
-):Parcelable
+) : Parcelable
