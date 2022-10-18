@@ -7,6 +7,6 @@ import javax.inject.Inject
 
 class UserInfoDataSourceImpl @Inject constructor() : UserInfoDataSource {
     override suspend fun getUserInfo(): UserDto {
-        return UserDto("", "", "", listOf(FoodInfoDto(0, FoodDto("", "", "", ""))))
+        return UserDto("", "", "", listOf(FoodInfoDto(0, FoodDto("", 1, "", "", "", 0, 1))))
     }
 }
