@@ -42,7 +42,7 @@ class AddIngredientActivity :
         val ingredientsList =
             intent.getParcelableArrayListExtra<IngredientType.Food>("Ingredients")!!
         ingredientsList.add(
-            IngredientType.Food("123", 102, LocalDate.now(), "오이", "", 1, 4)
+            IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
             // 마지막 [직접 추가]아이템용 더미데이터
         )
         return ingredientsList

@@ -17,7 +17,7 @@ class AddIngredientAdapter(
     context: Context,
     private val itemClickListener: (IngredientType.Food) -> Unit,
     private val itemAddListener: (IngredientType.Food) -> Unit
-) : ListAdapter<IngredientType, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
+) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
     class IngredientViewHolder(val binding: ItemIngredientsBinding) :
@@ -49,6 +49,7 @@ class AddIngredientAdapter(
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.root.setOnClickListener {
                         itemClickListener(currentItem) //TODO 아이템 개수 조정 View 분리
+                        minusItemCount(position, currentItem)
                     }
                     binding.ivDelete.setOnClickListener {
                         removeItem(position)
@@ -69,9 +70,12 @@ class AddIngredientAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position == currentList.size - 1) SELF else INGREDIENTS
-        //마지막 아이템의 경우 무조건 직접 추가 아이템이 나오도록
-        // 하지만 이 경우 마지막에 프론트단에서 무조건 더미데이터 하나를 넣어주어야 함..
+        return if (getItem(position).fid.toInt() == 0) SELF else INGREDIENTS
+    //fid가 0인 더미데이터를 넣어줘서 [직접추가]아이템이 나오도록
+
+    // return if (position == currentList.size - 1) SELF else INGREDIENTS
+        //마지막 아이템을 무조건 [직접 추가]아이템이 나오도록
+    //하지만 둘다 경우 마지막에 프론트단에서 무조건 더미데이터 하나를 넣어주어야 함..
     }
 
     private fun removeItem(position: Int) {
@@ -80,22 +84,60 @@ class AddIngredientAdapter(
         submitList(currentList)
     }
 
+    private fun minusItemCount(position: Int, currentItem: IngredientType.Food) {
+        val currentList = currentList.toMutableList()
+        if (currentItem.foodCount == 1)
+            removeItem(position)
+        else {
+            currentList[position] =
+                IngredientType.Food(
+                    currentItem.fid,
+                    currentItem.foodId,
+                    currentItem.expirationDate,
+                    currentItem.name,
+                    currentItem.image,
+                    currentItem.categoryId,
+                    currentItem.foodCount - 1
+                )
+            submitList(currentList)
+        }
+    }
+
+    private fun plusItemCount(position: Int, currentItem: IngredientType.Food) {
+        val currentList = currentList.toMutableList()
+        if (currentItem.foodCount == 1)
+            removeItem(position)
+        else {
+            currentList[position] =
+                IngredientType.Food(
+                    currentItem.fid,
+                    currentItem.foodId,
+                    currentItem.expirationDate,
+                    currentItem.name,
+                    currentItem.image,
+                    currentItem.categoryId,
+                    currentItem.foodCount + 1
+                )
+            submitList(currentList)
+        }
+    }
+
     companion object {
         const val INGREDIENTS = 1
         const val SELF = 2
 
-        private object IngredientDiffCallBack : DiffUtil.ItemCallback<IngredientType>() {
+        private object IngredientDiffCallBack : DiffUtil.ItemCallback<IngredientType.Food>() {
             override fun areItemsTheSame(
-                oldItem: IngredientType,
-                newItem: IngredientType
+                oldItem: IngredientType.Food,
+                newItem: IngredientType.Food
             ): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem.foodId == newItem.foodId
             }
 
             @SuppressLint("DiffUtilEquals")
             override fun areContentsTheSame(
-                oldItem: IngredientType,
-                newItem: IngredientType
+                oldItem: IngredientType.Food,
+                newItem: IngredientType.Food
             ): Boolean {
                 return oldItem === newItem
             }
