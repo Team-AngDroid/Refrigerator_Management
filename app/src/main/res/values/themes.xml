@@ -134,4 +134,16 @@
     </style>
 
 
+    <!-- componenet  style-->
+    <style name="Button.Style" parent="">
+        <item name="android:textAppearance">
+            @style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance
+        </item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginBottom">@dimen/sub_space_24</item>
+        <item name="android:layout_marginHorizontal">@dimen/sub_space_16</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+
+
 </resources>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/top_back"
-        android:icon="@drawable/ic_delete_gray"
+        android:icon="@drawable/ic_delete_gray2"
         app:showAsAction="ifRoom"
         android:title="" />
 
