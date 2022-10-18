@@ -142,7 +142,6 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_marginBottom">@dimen/sub_space_24</item>
         <item name="android:layout_marginHorizontal">@dimen/sub_space_16</item>
-        <item name="android:stateListAnimator">@null</item>
     </style>
 
 

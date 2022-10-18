@@ -4,7 +4,9 @@ import android.os.Bundle
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityAddIngredientBinding
 import com.angdroid.refrigerator_manament.presentation.camera.adapter.AddIngredientAdapter
+import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
+import java.time.LocalDate
 
 class AddIngredientActivity :
     BaseActivity<ActivityAddIngredientBinding>(R.layout.activity_add_ingredient) {
@@ -14,6 +16,9 @@ class AddIngredientActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setAppbar()
+        adapter = AddIngredientAdapter(this, {}, {}, {})
+        binding.rcvIngredients.adapter = adapter
+        adapter.submitList(getIngredients().toList())
     }
 
     private fun setAppbar() {
@@ -26,6 +31,16 @@ class AddIngredientActivity :
                 else -> false
             }
         }
+    }
+
+    private fun getIngredients(): ArrayList<IngredientType.Food> {
+        val ingredientsList =
+            intent.getParcelableArrayListExtra<IngredientType.Food>("Ingredients")!!
+        ingredientsList.add(
+            IngredientType.Food("123", 102, LocalDate.now(), "오이", "", 1, 4)
+            // 마지막 [직접 추가]아이템용 더미데이터
+        )
+        return ingredientsList
     }
 
 

@@ -45,8 +45,7 @@
             android:layout_height="@dimen/sub_space_51"
             android:background="@drawable/shape_rectangle_skyblue_8"
             android:text="@string/ingredient_complete"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
