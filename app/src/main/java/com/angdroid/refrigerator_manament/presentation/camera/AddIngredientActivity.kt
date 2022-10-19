@@ -3,8 +3,8 @@ package com.angdroid.refrigerator_manament.presentation.camera
 import android.os.Bundle
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityAddIngredientBinding
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.camera.adapter.AddIngredientAdapter
-import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import java.time.LocalDate
 

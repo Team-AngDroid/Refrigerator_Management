@@ -9,8 +9,9 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
 import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
     private lateinit var navController: NavController

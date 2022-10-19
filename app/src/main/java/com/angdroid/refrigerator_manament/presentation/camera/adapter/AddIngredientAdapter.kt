@@ -1,6 +1,5 @@
 package com.angdroid.refrigerator_manament.presentation.camera.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemIngredientsBinding
 import com.angdroid.refrigerator_manament.databinding.ItemSelfIngredientsBinding
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
-import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
-import timber.log.Timber
 
 class AddIngredientAdapter(
     val context: Context,
