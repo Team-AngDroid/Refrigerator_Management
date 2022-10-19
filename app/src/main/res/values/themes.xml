@@ -85,6 +85,13 @@
         <item name="android:fontFamily">@font/pretendard_regular</item>
     </style>
 
+
+    <style name="Widget.TextView.Pretendard15_Gray1_Regular.TextAppearance" parent="">
+        <item name="android:textColor">@color/gray1</item>
+        <item name="android:textSize">@dimen/text_font_15</item>
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+    </style>
+
     <style name="Widget.TextView.Pretendard14_Black_Regular.TextAppearance" parent="">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/text_font_14</item>
