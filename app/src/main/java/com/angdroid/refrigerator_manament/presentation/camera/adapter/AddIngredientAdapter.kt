@@ -10,15 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemIngredientsBinding
 import com.angdroid.refrigerator_manament.databinding.ItemSelfIngredientsBinding
+import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
 import timber.log.Timber
 
 class AddIngredientAdapter(
     context: Context,
-    private val itemClickListener: (IngredientType.Food) -> Unit,
-    private val itemAddListener: (IngredientType.Food) -> Unit
 ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
+    private val context by lazy { context }
 
     init {
         setHasStableIds(true)
@@ -28,11 +28,7 @@ class AddIngredientAdapter(
         return position.toLong()
     }
 
-    class IngredientViewHolder(val binding: ItemIngredientsBinding) :
-        RecyclerView.ViewHolder(binding.root)
 
-    class SelfAddViewHolder(val binding: ItemSelfIngredientsBinding) :
-        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -49,6 +45,12 @@ class AddIngredientAdapter(
         }
     }
 
+    class IngredientViewHolder(val binding: ItemIngredientsBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    class SelfAddViewHolder(val binding: ItemSelfIngredientsBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentItem = getItem(position)
         when (holder.itemViewType) {
@@ -56,7 +58,7 @@ class AddIngredientAdapter(
                 with(holder as IngredientViewHolder) {
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.root.setOnClickListener {
-                        itemClickListener(currentItem) //TODO 아이템 개수 조정 View 분리
+                         //TODO 아이템 개수 조정 View 분리
                         minusItemCount(position, currentItem)
                         //plusItemCount(position, currentItem)
                     }
@@ -68,8 +70,7 @@ class AddIngredientAdapter(
             SELF -> {
                 with(holder as SelfAddViewHolder) {
                     binding.root.setOnClickListener {
-                        Timber.e("customDiaglog")
-                        itemAddListener
+                        showDialog()
                         //TODO CustomDialog show
                     }
                 }
@@ -98,7 +99,6 @@ class AddIngredientAdapter(
         if (currentItem.foodCount == 1)
             removeItem(position)
         else {
-            Timber.e(position.toString())
             currentList[position] =
                 IngredientType.Food(
                     currentItem.fid,
@@ -128,6 +128,9 @@ class AddIngredientAdapter(
         submitList(currentList)
     }
 
+    private fun showDialog(){
+        CustomDialog().showDialog(context)
+    }
 
     companion object {
         const val INGREDIENTS = 1

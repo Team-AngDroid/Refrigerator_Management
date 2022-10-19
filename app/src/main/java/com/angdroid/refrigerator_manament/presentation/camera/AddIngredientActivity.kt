@@ -33,7 +33,7 @@ class AddIngredientActivity :
     }
 
     private fun initAdapter(){
-        adapter = AddIngredientAdapter(this, {}, {})
+        adapter = AddIngredientAdapter(this)
         binding.rcvIngredients.adapter = adapter
         adapter.submitList(getIngredients().toList())
     }
