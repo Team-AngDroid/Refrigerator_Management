@@ -15,10 +15,9 @@ import com.angdroid.refrigerator_manament.presentation.home.model.IngredientType
 import timber.log.Timber
 
 class AddIngredientAdapter(
-    context: Context,
+    val context: Context,
 ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
-    private val context by lazy { context }
 
     init {
         setHasStableIds(true)
@@ -27,7 +26,6 @@ class AddIngredientAdapter(
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -58,7 +56,7 @@ class AddIngredientAdapter(
                 with(holder as IngredientViewHolder) {
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.root.setOnClickListener {
-                         //TODO 아이템 개수 조정 View 분리
+                        //TODO 아이템 개수 조정 View 분리
                         minusItemCount(position, currentItem)
                         //plusItemCount(position, currentItem)
                     }
@@ -128,8 +126,8 @@ class AddIngredientAdapter(
         submitList(currentList)
     }
 
-    private fun showDialog(){
-        CustomDialog().showDialog(context)
+    private fun showDialog() {
+        CustomDialog(context).showDialog()
     }
 
     companion object {

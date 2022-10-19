@@ -8,15 +8,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ArrayAdapter
+import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBinding
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
-class CustomDialog {
-    fun showDialog(context: Context) {
+class CustomDialog(val context: Context) {
+    val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(
+        LayoutInflater.from(context)
+    )
 
-        val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(
-            LayoutInflater.from(context)
-        )
+    fun showDialog() {
+
+
         val dialog = Dialog(context)
 
         dialog.apply {
@@ -34,8 +38,30 @@ class CustomDialog {
 
             dialog.window!!.attributes = params
         }
+        setSpinner()
+        setListener(dialog)
+
         dialog.show()
     }
 
+
+    private fun setSpinner() {
+        ArrayAdapter.createFromResource(context, R.array.spinner_ingredients, R.layout.spinner_list)
+            .also { adapter ->
+                adapter.setDropDownViewResource(R.layout.spinner_list)
+                binding.spinnerCategory.adapter = adapter
+            }
+
+
+    }
+
+    private fun setListener(dialog: Dialog){
+        binding.ivDelete.setOnClickListener {
+            dialog.dismiss()
+        }
+        binding.btnIngredientsAdd.setOnClickListener {
+            //TODO
+        }
+    }
 
 }
