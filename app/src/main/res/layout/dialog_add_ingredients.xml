@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/sub_space_20"
+    android:background="@drawable/shape_rectangle_skyblue_white_25">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/sub_space_20"
+        android:layout_marginTop="@dimen/sub_space_20"
+        android:text="@string/self_ingredient_add"
+        android:textAppearance="@style/Widget.TextView.Pretendard18_Black_SemiBold.TextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/sub_space_20"
+        android:src="@drawable/ic_delete_gray2"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_ingredient"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/sub_space_54"
+        android:layout_marginHorizontal="@dimen/sub_space_20"
+        android:layout_marginTop="@dimen/sub_space_16"
+        android:background="@drawable/shape_rectangle_gray2_white_12"
+        android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
+        android:hint="@string/hint_ingredients"
+        android:padding="@dimen/sub_space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Spinner
+        android:id="@+id/textInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/sub_space_54"
+        android:layout_marginHorizontal="@dimen/sub_space_20"
+        android:layout_marginTop="@dimen/sub_space_16"
+        android:background="@drawable/drawable_sppiner"
+        android:hint="@string/hint_ingredients"
+        android:padding="@dimen/sub_space_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_ingredient" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_ingredients_add"
+        style="@style/Button.Style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sub_space_51"
+        android:layout_marginTop="@dimen/sub_space_16"
+        android:background="@drawable/shape_rectangle_skyblue_8"
+        android:text="@string/ingredient_complete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
