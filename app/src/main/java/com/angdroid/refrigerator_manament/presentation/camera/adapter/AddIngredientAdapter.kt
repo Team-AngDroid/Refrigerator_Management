@@ -20,6 +20,14 @@ class AddIngredientAdapter(
 ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
+    init {
+        setHasStableIds(true)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     class IngredientViewHolder(val binding: ItemIngredientsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -50,6 +58,7 @@ class AddIngredientAdapter(
                     binding.root.setOnClickListener {
                         itemClickListener(currentItem) //TODO 아이템 개수 조정 View 분리
                         minusItemCount(position, currentItem)
+                        //plusItemCount(position, currentItem)
                     }
                     binding.ivDelete.setOnClickListener {
                         removeItem(position)
@@ -71,11 +80,11 @@ class AddIngredientAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return if (getItem(position).fid.toInt() == 0) SELF else INGREDIENTS
-    //fid가 0인 더미데이터를 넣어줘서 [직접추가]아이템이 나오도록
+        //fid가 0인 더미데이터를 넣어줘서 [직접추가]아이템이 나오도록
 
-    // return if (position == currentList.size - 1) SELF else INGREDIENTS
+        // return if (position == currentList.size - 1) SELF else INGREDIENTS
         //마지막 아이템을 무조건 [직접 추가]아이템이 나오도록
-    //하지만 둘다 경우 마지막에 프론트단에서 무조건 더미데이터 하나를 넣어주어야 함..
+        //하지만 둘다 경우 마지막에 프론트단에서 무조건 더미데이터 하나를 넣어주어야 함..
     }
 
     private fun removeItem(position: Int) {
@@ -89,6 +98,7 @@ class AddIngredientAdapter(
         if (currentItem.foodCount == 1)
             removeItem(position)
         else {
+            Timber.e(position.toString())
             currentList[position] =
                 IngredientType.Food(
                     currentItem.fid,
@@ -105,22 +115,19 @@ class AddIngredientAdapter(
 
     private fun plusItemCount(position: Int, currentItem: IngredientType.Food) {
         val currentList = currentList.toMutableList()
-        if (currentItem.foodCount == 1)
-            removeItem(position)
-        else {
-            currentList[position] =
-                IngredientType.Food(
-                    currentItem.fid,
-                    currentItem.foodId,
-                    currentItem.expirationDate,
-                    currentItem.name,
-                    currentItem.image,
-                    currentItem.categoryId,
-                    currentItem.foodCount + 1
-                )
-            submitList(currentList)
-        }
+        currentList[position] =
+            IngredientType.Food(
+                currentItem.fid,
+                currentItem.foodId,
+                currentItem.expirationDate,
+                currentItem.name,
+                currentItem.image,
+                currentItem.categoryId,
+                currentItem.foodCount + 1
+            )
+        submitList(currentList)
     }
+
 
     companion object {
         const val INGREDIENTS = 1
@@ -131,8 +138,12 @@ class AddIngredientAdapter(
                 oldItem: IngredientType.Food,
                 newItem: IngredientType.Food
             ): Boolean {
-                //return oldItem.foodId == newItem.foodId // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
-                return oldItem.fid == newItem.fid //모든 아이템의 fid를 "123"처럼 다 같도록 통일하고 하면 가장 원하는대로 동작
+                return oldItem.foodId == newItem.foodId // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
+
+                // 이후 같은 버그가 날까봐 주석 남겨둠 하단의 상황은 setHashStableIds(true)를 추가하지 않았을때
+                //발생하는 상황들 정리
+                //return oldItem.fid == newItem.fid // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
+                //return oldItem.fid == newItem.fid //모든 아이템의 fid를 "123"처럼 다 같도록 통일하고 하면 가장 원하는대로 동작
                 //return false // <- 이경우에는 리스트가 계속 깜빡이지만 원하는대로 동작
             }
 
