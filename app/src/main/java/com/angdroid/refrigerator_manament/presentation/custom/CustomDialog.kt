@@ -4,11 +4,10 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBinding
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
@@ -46,21 +45,63 @@ class CustomDialog(val context: Context) {
 
 
     private fun setSpinner() {
-        ArrayAdapter.createFromResource(context, R.array.spinner_ingredients, R.layout.spinner_list)
-            .also { adapter ->
-                adapter.setDropDownViewResource(R.layout.spinner_list)
-                binding.spinnerCategory.adapter = adapter
+
+        val items = context.resources.getStringArray(R.array.spinner_ingredients)
+
+        val spinnerAapter = object : ArrayAdapter<String>(context, R.layout.spinner_list) {
+
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
+                val v = super.getView(position, convertView, parent)
+                if (position == count) {
+                    //마지막 포지션의 textView 를 힌트 용으로 사용
+                    (v.findViewById<View>(R.id.tv_spinner_item) as TextView).text = ""
+                    //아이템의 마지막 값을 불러와 hint로 추가
+                    (v.findViewById<View>(R.id.tv_spinner_item) as TextView).hint = getItem(count)
+                }
+                return v
             }
 
+            override fun getCount(): Int {
+                //마지막 아이템은 힌트용으로만 사용하기 때문에 getCount에 1을 빼줌
+                return super.getCount() - 1
+            }
+        }
+        spinnerAapter.addAll(items.toMutableList())
+        spinnerAapter.add(context.getString(R.string.category_choice))
+        binding.spinnerCategory.apply {
+            adapter = spinnerAapter
+            setSelection(spinnerAapter.count)
+            onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>,
+                        view: View,
+                        position: Int,
+                        id: Long
+                    ) {
 
+                        //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
+                        when (position) {
+                            0 -> {}
+                            1 -> {}
+                            //...
+                            else -> {}
+                        }
+                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {
+                        TODO("Not yet implemented")
+                    }
+                }
+        }
     }
 
-    private fun setListener(dialog: Dialog){
+    private fun setListener(dialog: Dialog) {
         binding.ivDelete.setOnClickListener {
             dialog.dismiss()
         }
         binding.btnIngredientsAdd.setOnClickListener {
-            //TODO
+            //TODO add logic
         }
     }
 
