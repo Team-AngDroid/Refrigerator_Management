@@ -25,9 +25,6 @@ android {
         versionName = DefaultConfig.VERSION_NAME
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
-
-
-        buildConfigField("String", "BASE_URL", properties.getProperty("BASE_URL"))
         buildConfigField("String", "USER_ID", properties.getProperty("USER_ID"))
     }
 

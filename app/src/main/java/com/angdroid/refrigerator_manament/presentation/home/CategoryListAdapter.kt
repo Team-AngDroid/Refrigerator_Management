@@ -3,7 +3,6 @@ package com.angdroid.refrigerator_manament.presentation.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -55,8 +54,6 @@ class CategoryListAdapter(
             Companion.CATEGORY -> {
                 with(holder as CategoryTitleViewHolder) {
                     binding.setVariable(BR.titleModel, (currentItem as IngredientType.Category))
-
-
                 }
             }
 
@@ -67,15 +64,6 @@ class CategoryListAdapter(
         val item = getItem(position)
         return if (item.type == 0) ITEM else CATEGORY
     }
-
-    fun getSpanSizeLookUp(): GridLayoutManager.SpanSizeLookup {
-        return object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (getItemViewType(position) == 2) 1 else 3
-            }
-        }
-    }
-
 
     class CategoryViewHolder(val binding: ItemCategoryListBinding) :
         RecyclerView.ViewHolder(binding.root)
