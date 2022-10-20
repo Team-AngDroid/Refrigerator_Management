@@ -1,6 +1,7 @@
 package com.angdroid.refrigerator_manament.presentation.camera.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -14,17 +15,10 @@ import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 
 class AddIngredientAdapter(
     val context: Context,
+    private val itemClickListener: (IngredientType.Food) -> Unit,
+    private val itemRemoveListener: (IngredientType.Food) -> Unit
 ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
-
-    init {
-        setHasStableIds(true)
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -55,11 +49,13 @@ class AddIngredientAdapter(
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.root.setOnClickListener {
                         //TODO 아이템 개수 조정 View 분리
-                        minusItemCount(position, currentItem)
+                        //minusItemCount(position, currentItem)
+                        itemRemoveListener(currentItem)
                         //plusItemCount(position, currentItem)
                     }
                     binding.ivDelete.setOnClickListener {
-                        removeItem(position)
+                        itemClickListener(currentItem)
+                        //removeItem(position)
                     }
                 }
             }
@@ -84,7 +80,7 @@ class AddIngredientAdapter(
         //하지만 둘다 경우 마지막에 프론트단에서 무조건 더미데이터 하나를 넣어주어야 함..
     }
 
-    private fun removeItem(position: Int) {
+    /*private fun removeItem(position: Int) {
         val currentList = currentList.toMutableList()
         currentList.removeAt(position)
         submitList(currentList)
@@ -122,7 +118,7 @@ class AddIngredientAdapter(
                 currentItem.foodCount + 1
             )
         submitList(currentList)
-    }
+    }*/
 
     private fun showDialog() {
         CustomDialog(context).showDialog()
@@ -137,7 +133,7 @@ class AddIngredientAdapter(
                 oldItem: IngredientType.Food,
                 newItem: IngredientType.Food
             ): Boolean {
-                return oldItem.foodId == newItem.foodId // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
+                return oldItem.fid === newItem.fid // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
 
                 // 이후 같은 버그가 날까봐 주석 남겨둠 하단의 상황은 setHashStableIds(true)를 추가하지 않았을때
                 //발생하는 상황들 정리

@@ -20,8 +20,10 @@ class CameraViewModel : ViewModel() {
         _foodList.value = currentList
     }
 
-    fun minusItemCount(currentItem: IngredientType.Food, position: Int) {
+    fun minusItemCount(currentItem: IngredientType.Food) {
         val currentList = _foodList.value.toMutableList()
+        val position = _foodList.value.indexOf(currentItem)
+        //adapter는 position을 기억하고 있다. 그래서 이전 position 가져오게 된당
         if (currentItem.foodCount == 1)
             removeItem(currentItem)
         else {
