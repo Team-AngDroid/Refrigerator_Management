@@ -12,10 +12,4 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding>(R.layout.fragment_rec
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            RecipeFragment()
-    }
 }

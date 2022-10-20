@@ -8,11 +8,5 @@
         android:layout_height="match_parent"
         tools:context=".presentation.camera.CameraActivity">
 
-        <include
-            android:id="@+id/appbar_camera"
-            layout="@layout/layout_material_appbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
