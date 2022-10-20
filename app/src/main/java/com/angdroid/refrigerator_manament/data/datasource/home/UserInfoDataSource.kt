@@ -1,7 +1,9 @@
 package com.angdroid.refrigerator_manament.data.datasource.home
 
 import com.angdroid.refrigerator_manament.data.dto.UserDto
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
 
 interface UserInfoDataSource {
-    suspend fun getUserInfo():UserDto
+    suspend fun getUserInfo(): Task<DocumentSnapshot>
 }
