@@ -13,8 +13,11 @@ import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBindin
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class CustomDialog(val context: Context) {
+
+    private val inflater by lazy { LayoutInflater.from(context) }
+
     val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(
-        LayoutInflater.from(context)
+        inflater
     )
 
     fun showDialog() {
@@ -89,6 +92,7 @@ class CustomDialog(val context: Context) {
                             else -> {}
                         }
                     }
+
                     override fun onNothingSelected(p0: AdapterView<*>?) {
                         TODO("Not yet implemented")
                     }

@@ -61,6 +61,6 @@
             android:textColor="@color/black_second"
             app:layout_constraintStart_toStartOf="@+id/cv_ingredient"
             app:layout_constraintTop_toBottomOf="@id/cv_ingredient"
-            tools:text="무우" />
+            tools:text="@string/category_fruit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

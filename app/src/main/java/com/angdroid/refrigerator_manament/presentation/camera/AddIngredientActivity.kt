@@ -35,17 +35,17 @@ class AddIngredientActivity :
     private fun initAdapter(){
         adapter = AddIngredientAdapter(this)
         binding.rcvIngredients.adapter = adapter
-        adapter.submitList(getIngredients().toList())
+        adapter.submitList(getIngredients())
     }
 
-    private fun getIngredients(): ArrayList<IngredientType.Food> {
+    private fun getIngredients(): List<IngredientType.Food> {
         val ingredientsList =
             intent.getParcelableArrayListExtra<IngredientType.Food>("Ingredients")!!
         ingredientsList.add(
             IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
             // 마지막 [직접 추가]아이템용 더미데이터
         )
-        return ingredientsList
+        return ingredientsList.toList()
     }
 
 
