@@ -13,6 +13,9 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
+import com.angdroid.refrigerator_manament.presentation.util.makeToast
+import timber.log.Timber
+import java.time.LocalDate
 
 
 class CustomDialog(val context: Context) {
@@ -20,12 +23,14 @@ class CustomDialog(val context: Context) {
     private lateinit var ingredient: IngredientType.Food
     private val activationList = mutableListOf<Boolean>(false, false, false)
     // 재료명 입력 여부 / 카테고리 선택 여부 / count 0 이 아닌 경우
-
     private val inflater by lazy { LayoutInflater.from(context) }
+    private var category : Int = 0
+
     val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(inflater)
 
     fun showDialog() {
         binding.count = 0.toString()
+
         val dialog = Dialog(context)
         dialog.apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -83,11 +88,11 @@ class CustomDialog(val context: Context) {
                         activationList[1] = true
                         //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
                         when (position) { // 카테고리 선택
-                            0 -> {}
-                            1 -> {}
-                            2 -> {}
-                            3 -> {}
-                            4 -> {}
+                            0 -> {category = 1}
+                            1 -> {category = 2}
+                            2 -> {category = 3}
+                            3 -> {category = 4}
+                            4 -> {category = 5}
                             else -> {}
                         }
                     }
@@ -100,6 +105,7 @@ class CustomDialog(val context: Context) {
     private fun setListener() {
         binding.etIngredient.addTextChangedListener {
             activationList[0] = !it!!.isEmpty()
+            Timber.e("hi")
         }
         binding.ivPlus.setOnClickListener {
             binding.count = (binding.count!!.toInt() + 1).toString()
@@ -112,5 +118,36 @@ class CustomDialog(val context: Context) {
             } else
                 activationList[2] = false
         }
+        binding.btnIngredientsAdd.setOnClickListener {
+            if (activationList.all { it }) {
+                ingredient = IngredientType.Food(
+                    "123", findFoodId(binding.etIngredient.text.toString()),
+                    LocalDate.now(), binding.etIngredient.text.toString(), "",category, binding.count!!.toInt()
+                )
+            }
+            else{
+                binding.root.makeToast("재료 입력을 다 해주세요!")
+            }
+        }
+    }
+
+    private fun findFoodId(name:String):Int{
+        when(name){
+            "당근" -> return 101
+            "오이" -> return 102
+            "무우" -> return 103
+            "무" -> return 103
+            "사과" -> return 104
+            "배" -> return 105
+            "귤" -> return 106
+            "계란" -> return 107
+            "생닭" -> return 108
+            "우유" -> return 109
+            "치즈" -> return 110
+            "새우" -> return 111
+            "오징어" -> return 112
+            "고등어" -> return 113
+        }
+        return 0
     }
 }
