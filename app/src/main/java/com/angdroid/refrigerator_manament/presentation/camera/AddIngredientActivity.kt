@@ -55,7 +55,11 @@ class AddIngredientActivity :
             },
             itemRemoveListener = {
                 cameraViewModel.minusItemCount(it)
-            })
+            },
+        itemAddListener = {
+            cameraViewModel.plusItemCount(it)
+        }
+            )
         binding.rcvIngredients.adapter = adapter
         collectFoodList()
     }
@@ -71,7 +75,7 @@ class AddIngredientActivity :
     private fun getIngredients(): List<IngredientType.Food> {
         val ingredientsList =
             intent.getParcelableArrayListExtra<IngredientType.Food>("Ingredients")!!
-        ingredientsList.add(
+        ingredientsList.add(0,
             IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
             // 마지막 [직접 추가]아이템용 더미데이터
         )

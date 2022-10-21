@@ -16,7 +16,8 @@ import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 class AddIngredientAdapter(
     val context: Context,
     private val itemClickListener: (IngredientType.Food) -> Unit,
-    private val itemRemoveListener: (IngredientType.Food) -> Unit
+    private val itemRemoveListener: (IngredientType.Food) -> Unit,
+    private val itemAddListener: (IngredientType.Food) -> Unit
 ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
@@ -47,15 +48,14 @@ class AddIngredientAdapter(
             INGREDIENTS -> {
                 with(holder as IngredientViewHolder) {
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
-                    binding.root.setOnClickListener {
-                        //TODO 아이템 개수 조정 View 분리
-                        //minusItemCount(position, currentItem)
+                    binding.ivMinus.setOnClickListener {
                         itemRemoveListener(currentItem)
-                        //plusItemCount(position, currentItem)
+                    }
+                    binding.ivPlus.setOnClickListener {
+                        itemAddListener(currentItem)
                     }
                     binding.ivDelete.setOnClickListener {
                         itemClickListener(currentItem)
-                        //removeItem(position)
                     }
                 }
             }

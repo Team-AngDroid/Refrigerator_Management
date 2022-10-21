@@ -40,4 +40,22 @@ class CameraViewModel : ViewModel() {
             _foodList.value = currentList
         }
     }
+
+    fun plusItemCount(currentItem: IngredientType.Food) {
+        val currentList = _foodList.value.toMutableList()
+        val position = _foodList.value.indexOf(currentItem)
+        //adapter는 position을 기억하고 있다. 그래서 이전 position 가져오게 된당
+        currentList[position] =
+            IngredientType.Food(
+                currentItem.fid,
+                currentItem.foodId,
+                currentItem.expirationDate,
+                currentItem.name,
+                currentItem.image,
+                currentItem.categoryId,
+                currentItem.foodCount + 1
+            )
+        _foodList.value = currentList
+    }
+
 }
