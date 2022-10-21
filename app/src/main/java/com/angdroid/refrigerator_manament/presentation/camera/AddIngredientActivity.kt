@@ -10,23 +10,13 @@ import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.CameraVi
 import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
+import timber.log.Timber
 import java.time.LocalDate
 
 class AddIngredientActivity :
     BaseActivity<ActivityAddIngredientBinding>(R.layout.activity_add_ingredient) {
 
-    companion object{
-        private lateinit var ingredient : IngredientType.Food
-        private lateinit var adapter: AddIngredientAdapter
-
-        fun setIngredient(dialogIngredient: IngredientType.Food){
-            ingredient = dialogIngredient
-            val currentList = adapter.currentList.toMutableList()
-            currentList.add(ingredient)
-            adapter.submitList(currentList)
-        }
-    }
-
+    private lateinit var adapter: AddIngredientAdapter
     private val cameraViewModel: CameraViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +60,7 @@ class AddIngredientActivity :
                 cameraViewModel.plusItemCount(it)
             },
             itemDialogListener = {
-                CustomDialog(this).showDialog()
+                CustomDialog(this, cameraViewModel).showDialog()
             }
         )
         binding.rcvIngredients.adapter = adapter
@@ -92,6 +82,5 @@ class AddIngredientActivity :
         )
         return ingredientsList.toList()
     }
-
 
 }

@@ -8,32 +8,37 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.camera.AddIngredientActivity
+import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.CameraViewModel
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 import com.angdroid.refrigerator_manament.presentation.util.makeToast
 import timber.log.Timber
 import java.time.LocalDate
 
 
-class CustomDialog(val context: Context) {
+class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
+
 
     private lateinit var ingredient: IngredientType.Food
     private val activationList = mutableListOf<Boolean>(false, false, false)
 
+
     // 재료명 입력 여부 / 카테고리 선택 여부 / count 0 이 아닌 경우
     private val inflater by lazy { LayoutInflater.from(context) }
     private var category: Int = 0
-    private lateinit var dialog : Dialog
+    private lateinit var dialog: Dialog
 
 
     val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(inflater)
 
     fun showDialog() {
         binding.count = 0.toString()
+
 
         dialog = Dialog(context)
         dialog.apply {
@@ -51,7 +56,7 @@ class CustomDialog(val context: Context) {
             dialog.window!!.attributes = params
         }
         setSpinner()
-        setListener()
+        setListener(viewModel)
         dialog.show()
     }
 
@@ -116,7 +121,7 @@ class CustomDialog(val context: Context) {
         }
     }
 
-    private fun setListener() {
+    private fun setListener(viewModel: CameraViewModel) {
 
         binding.etIngredient.addTextChangedListener {
             activationList[0] = !it!!.isEmpty()
@@ -135,7 +140,7 @@ class CustomDialog(val context: Context) {
         }
         binding.btnIngredientsAdd.setOnClickListener {
             if (activationList.all { it } && checkFoodname(binding.etIngredient.text.toString())) {
-                AddIngredientActivity.Companion.setIngredient(
+                viewModel.addDialogFood(
                     IngredientType.Food(
                         "123",
                         findFoodId(binding.etIngredient.text.toString()),
@@ -147,8 +152,9 @@ class CustomDialog(val context: Context) {
                     )
                 )
                 dialog.cancel()
+
             } else {
-                binding.root.makeToast("재료 입력을 다 해주세요!")
+                binding.root.makeToast("재료 입력을 정확히 해주세요!")
             }
         }
     }

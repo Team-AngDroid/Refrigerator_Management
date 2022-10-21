@@ -14,6 +14,12 @@ class CameraViewModel : ViewModel() {
         _foodList.value = intentList
     }
 
+    fun addDialogFood(food:IngredientType.Food){
+        val currentList = _foodList.value.toMutableList()
+        currentList.add(1,food)
+        _foodList.value = currentList
+    }
+
     fun removeItem(currentItem: IngredientType.Food) {
         val currentList = _foodList.value.toMutableList()
         currentList.remove(currentItem)
