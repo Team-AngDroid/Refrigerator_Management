@@ -12,6 +12,7 @@ import androidx.core.widget.addTextChangedListener
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
+import com.angdroid.refrigerator_manament.presentation.camera.AddIngredientActivity
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 import com.angdroid.refrigerator_manament.presentation.util.makeToast
 import timber.log.Timber
@@ -22,16 +23,19 @@ class CustomDialog(val context: Context) {
 
     private lateinit var ingredient: IngredientType.Food
     private val activationList = mutableListOf<Boolean>(false, false, false)
+
     // 재료명 입력 여부 / 카테고리 선택 여부 / count 0 이 아닌 경우
     private val inflater by lazy { LayoutInflater.from(context) }
-    private var category : Int = 0
+    private var category: Int = 0
+    private lateinit var dialog : Dialog
+
 
     val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(inflater)
 
     fun showDialog() {
         binding.count = 0.toString()
 
-        val dialog = Dialog(context)
+        dialog = Dialog(context)
         dialog.apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(binding.root)
@@ -88,11 +92,21 @@ class CustomDialog(val context: Context) {
                         activationList[1] = true
                         //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
                         when (position) { // 카테고리 선택
-                            0 -> {category = 1}
-                            1 -> {category = 2}
-                            2 -> {category = 3}
-                            3 -> {category = 4}
-                            4 -> {category = 5}
+                            0 -> {
+                                category = 1
+                            }
+                            1 -> {
+                                category = 2
+                            }
+                            2 -> {
+                                category = 3
+                            }
+                            3 -> {
+                                category = 4
+                            }
+                            4 -> {
+                                category = 5
+                            }
                             else -> {}
                         }
                     }
@@ -103,6 +117,7 @@ class CustomDialog(val context: Context) {
     }
 
     private fun setListener() {
+
         binding.etIngredient.addTextChangedListener {
             activationList[0] = !it!!.isEmpty()
             Timber.e("hi")
@@ -119,20 +134,47 @@ class CustomDialog(val context: Context) {
                 activationList[2] = false
         }
         binding.btnIngredientsAdd.setOnClickListener {
-            if (activationList.all { it }) {
-                ingredient = IngredientType.Food(
-                    "123", findFoodId(binding.etIngredient.text.toString()),
-                    LocalDate.now(), binding.etIngredient.text.toString(), "",category, binding.count!!.toInt()
+            if (activationList.all { it } && checkFoodname(binding.etIngredient.text.toString())) {
+                AddIngredientActivity.Companion.setIngredient(
+                    IngredientType.Food(
+                        "123",
+                        findFoodId(binding.etIngredient.text.toString()),
+                        LocalDate.now(),
+                        binding.etIngredient.text.toString(),
+                        "",
+                        category,
+                        binding.count!!.toInt()
+                    )
                 )
-            }
-            else{
+                dialog.cancel()
+            } else {
                 binding.root.makeToast("재료 입력을 다 해주세요!")
             }
         }
     }
 
-    private fun findFoodId(name:String):Int{
-        when(name){
+    private fun checkFoodname(name: String): Boolean {
+        when (name) {
+            "당근" -> return true
+            "오이" -> return true
+            "무우" -> return true
+            "무" -> return true
+            "사과" -> return true
+            "배" -> return true
+            "귤" -> return true
+            "계란" -> return true
+            "생닭" -> return true
+            "우유" -> return true
+            "치즈" -> return true
+            "새우" -> return true
+            "오징어" -> return true
+            "고등어" -> return true
+        }
+        return false
+    }
+
+    private fun findFoodId(name: String): Int {
+        when (name) {
             "당근" -> return 101
             "오이" -> return 102
             "무우" -> return 103

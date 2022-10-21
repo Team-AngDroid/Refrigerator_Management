@@ -15,7 +15,18 @@ import java.time.LocalDate
 class AddIngredientActivity :
     BaseActivity<ActivityAddIngredientBinding>(R.layout.activity_add_ingredient) {
 
-    private lateinit var adapter: AddIngredientAdapter
+    companion object{
+        private lateinit var ingredient : IngredientType.Food
+        private lateinit var adapter: AddIngredientAdapter
+
+        fun setIngredient(dialogIngredient: IngredientType.Food){
+            ingredient = dialogIngredient
+            val currentList = adapter.currentList.toMutableList()
+            currentList.add(ingredient)
+            adapter.submitList(currentList)
+        }
+    }
+
     private val cameraViewModel: CameraViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
