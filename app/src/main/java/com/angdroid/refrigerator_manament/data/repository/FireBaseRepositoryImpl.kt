@@ -1,10 +1,13 @@
 package com.angdroid.refrigerator_manament.data.repository
 
+import android.util.Log
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
 import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
+import com.angdroid.refrigerator_manament.data.dto.RecipeDto
 import com.angdroid.refrigerator_manament.data.mapper.home.UserMapper
+import com.angdroid.refrigerator_manament.data.mapper.recipe.RecipeMapper
 import com.angdroid.refrigerator_manament.domain.entity.FoodEntity
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
@@ -16,6 +19,7 @@ class FireBaseRepositoryImpl @Inject constructor(
     private val foodInfoController: FoodInfoController,
     private val userInfoDataSource: UserInfoDataSource,
     private val recipeDataSource: RecipeDataSource,
+    private val recipeMapper: RecipeMapper,
     private val userMapper: UserMapper
 ) : FireBaseRepository {
     override suspend fun deleteFood(foodDto: FoodEntity) {
@@ -30,8 +34,31 @@ class FireBaseRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllRecipe(): List<RecipeEntity> {
-        TODO("Not yet implemented")
+    override suspend fun getAllRecipe(onComplete: (List<RecipeEntity>) -> Unit) {
+
+        recipeDataSource.getAllRecipe().addOnSuccessListener { documents ->
+            val result = mutableListOf<RecipeDto>()
+            for (document in documents) {
+                Log.e("Result Query", document.data.toString())
+                result.add(document.toObject(RecipeDto::class.java))
+            }
+            onComplete(recipeMapper.mapToEntity(result))
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
+
+    override suspend fun getIngredientRecipe(food:String, onComplete: (List<RecipeEntity>) -> Unit) {
+        recipeDataSource.getIngredientRecipe(food).addOnSuccessListener { documents ->
+            val result = mutableListOf<RecipeDto>()
+            for (document in documents) {
+                Log.e("Result Query", document.data.toString())
+                result.add(document.toObject(RecipeDto::class.java))
+            }
+            onComplete(recipeMapper.mapToEntity(result))
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
     }
 
     override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
@@ -49,6 +76,8 @@ class FireBaseRepositoryImpl @Inject constructor(
                     )
                 }) as ArrayList<IngredientType>
             )
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
         }
     }
 }
