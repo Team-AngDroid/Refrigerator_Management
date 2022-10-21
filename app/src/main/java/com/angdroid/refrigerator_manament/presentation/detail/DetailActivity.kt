@@ -2,7 +2,6 @@ package com.angdroid.refrigerator_manament.presentation.detail
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityDetailBinding
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity

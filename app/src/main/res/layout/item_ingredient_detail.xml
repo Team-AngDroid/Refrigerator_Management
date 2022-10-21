@@ -68,13 +68,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/sub_space_8"
+            android:bufferType="spannable"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@{recipeItem.foodList.toString()}"
             android:textAppearance="@style/Widget.TextView.Pretendard14_Black_Regular.TextAppearance"
             android:textColor="@color/gray1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_recipe_name" />
+            app:layout_constraintStart_toStartOf="@id/tv_recipe_name"
+            app:necessary_ingredients="@{recipeItem.foodList}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

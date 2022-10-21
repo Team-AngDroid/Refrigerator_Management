@@ -27,6 +27,7 @@ class App : Application() {
     companion object {
         lateinit var fireStoreUserReference: DocumentReference
         lateinit var fireStoreRecipeReference: CollectionReference
+        lateinit var userIngredientInfo:List<String>
         private lateinit var instance: App
         fun getInstance(): Context {
             return instance.applicationContext

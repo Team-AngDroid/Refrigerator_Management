@@ -6,10 +6,8 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.angdroid.refrigerator_manament.R
-import com.angdroid.refrigerator_manament.application.App
-import com.angdroid.refrigerator_manament.data.dto.FoodDto
 import com.angdroid.refrigerator_manament.databinding.FragmentRefrigeratorBinding
-import com.angdroid.refrigerator_manament.presentation.DynamicGridLayoutManager
+import com.angdroid.refrigerator_manament.presentation.custom.DynamicGridLayoutManager
 import com.angdroid.refrigerator_manament.presentation.detail.DetailActivity
 import com.angdroid.refrigerator_manament.presentation.home.CategoryListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.IngredientViewModel
@@ -18,7 +16,6 @@ import com.angdroid.refrigerator_manament.presentation.util.getSpanSizeLookUp
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import com.startup.meetiing.presentation.state.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
 
 @AndroidEntryPoint
 class RefrigeratorFragment :
