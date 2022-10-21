@@ -164,7 +164,7 @@ class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
             "당근" -> return true
             "오이" -> return true
             "무우" -> return true
-            "무" -> return true
+            //"무" -> return true
             "사과" -> return true
             "배" -> return true
             "귤" -> return true
@@ -184,7 +184,7 @@ class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
             "당근" -> return 101
             "오이" -> return 102
             "무우" -> return 103
-            "무" -> return 103
+            //"무" -> return 103
             "사과" -> return 104
             "배" -> return 105
             "귤" -> return 106
