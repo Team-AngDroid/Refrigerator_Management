@@ -20,11 +20,13 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         fireStoreUserReference = Firebase.firestore.collection("User").document(BuildConfig.USER_ID)
+        fireStoreRecipeReference = Firebase.firestore.collection("Recipe")
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 
     companion object {
         lateinit var fireStoreUserReference: DocumentReference
+        lateinit var fireStoreRecipeReference: CollectionReference
         private lateinit var instance: App
         fun getInstance(): Context {
             return instance.applicationContext

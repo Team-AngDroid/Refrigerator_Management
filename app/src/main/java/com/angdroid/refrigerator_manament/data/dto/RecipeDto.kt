@@ -5,9 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RecipeDto(
-    val name: String,
-    val time: String,
-    val link: String,
-    val image: String,
-    val foodList: List<String>
+    val image: String ="",
+    val foodlist: List<String> = listOf(),
+    val name: String = "",
+    val link: String = "",
+    val time: String = ""
 ) : Parcelable
