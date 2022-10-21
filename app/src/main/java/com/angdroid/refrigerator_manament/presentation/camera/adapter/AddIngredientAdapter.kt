@@ -1,7 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.camera.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,10 +11,11 @@ import com.angdroid.refrigerator_manament.databinding.ItemIngredientsBinding
 import com.angdroid.refrigerator_manament.databinding.ItemSelfIngredientsBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
+import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
 
 class AddIngredientAdapter(
     val context: Context,
-    private val itemClickListener: (IngredientType.Food) -> Unit,
+    private val itemDeleteListener: (IngredientType.Food) -> Unit,
     private val itemRemoveListener: (IngredientType.Food) -> Unit,
     private val itemAddListener: (IngredientType.Food) -> Unit
 ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
@@ -48,14 +48,14 @@ class AddIngredientAdapter(
             INGREDIENTS -> {
                 with(holder as IngredientViewHolder) {
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
-                    binding.ivMinus.setOnClickListener {
+                    binding.ivMinus.setOnSingleClickListener {
                         itemRemoveListener(currentItem)
                     }
-                    binding.ivPlus.setOnClickListener {
+                    binding.ivPlus.setOnSingleClickListener {
                         itemAddListener(currentItem)
                     }
-                    binding.ivDelete.setOnClickListener {
-                        itemClickListener(currentItem)
+                    binding.ivDelete.setOnSingleClickListener {
+                        itemDeleteListener(currentItem)
                     }
                 }
             }
@@ -80,46 +80,6 @@ class AddIngredientAdapter(
         //하지만 둘다 경우 마지막에 프론트단에서 무조건 더미데이터 하나를 넣어주어야 함..
     }
 
-    /*private fun removeItem(position: Int) {
-        val currentList = currentList.toMutableList()
-        currentList.removeAt(position)
-        submitList(currentList)
-    }
-
-    private fun minusItemCount(position: Int, currentItem: IngredientType.Food) {
-        val currentList = currentList.toMutableList()
-        if (currentItem.foodCount == 1)
-            removeItem(position)
-        else {
-            currentList[position] =
-                IngredientType.Food(
-                    currentItem.fid,
-                    currentItem.foodId,
-                    currentItem.expirationDate,
-                    currentItem.name,
-                    currentItem.image,
-                    currentItem.categoryId,
-                    currentItem.foodCount - 1
-                )
-            submitList(currentList)
-        }
-    }
-
-    private fun plusItemCount(position: Int, currentItem: IngredientType.Food) {
-        val currentList = currentList.toMutableList()
-        currentList[position] =
-            IngredientType.Food(
-                currentItem.fid,
-                currentItem.foodId,
-                currentItem.expirationDate,
-                currentItem.name,
-                currentItem.image,
-                currentItem.categoryId,
-                currentItem.foodCount + 1
-            )
-        submitList(currentList)
-    }*/
-
     private fun showDialog() {
         CustomDialog(context).showDialog()
     }
@@ -133,13 +93,7 @@ class AddIngredientAdapter(
                 oldItem: IngredientType.Food,
                 newItem: IngredientType.Food
             ): Boolean {
-                return oldItem.fid === newItem.fid // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
-
-                // 이후 같은 버그가 날까봐 주석 남겨둠 하단의 상황은 setHashStableIds(true)를 추가하지 않았을때
-                //발생하는 상황들 정리
-                //return oldItem.fid == newItem.fid // 다음과 같이 고유값 비교하면 minus가 이상하게 작동하는데 왜이럴까
-                //return oldItem.fid == newItem.fid //모든 아이템의 fid를 "123"처럼 다 같도록 통일하고 하면 가장 원하는대로 동작
-                //return false // <- 이경우에는 리스트가 계속 깜빡이지만 원하는대로 동작
+                return oldItem.fid === newItem.fid
             }
 
             override fun areContentsTheSame(
