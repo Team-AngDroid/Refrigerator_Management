@@ -5,7 +5,10 @@
     <string name="category_meat">육류 · 계란류</string>
     <string name="category_milk">유제품</string>
     <string name="category_seafood">수산 · 해산</string>
-
+    <string name="permission_need">권한이 필요합니다.</string>
+    <string name="permission_reason">객체 인식 및 식재료 추가를 위해서 카메라 접근 권한이 필요합니다.</string>
+    <string name="permission_agree">동의하기</string>
+    <string name="permission_cancel">취소하기</string>
 
     <string name="ingredient">%s <font color='#0D99FF'>%d개</font></string>
     <string name="ingredient_name">%s </string>

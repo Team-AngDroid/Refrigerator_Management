@@ -23,7 +23,7 @@ sealed class IngredientType(
         val expirationDate: LocalDate,
         val name: String,
         val image: String,
-        override val categoryId: Int,
+        override var categoryId: Int,
         var foodCount: Int
     ) : IngredientType(foodId, 0, foodCount, categoryId)
 }
