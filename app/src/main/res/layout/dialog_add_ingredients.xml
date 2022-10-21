@@ -7,7 +7,7 @@
 
         <variable
             name="count"
-            type="int" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         android:paddingHorizontal="@dimen/sub_space_20">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_space_20"
@@ -26,18 +26,6 @@
             android:textAppearance="@style/Widget.TextView.Pretendard18_Black_SemiBold.TextAppearance"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ImageView
-            android:id="@+id/iv_self_add"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sub_space_20"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_add_photo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_ingredient"
@@ -51,7 +39,7 @@
             android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_self_add" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
         <Spinner
             android:id="@+id/spinner_category"
@@ -88,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{@string/ingredient_count(count)}"
+            android:text="@={count}"
             android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Medium.TextAppearance"
             android:textColor="@color/black_second"
             tools:text="1" />

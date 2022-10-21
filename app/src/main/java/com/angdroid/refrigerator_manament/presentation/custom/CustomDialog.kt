@@ -8,23 +8,25 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBinding
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
+
 
 class CustomDialog(val context: Context) {
 
-    private val inflater by lazy { LayoutInflater.from(context) }
+    private lateinit var ingredient: IngredientType.Food
+    private val activationList = mutableListOf<Boolean>(false, false, false)
+    // 재료명 입력 여부 / 카테고리 선택 여부 / count 0 이 아닌 경우
 
-    val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(
-        inflater
-    )
+    private val inflater by lazy { LayoutInflater.from(context) }
+    val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(inflater)
 
     fun showDialog() {
-
-
+        binding.count = 0.toString()
         val dialog = Dialog(context)
-
         dialog.apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setContentView(binding.root)
@@ -37,24 +39,19 @@ class CustomDialog(val context: Context) {
                 marginEnd = 16.dpToPx(binding.root.context)
                 marginStart = 16.dpToPx(binding.root.context)
             } // 레이아웃 속성 재 적용
-
             dialog.window!!.attributes = params
         }
         setSpinner()
-        setListener(dialog)
-
+        setListener()
         dialog.show()
     }
 
 
     private fun setSpinner() {
-
         val items = context.resources.getStringArray(R.array.spinner_ingredients)
-
         val spinnerAapter = object : ArrayAdapter<String>(context, R.layout.spinner_list) {
 
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-
                 val v = super.getView(position, convertView, parent)
                 if (position == count) {
                     //마지막 포지션의 textView 를 힌트 용으로 사용
@@ -83,30 +80,37 @@ class CustomDialog(val context: Context) {
                         position: Int,
                         id: Long
                     ) {
-
+                        activationList[1] = true
                         //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
-                        when (position) {
+                        when (position) { // 카테고리 선택
                             0 -> {}
                             1 -> {}
-                            //...
+                            2 -> {}
+                            3 -> {}
+                            4 -> {}
                             else -> {}
                         }
                     }
 
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-                        TODO("Not yet implemented")
-                    }
+                    override fun onNothingSelected(p0: AdapterView<*>?) {}
                 }
         }
     }
 
-    private fun setListener(dialog: Dialog) {
-        binding.ivDelete.setOnClickListener {
-            dialog.dismiss()
+    private fun setListener() {
+        binding.etIngredient.addTextChangedListener {
+            activationList[0] = !it!!.isEmpty()
         }
-        binding.btnIngredientsAdd.setOnClickListener {
-            //TODO add logic
+        binding.ivPlus.setOnClickListener {
+            binding.count = (binding.count!!.toInt() + 1).toString()
+            activationList[2] = true
+        }
+        binding.ivMinus.setOnClickListener {
+            if (binding.count!!.toInt() != 0) {
+                binding.count = (binding.count!!.toInt() - 1).toString()
+                activationList[2] = true
+            } else
+                activationList[2] = false
         }
     }
-
 }
