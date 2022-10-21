@@ -48,8 +48,11 @@ class FireBaseRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getIngredientRecipe(food:String, onComplete: (List<RecipeEntity>) -> Unit) {
-        recipeDataSource.getIngredientRecipe(food).addOnSuccessListener { documents ->
+    override suspend fun getIngredientRecipe(
+        ingredient: String,
+        onComplete: (List<RecipeEntity>) -> Unit
+    ) {
+        recipeDataSource.getIngredientRecipe(ingredient).addOnSuccessListener { documents ->
             val result = mutableListOf<RecipeDto>()
             for (document in documents) {
                 Log.e("Result Query", document.data.toString())

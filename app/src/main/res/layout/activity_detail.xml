@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="detailViewModel"
+            type="com.angdroid.refrigerator_manament.presentation.detail.DetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.detail.DetailActivity">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gd_left"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="@dimen/app_base_space" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gd_right"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="@dimen/app_base_space" />
+
+        <TextView
+            android:id="@+id/tv_suggest_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/suggest_recipe"
+            android:textAppearance="@style/Widget.TextView.Pretendard16_Black_Bold.TextAppearance"
+            app:layout_constraintEnd_toEndOf="@id/gd_right"
+            app:layout_constraintStart_toStartOf="@id/gd_left"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_recipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sub_space_6"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tv_suggest_title"
+            tools:listitem="@layout/item_ingredient_detail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

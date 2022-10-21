@@ -23,4 +23,12 @@ class DetailViewModel @Inject constructor(private val firebaseRepository: FireBa
             }
         }
     }
+    fun getIngredientRecipe(ingredient:String){
+
+        viewModelScope.launch {
+            firebaseRepository.getIngredientRecipe(ingredient) {
+                _recipeList.value = it
+            }
+        }
+    }
 }

@@ -10,6 +10,6 @@ interface FireBaseRepository {
     suspend fun addFood(vararg foodDto: FoodEntity)
     suspend fun getUserInfo(): UserEntity
     suspend fun getAllRecipe(onComplete: (List<RecipeEntity>) -> Unit)
-    suspend fun getIngredientRecipe(food:String, onComplete: (List<RecipeEntity>) -> Unit)
+    suspend fun getIngredientRecipe(ingredient: String, onComplete: (List<RecipeEntity>) -> Unit)
     suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit)
 }

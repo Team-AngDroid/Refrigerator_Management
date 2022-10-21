@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/sub_space_16"
-        android:layout_marginVertical="@dimen/sub_space_12">
+        android:layout_marginVertical="@dimen/sub_space_6">
 
         <ImageView
             android:id="@+id/iv_food"
@@ -55,6 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@{recipeItem.time}"
+            android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
+            android:textColor="@color/gray2"
             app:layout_constraintBottom_toBottomOf="@+id/iv_time"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_time"
@@ -66,7 +68,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/sub_space_8"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{recipeItem.foodList.toString()}"
+            android:textAppearance="@style/Widget.TextView.Pretendard14_Black_Regular.TextAppearance"
+            android:textColor="@color/gray1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_recipe_name" />
