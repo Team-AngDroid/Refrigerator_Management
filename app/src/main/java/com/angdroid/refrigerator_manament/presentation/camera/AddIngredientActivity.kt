@@ -7,6 +7,7 @@ import com.angdroid.refrigerator_manament.databinding.ActivityAddIngredientBindi
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.camera.adapter.AddIngredientAdapter
 import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.CameraViewModel
+import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import java.time.LocalDate
@@ -56,6 +57,9 @@ class AddIngredientActivity :
             },
             itemPlusListener = {
                 cameraViewModel.plusItemCount(it)
+            },
+            itemDialogListener = {
+                CustomDialog(this).showDialog()
             }
         )
         binding.rcvIngredients.adapter = adapter

@@ -17,8 +17,10 @@ class AddIngredientAdapter(
     val context: Context,
     private val itemDeleteListener: (IngredientType.Food) -> Unit,
     private val itemMinusListener: (IngredientType.Food) -> Unit,
-    private val itemPlusListener: (IngredientType.Food) -> Unit
-) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
+    private val itemPlusListener: (IngredientType.Food) -> Unit,
+    private val itemDialogListener: (IngredientType.Food) -> Unit
+
+    ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -62,8 +64,7 @@ class AddIngredientAdapter(
             SELF -> {
                 with(holder as SelfAddViewHolder) {
                     binding.root.setOnClickListener {
-                        showDialog()
-                        //TODO CustomDialog show
+                        itemDialogListener(currentItem)
                     }
                 }
             }
@@ -78,10 +79,6 @@ class AddIngredientAdapter(
         // return if (position == currentList.size - 1) SELF else INGREDIENTS
         //마지막 아이템을 무조건 [직접 추가]아이템이 나오도록
         //하지만 둘다 경우 마지막에 프론트단에서 무조건 더미데이터 하나를 넣어주어야 함..
-    }
-
-    private fun showDialog() {
-        CustomDialog(context).showDialog()
     }
 
     companion object {
