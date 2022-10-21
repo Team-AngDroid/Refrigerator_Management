@@ -16,8 +16,8 @@ import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickList
 class AddIngredientAdapter(
     val context: Context,
     private val itemDeleteListener: (IngredientType.Food) -> Unit,
-    private val itemRemoveListener: (IngredientType.Food) -> Unit,
-    private val itemAddListener: (IngredientType.Food) -> Unit
+    private val itemMinusListener: (IngredientType.Food) -> Unit,
+    private val itemPlusListener: (IngredientType.Food) -> Unit
 ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
@@ -49,10 +49,10 @@ class AddIngredientAdapter(
                 with(holder as IngredientViewHolder) {
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.ivMinus.setOnSingleClickListener {
-                        itemRemoveListener(currentItem)
+                        itemMinusListener(currentItem)
                     }
                     binding.ivPlus.setOnSingleClickListener {
-                        itemAddListener(currentItem)
+                        itemPlusListener(currentItem)
                     }
                     binding.ivDelete.setOnSingleClickListener {
                         itemDeleteListener(currentItem)

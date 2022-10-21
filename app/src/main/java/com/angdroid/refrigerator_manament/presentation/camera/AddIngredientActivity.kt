@@ -1,7 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.camera
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityAddIngredientBinding
@@ -16,7 +15,7 @@ class AddIngredientActivity :
     BaseActivity<ActivityAddIngredientBinding>(R.layout.activity_add_ingredient) {
 
     private lateinit var adapter: AddIngredientAdapter
-    val cameraViewModel: CameraViewModel by viewModels()
+    private val cameraViewModel: CameraViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,17 +48,16 @@ class AddIngredientActivity :
     private fun initAdapter() {
         adapter = AddIngredientAdapter(
             this,
-            itemClickListener = {
+            itemDeleteListener = {
                 cameraViewModel.removeItem(it)
-                Log.e("adapter ItemCount", adapter.itemCount.toString())
             },
-            itemRemoveListener = {
+            itemMinusListener = {
                 cameraViewModel.minusItemCount(it)
             },
-        itemAddListener = {
-            cameraViewModel.plusItemCount(it)
-        }
-            )
+            itemPlusListener = {
+                cameraViewModel.plusItemCount(it)
+            }
+        )
         binding.rcvIngredients.adapter = adapter
         collectFoodList()
     }
@@ -67,17 +65,15 @@ class AddIngredientActivity :
     private fun collectFoodList() {
         collectFlowWhenStarted(cameraViewModel.foodList) {
             adapter.submitList(it.toList())
-            Log.e("Result Value List", it.toString())
-
         }
     }
 
     private fun getIngredients(): List<IngredientType.Food> {
         val ingredientsList =
             intent.getParcelableArrayListExtra<IngredientType.Food>("Ingredients")!!
-        ingredientsList.add(0,
-            IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
-            // 마지막 [직접 추가]아이템용 더미데이터
+        ingredientsList.add(
+            0, IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
+            // 맨처음 [직접 추가]아이템용 더미데이터
         )
         return ingredientsList.toList()
     }

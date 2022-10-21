@@ -39,7 +39,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
     private fun setOnClickListener() {
         binding.fabCamera.setOnClickListener {
-            startActivity(Intent(this, CameraActivity::class.java))
+            startActivity(
+                Intent(this, CameraActivity::class.java)
+                    .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+            )
         }
     }
 

@@ -7,16 +7,13 @@
         android:id="@+id/cl_food"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/sub_space_16"
         android:layout_marginBottom="@dimen/sub_space_8">
 
         <ImageView
             android:id="@+id/cv_ingredient"
             android:layout_width="@dimen/sub_space_104"
             android:layout_height="@dimen/sub_space_104"
-            android:elevation="10dp"
             android:src="@drawable/drawable_self_add"
-            app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
