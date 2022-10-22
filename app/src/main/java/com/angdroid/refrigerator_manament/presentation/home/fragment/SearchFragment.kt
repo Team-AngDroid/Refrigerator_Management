@@ -51,6 +51,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 searchAdapter.submitList(listOf("검색결과가 없습니다."))
             else
                 searchAdapter.submitList(resultList)
+            binding.autoSearch.text = null
         }
     }
 

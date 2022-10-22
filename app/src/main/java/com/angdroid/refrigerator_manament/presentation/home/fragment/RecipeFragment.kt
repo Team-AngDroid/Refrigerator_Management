@@ -7,6 +7,7 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class RecipeFragment : BaseFragment<FragmentRecipeBinding>(R.layout.fragment_recipe) {
@@ -22,8 +23,18 @@ class RecipeFragment : BaseFragment<FragmentRecipeBinding>(R.layout.fragment_rec
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setRandomRecipe()
         binding.etSearch.setOnClickListener {
             findNavController().navigate(R.id.action_fragment_recipe_to_searchFragment)
         }
+    }
+
+    private fun setRandomRecipe(){
+        val set = mutableSetOf<Int>()
+        while (set.size < 2){
+            set.add((recipeList.indices).random())
+        }
+        binding.recommend1 = recipeList[set.elementAt(0)]
+        binding.recommend2 = recipeList[set.elementAt(1)]
     }
 }
