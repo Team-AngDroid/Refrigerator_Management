@@ -17,10 +17,10 @@
         tools:layout="@layout/fragment_recipe" >
         <action
             android:id="@+id/action_fragment_recipe_to_searchFragment"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/fragment_search" />
     </fragment>
     <fragment
-        android:id="@+id/searchFragment"
+        android:id="@+id/fragment_search"
         android:name="com.angdroid.refrigerator_manament.presentation.home.fragment.SearchFragment"
         android:label="@string/search_recipe"
         tools:layout="@layout/fragment_search" />

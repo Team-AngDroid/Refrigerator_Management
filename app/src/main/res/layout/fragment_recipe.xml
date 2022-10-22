@@ -27,6 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_rectangle_searchgray_12"
+                android:clickable="true"
+                android:focusable="false"
                 android:gravity="center_vertical"
                 android:hint="@string/recipe_hint"
                 android:paddingVertical="0dp"

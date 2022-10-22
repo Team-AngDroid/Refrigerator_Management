@@ -32,6 +32,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             binding.appbarHome.title = when (destination.id) {
                 R.id.fragment_recipe -> destination.label
                 R.id.fragment_refrigerator -> destination.label
+                R.id.fragment_search -> destination.label
                 else -> throw IllegalAccessException("Error.NavController")
             }
         }
