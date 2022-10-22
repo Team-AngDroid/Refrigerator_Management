@@ -1,4 +1,4 @@
-package com.angdroid.refrigerator_manament.presentation.home
+package com.angdroid.refrigerator_manament.presentation.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,7 +22,7 @@ class CategoryListAdapter(
             inflater = LayoutInflater.from(parent.context)
         }
         return when (viewType) {
-            Companion.ITEM -> {
+            ITEM -> {
                 CategoryViewHolder(
                     ItemCategoryListBinding.inflate(inflater, parent, false)
                 )
@@ -38,7 +38,7 @@ class CategoryListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = getItem(position)
         when (holder.itemViewType) {
-            Companion.ITEM -> {
+            ITEM -> {
                 with(holder as CategoryViewHolder) {
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.root.setOnClickListener { itemClickListener(currentItem) }
@@ -51,7 +51,7 @@ class CategoryListAdapter(
                     }
                 }
             }
-            Companion.CATEGORY -> {
+            CATEGORY -> {
                 with(holder as CategoryTitleViewHolder) {
                     binding.setVariable(BR.titleModel, (currentItem as IngredientType.Category))
                 }

@@ -9,7 +9,7 @@ import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
 import com.angdroid.refrigerator_manament.databinding.FragmentRefrigeratorBinding
 import com.angdroid.refrigerator_manament.presentation.DynamicGridLayoutManager
-import com.angdroid.refrigerator_manament.presentation.home.CategoryListAdapter
+import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.IngredientViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.presentation.util.getSpanSizeLookUp
