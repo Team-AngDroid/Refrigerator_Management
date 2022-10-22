@@ -27,8 +27,8 @@
     <string name="camera_fragment">Camera fragment</string>
     <string name="recipe_hint">레시피를 검색해보세요</string>
     <string name="recommended_recipe">👩‍🍳오늘의 추천 요리</string>
-    
-    
+    <string name="search_recipe">레시피 검색</string>
+
     <string-array name="spinner_ingredients">
         <item>채소</item>
         <item>과일, 견과, 쌀</item>
@@ -36,5 +36,7 @@
         <item>유제품</item>
         <item>수산, 해산</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
