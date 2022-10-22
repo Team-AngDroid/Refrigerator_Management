@@ -25,7 +25,10 @@
     <string name="refrigerator_fragment">Refrigerator fragment</string>
     <string name="recipe_fragment">Recipe fragment</string>
     <string name="camera_fragment">Camera fragment</string>
-
+    <string name="recipe_hint">레시피를 검색해보세요</string>
+    <string name="recommended_recipe">👩‍🍳오늘의 추천 요리</string>
+    
+    
     <string-array name="spinner_ingredients">
         <item>채소</item>
         <item>과일, 견과, 쌀</item>
