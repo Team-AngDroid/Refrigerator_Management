@@ -20,19 +20,27 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         ,"계란 장조림","계란말이","에어프라이어 치킨","닭볶음탕","닭가슴오이냉채","우유 푸딩","딸기 우유","에그치즈토스트","체다치즈칩스"
         ,"새우장","칠리새우","브로콜리 새우 볶음","오징어 볶음","오징어 찌개","고등어 구이","고등어 김치 조림","고등어 김치찜"
         ) //TODO 띄어쓰기 같은거 통일 필요할듯
+
     private lateinit var autoAdapter: ArrayAdapter<String>
     private lateinit var searchAdapter: SearchAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setAdapters()
+        setListeners()
+    }
 
+    private fun setAdapters(){
         searchAdapter = SearchAdapter(requireContext()){}
         binding.rcvSearch.adapter = searchAdapter
         searchAdapter.submitList(listOf("레시피 검색을 해보세요\uD83D\uDE0B"))
 
         autoAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_list, recipes)
         binding.autoSearch.setAdapter(autoAdapter)
+    }
 
-
+    private fun setListeners(){
+        binding.autoSearch.requestFocus()
 
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
@@ -44,8 +52,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             else
                 searchAdapter.submitList(resultList)
         }
-
-
     }
 
 }

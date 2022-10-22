@@ -10,8 +10,9 @@
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="@dimen/sub_space_16"
             android:rotation="180"
             android:src="@drawable/ic_arrow"
             app:layout_constraintBottom_toBottomOf="@+id/layout_et_search"
@@ -25,6 +26,7 @@
             android:layout_height="@dimen/sub_space_54"
             android:layout_marginEnd="@dimen/sub_space_16"
             android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/sub_space_6"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
@@ -42,6 +44,8 @@
                 android:focusable="true"
                 android:gravity="center_vertical"
                 android:hint="@string/recipe_hint"
+                android:maxLines="1"
+                android:inputType="text"
                 android:paddingVertical="0dp"
                 android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
                 android:textColor="@color/black"
