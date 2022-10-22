@@ -3,6 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="recommend1"
+            type="com.angdroid.refrigerator_manament.presentation.home.fragment.RecipeData" />
+
+        <variable
+            name="recommend2"
+            type="com.angdroid.refrigerator_manament.presentation.home.fragment.RecipeData" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,13 +76,13 @@
             android:id="@+id/iv_recommend1"
             android:layout_width="0dp"
             android:layout_height="@dimen/sub_space_200"
-            android:src="@drawable/ic_search" />
+            app:load_default_ingredient="@{recommend1.img}" />
 
         <ImageView
             android:id="@+id/iv_recommend2"
             android:layout_width="0dp"
             android:layout_height="@dimen/sub_space_200"
-            android:src="@drawable/ic_arrow" />
+            app:load_default_ingredient="@{recommend2.img}" />
 
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow_recommend1"
@@ -80,7 +91,8 @@
             android:layout_marginStart="@dimen/sub_space_16"
             android:layout_marginBottom="@dimen/sub_space_20"
             android:orientation="vertical"
-            app:constraint_referenced_ids="tv_recipe1_name,tv_recipe1_time"
+            app:flow_horizontalAlign="start"
+            app:constraint_referenced_ids="tv_recipe1_name,flow_recommend1_detail"
             app:flow_verticalGap="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_recommend1"
             app:layout_constraintStart_toStartOf="@+id/iv_recommend1" />
@@ -89,19 +101,39 @@
             android:id="@+id/tv_recipe1_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{recommend1.name}"
             android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
             tools:text="@string/recipe" />
 
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow_recommend1_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:constraint_referenced_ids="iv_recommend1_time,tv_recipe1_time"
+            app:layout_constraintStart_toStartOf="@id/flow_recommend1" />
+
+        <ImageView
+            android:id="@+id/iv_recommend1_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_time_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
+            app:layout_constraintEnd_toStartOf="@+id/tv_recipe1_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_recipe1_time" />
+
         <TextView
             android:id="@+id/tv_recipe1_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
+            android:text="@{recommend1.time}"
+            android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
             android:textColor="@color/recipe_gray"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
-            tools:text="🕒 5분" />
+            tools:text="5분" />
+
 
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow_recommend2"
@@ -110,28 +142,49 @@
             android:layout_marginStart="@dimen/sub_space_16"
             android:layout_marginBottom="@dimen/sub_space_20"
             android:orientation="vertical"
-            app:constraint_referenced_ids="tv_recipe2_name,tv_recipe2_time"
+            app:flow_horizontalAlign="start"
+            app:constraint_referenced_ids="tv_recipe2_name,flow_recommend2_detail"
             app:flow_verticalGap="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_recommend2"
             app:layout_constraintStart_toStartOf="@+id/iv_recommend2" />
+
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow_recommend2_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:constraint_referenced_ids="iv_recommend2_time,tv_recipe2_time"
+            app:layout_constraintStart_toStartOf="@id/flow_recommend2" />
 
         <TextView
             android:id="@+id/tv_recipe2_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{recommend2.name}"
             android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
             tools:text="@string/recipe" />
 
+        <ImageView
+            android:id="@+id/iv_recommend2_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_time_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
+            app:layout_constraintEnd_toStartOf="@+id/tv_recipe2_time"
+            app:layout_constraintTop_toTopOf="@+id/tv_recipe2_time" />
+
         <TextView
             android:id="@+id/tv_recipe2_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
+            android:text="@{recommend2.time}"
+            android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
             android:textColor="@color/recipe_gray"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
-            tools:text="🕒 5분" />
+            tools:text="5분" />
 
 
         <androidx.recyclerview.widget.RecyclerView
