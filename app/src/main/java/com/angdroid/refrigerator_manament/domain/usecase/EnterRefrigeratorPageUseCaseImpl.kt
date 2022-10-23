@@ -2,6 +2,7 @@ package com.angdroid.refrigerator_manament.domain.usecase
 
 import android.util.Log
 import androidx.lifecycle.LifecycleCoroutineScope
+import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import com.angdroid.refrigerator_manament.util.CategoryType
@@ -27,7 +28,7 @@ class EnterRefrigeratorPageUseCaseImpl @Inject constructor(private val fireBaseR
                                 accumulator
                             }
                         }.values.sortedBy { it.categoryId }.toMutableList()
-
+                    App.userIngredientInfo = result.map { (it as IngredientType.Food).name }
                     var categoryTemp: Pair<Int, Int> =
                         Pair(result[result.size - 1].categoryId, result[result.size - 1].count)
 

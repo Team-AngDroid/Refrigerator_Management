@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".application.App"
         android:allowBackup="true"
@@ -12,15 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Refrigerator_Manament"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.detail.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.camera.AddIngredientActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".presentation.camera.CameraActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".presentation.home.HomeActivity"
             android:exported="true">
@@ -31,4 +35,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
