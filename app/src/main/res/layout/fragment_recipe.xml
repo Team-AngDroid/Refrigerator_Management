@@ -17,7 +17,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/sub_space_16"
         tools:context=".presentation.home.fragment.CameraFragment">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -39,6 +38,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/shape_rectangle_searchgray_12"
                 android:clickable="true"
+                android:layout_marginHorizontal="@dimen/sub_space_16"
                 android:focusable="false"
                 android:gravity="center_vertical"
                 android:hint="@string/recipe_hint"
@@ -54,6 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_space_24"
+            android:layout_marginHorizontal="@dimen/sub_space_16"
             android:text="@string/recommended_recipe"
             android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Bold.TextAppearance"
             app:layout_constraintStart_toStartOf="@+id/layout_et_search"
@@ -67,6 +68,7 @@
             android:orientation="horizontal"
             app:constraint_referenced_ids="cv_recommend1,cv_recommen2"
             app:flow_horizontalGap="@dimen/sub_space_8"
+            android:layout_marginHorizontal="@dimen/sub_space_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_recommend" />
@@ -84,7 +86,7 @@
                 android:layout_height="@dimen/sub_space_200"
                 android:scaleType="fitXY"
                 tools:src="@drawable/ic_time_gray"
-                app:load_default_ingredient="@{recommend1.img}" />
+                app:load_default_ingredient="@{recommend1.image}" />
         </androidx.cardview.widget.CardView>
 
 
@@ -101,7 +103,7 @@
                 android:layout_height="@dimen/sub_space_200"
                 android:scaleType="fitXY"
                 tools:src="@drawable/ic_time_gray"
-                app:load_default_ingredient="@{recommend2.img}" />
+                app:load_default_ingredient="@{recommend2.image}" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.helper.widget.Flow
@@ -217,6 +219,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/sub_space_24"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/item_ingredient_detail"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

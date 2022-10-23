@@ -34,7 +34,7 @@
     <string name="recommended_recipe">👩‍🍳오늘의 추천 요리</string>
     <string name="search_recipe">레시피 검색</string>
     <string name="already_have_ingredient">#0D99FF</string>
-
+    <string name="made_by">로 만들수 있는 요리</string>
     <string-array name="spinner_ingredients">
         <item>채소</item>
         <item>과일, 견과, 쌀</item>

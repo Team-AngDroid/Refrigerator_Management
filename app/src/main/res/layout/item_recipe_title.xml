@@ -5,7 +5,7 @@
     <data>
         <variable
             name="ingredient"
-            type="String" />
+            type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/sub_space_16"
-        android:text="@{ingredient}"
+        android:text="@{ingredient.name}"
         android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Bold.TextAppearance"
         android:textColor="@color/primary_skyblue"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,13 +29,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@{ingredient}"
+        android:text="@string/made_by"
         android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Bold.TextAppearance"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="로 만들수 있는 요리" />
+        tools:text="@string/made_by" />
 
 
 
