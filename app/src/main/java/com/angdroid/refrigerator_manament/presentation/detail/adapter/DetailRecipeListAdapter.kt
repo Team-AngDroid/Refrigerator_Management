@@ -6,10 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
-import com.angdroid.refrigerator_manament.databinding.ItemIngredientDetailBinding
+import com.angdroid.refrigerator_manament.databinding.ItemRecipeDetailBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
-import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
-import com.angdroid.refrigerator_manament.presentation.util.GlobalDiffCallBack
 
 class DetailListAdapter :
     ListAdapter<RecipeEntity, DetailListAdapter.DetailViewHolder>(DetailDiffCallBack) {
