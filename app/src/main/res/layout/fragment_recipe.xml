@@ -126,7 +126,7 @@
             android:layout_height="wrap_content"
             android:text="@{recommend1.name}"
             android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
             tools:text="@string/recipe" />
 
@@ -190,7 +190,7 @@
             android:layout_height="wrap_content"
             android:text="@{recommend2.name}"
             android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
             tools:text="@string/recipe" />
 
@@ -218,7 +218,6 @@
             android:id="@+id/rcv_recipe"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/sub_space_24"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
             tools:listitem="@layout/item_ingredient_detail"

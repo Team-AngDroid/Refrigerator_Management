@@ -8,12 +8,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemIngredientDetailBinding
-import com.angdroid.refrigerator_manament.databinding.ItemIngredientsBinding
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeTitleBinding
-import com.angdroid.refrigerator_manament.databinding.ItemSelfIngredientsBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
-import com.angdroid.refrigerator_manament.presentation.camera.adapter.AddIngredientAdapter
-import timber.log.Timber
 
 class RecipeTitleAdapter(
     context: Context, private val itemClickListener: (RecipeEntity) -> Unit,
@@ -38,7 +34,6 @@ class RecipeTitleAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentItem = getItem(position)
-        Timber.e(holder.itemViewType.toString())
 
         when (holder.itemViewType) {
             RECIPE -> {
