@@ -12,9 +12,12 @@
             type="com.angdroid.refrigerator_manament.presentation.detail.DetailViewModel" />
     </data>
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".presentation.detail.DetailActivity">
 
         <androidx.constraintlayout.widget.Guideline
@@ -97,11 +100,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_recipe"
             android:layout_width="match_parent"
+            android:nestedScrollingEnabled="false"
             android:layout_height="wrap_content"
+            app:fastScrollEnabled="false"
             android:layout_marginTop="@dimen/sub_space_6"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/tv_suggest_title"
             tools:listitem="@layout/item_recipe_detail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
