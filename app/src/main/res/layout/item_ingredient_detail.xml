@@ -1,81 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="java.time.LocalDate" />
+
         <variable
-            name="recipeItem"
-            type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
+            name="food"
+            type="com.angdroid.refrigerator_manament.domain.entity.model.IngredientType.Food" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/sub_space_16"
-        android:layout_marginVertical="@dimen/sub_space_6">
+        android:layout_marginEnd="@dimen/sub_space_16">
 
-        <ImageView
-            android:id="@+id/iv_food"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_food"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            app:cardCornerRadius="@dimen/sub_space_12"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:load_remote_coil_corner="@{recipeItem.image}"
-            tools:src="@drawable/apple" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_food"
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:scaleType="fitXY"
+                app:load_default_ingredient="@{food.name}"
+                tools:src="@drawable/apple" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/tv_recipe_name"
+            android:id="@+id/tv_until_day"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sub_space_12"
-            android:layout_marginTop="@dimen/sub_space_8"
-            android:text="@{recipeItem.name}"
+            android:layout_marginTop="@dimen/sub_space_12"
+            android:text="@{@string/until_day(LocalDate.now().dayOfMonth-food.expirationDate.dayOfMonth)}"
             android:textAppearance="@style/Widget.TextView.Pretendard15_Black_SemiBold.TextAppearance"
             android:textColor="@color/black_second"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_food"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="@id/cv_food"
+            app:layout_constraintStart_toStartOf="@id/cv_food"
+            app:layout_constraintTop_toBottomOf="@id/cv_food" />
 
-        <ImageView
-            android:id="@+id/iv_time"
+        <TextView
+            android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_time"
-            app:layout_constraintStart_toStartOf="@+id/tv_recipe_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_recipe_name"
-            app:tint="@color/gray2" />
+            android:layout_marginTop="@dimen/sub_space_8"
+            android:text="@{@string/food_count(food.foodCount)}"
+            android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
+            android:textColor="@color/gray1"
+            app:layout_constraintStart_toStartOf="@id/cv_food"
+            app:layout_constraintTop_toBottomOf="@+id/tv_until_day" />
 
         <TextView
-            android:id="@+id/tv_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="@{recipeItem.time}"
+            android:layout_marginStart="@dimen/sub_space_8"
+            android:layout_marginTop="@dimen/sub_space_8"
+            android:text="@{food.expirationDate.toString()}"
             android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
             android:textColor="@color/gray2"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/iv_time"
-            app:layout_constraintTop_toTopOf="@+id/iv_time" />
-
-        <!--TODO(BindingAdapter로 Span Text Color 적용해야함 일단 이렇게만 해둠-->
-        <TextView
-            android:id="@+id/tv_food_list"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sub_space_8"
-            android:bufferType="spannable"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/Widget.TextView.Pretendard14_Black_Regular.TextAppearance"
-            android:textColor="@color/gray1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_recipe_name"
-            app:necessary_ingredients="@{recipeItem.foodList}" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_count"
+            app:layout_constraintEnd_toEndOf="@id/cv_food"
+            app:layout_constraintStart_toEndOf="@+id/tv_count"
+            app:layout_constraintTop_toBottomOf="@+id/tv_until_day" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
