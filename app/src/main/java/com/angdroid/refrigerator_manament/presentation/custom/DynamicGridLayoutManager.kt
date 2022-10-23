@@ -1,4 +1,4 @@
-package com.angdroid.refrigerator_manament.presentation
+package com.angdroid.refrigerator_manament.presentation.custom
 
 import android.content.Context
 import androidx.recyclerview.widget.GridLayoutManager

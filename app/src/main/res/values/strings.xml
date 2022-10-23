@@ -5,9 +5,14 @@
     <string name="category_meat">육류 · 계란류</string>
     <string name="category_milk">유제품</string>
     <string name="category_seafood">수산 · 해산</string>
-
+    <string name="permission_need">권한이 필요합니다.</string>
+    <string name="permission_reason">객체 인식 및 식재료 추가를 위해서 카메라 접근 권한이 필요합니다.</string>
+    <string name="permission_agree">동의하기</string>
+    <string name="permission_cancel">취소하기</string>
 
     <string name="ingredient">%s <font color='#0D99FF'>%d개</font></string>
+    <string name="ingredient_name">%s </string>
+    <string name="ingredient_count">%d</string>
     <string name="category_seasoning">조미료</string>
     <string name="floating_btn">FloatingButton</string>
     <string name="refrigerator">냉장고</string>
@@ -28,6 +33,7 @@
     <string name="recipe_hint">레시피를 검색해보세요</string>
     <string name="recommended_recipe">👩‍🍳오늘의 추천 요리</string>
     <string name="search_recipe">레시피 검색</string>
+    <string name="already_have_ingredient">#0D99FF</string>
 
     <string-array name="spinner_ingredients">
         <item>채소</item>
@@ -36,6 +42,9 @@
         <item>유제품</item>
         <item>수산, 해산</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="suggest_recipe">💁🏻‍♀️ 추천 레시피</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

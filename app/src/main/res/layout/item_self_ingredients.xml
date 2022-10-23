@@ -7,35 +7,27 @@
         android:id="@+id/cl_food"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/iv_remove"
-        app:layout_constraintStart_toStartOf="@+id/iv_remove">
+        android:layout_marginBottom="@dimen/sub_space_8">
 
         <ImageView
             android:id="@+id/cv_ingredient"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="@dimen/sub_space_104"
+            android:layout_height="@dimen/sub_space_104"
             android:src="@drawable/drawable_self_add"
-            android:elevation="10dp"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_ingredient_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/sub_space_16"
             android:text="@string/self_add"
-            android:textAppearance="@style/Widget.TextView.Pretendard15_Black_SemiBold.TextAppearance"
+            android:textAppearance="@style/Widget.TextView.Pretendard18_Black_SemiBold.TextAppearance"
             android:textColor="@color/primary_skyblue"
-            app:layout_constraintStart_toStartOf="@+id/cv_ingredient"
-            app:layout_constraintTop_toBottomOf="@id/cv_ingredient" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cv_ingredient"
+            app:layout_constraintTop_toTopOf="@+id/cv_ingredient" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
