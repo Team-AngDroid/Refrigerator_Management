@@ -7,11 +7,11 @@
 
         <variable
             name="recommend1"
-            type="com.angdroid.refrigerator_manament.presentation.home.fragment.RecipeData" />
+            type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
 
         <variable
             name="recommend2"
-            type="com.angdroid.refrigerator_manament.presentation.home.fragment.RecipeData" />
+            type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
