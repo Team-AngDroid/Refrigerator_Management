@@ -145,6 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_time_gray"
+            app:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
             app:layout_constraintEnd_toStartOf="@+id/tv_recipe1_time"
             app:layout_constraintTop_toTopOf="@+id/tv_recipe1_time" />
@@ -155,7 +156,7 @@
             android:layout_height="wrap_content"
             android:text="@{recommend1.time}"
             android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
-            android:textColor="@color/recipe_gray"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
             tools:text="5분" />
 
@@ -199,6 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_time_gray"
+            app:tint="@color/black"
             app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
             app:layout_constraintEnd_toStartOf="@+id/tv_recipe2_time"
             app:layout_constraintTop_toTopOf="@+id/tv_recipe2_time" />
@@ -209,7 +211,7 @@
             android:layout_height="wrap_content"
             android:text="@{recommend2.time}"
             android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
-            android:textColor="@color/recipe_gray"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
             tools:text="5분" />
 

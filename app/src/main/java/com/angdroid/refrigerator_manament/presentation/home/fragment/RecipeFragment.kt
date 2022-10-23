@@ -28,7 +28,7 @@ class RecipeFragment:
         RecipeEntity("", "당큰케이크", "20분","","당근", listOf()),
         RecipeEntity("", "과일 사라다", "30분","","사과", listOf()),
         RecipeEntity("", "체다슬라이스칩스", "40분","","치즈", listOf()),
-        RecipeEntity("", "무생채", "60분","","무", listOf()),
+        RecipeEntity("", "무생채", "60분","","무우", listOf()),
         RecipeEntity("", "에어프라이어치킨", "30분","","생닭", listOf()),
     )
 
