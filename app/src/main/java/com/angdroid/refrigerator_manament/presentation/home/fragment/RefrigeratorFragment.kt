@@ -36,7 +36,7 @@ class RefrigeratorFragment :
                     requireContext(),
                     DetailActivity::class.java
                 ).apply {
-                    this.putExtra("foodName", item.name)
+                    this.putExtra("foodName", item)
                 })
         }
         binding.rvList.layoutManager =
