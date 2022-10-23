@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.angdroid.refrigerator_manament.util.CategoryType" />
+
         <variable
             name="detailViewModel"
             type="com.angdroid.refrigerator_manament.presentation.detail.DetailViewModel" />
@@ -29,15 +31,65 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/app_base_space" />
 
+        <include
+            android:id="@+id/appbar_ingredient_detail"
+            layout="@layout/layout_material_appbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_ingredient_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{detailViewModel.selectItem.name}"
+            android:textAppearance="@style/Widget.TextView.Pretendard24_Black_Bold.TextAppearance"
+            app:layout_constraintEnd_toEndOf="@id/gd_right"
+            app:layout_constraintStart_toStartOf="@id/gd_left"
+            app:layout_constraintTop_toBottomOf="@id/appbar_ingredient_detail"
+            tools:text="@string/category_vegetable" />
+
+        <TextView
+            android:id="@+id/tv_ingredient_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sub_space_8"
+            android:text="@{CategoryType.INSTANCE.categoryStringList[detailViewModel.selectItem.categoryId-1]}"
+            android:textAppearance="@style/Widget.TextView.Pretendard13_Black_Medium.TextAppearance"
+            android:textColor="@color/gray2"
+            app:layout_constraintEnd_toEndOf="@id/gd_right"
+            app:layout_constraintStart_toStartOf="@id/gd_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingredient_title"
+            tools:text="@string/category_fruit" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_ingredient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sub_space_24"
+            app:layout_constraintStart_toStartOf="@id/gd_left"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingredient_category" />
+
+        <View
+            android:id="@+id/v_separator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/sub_space_24"
+            android:background="#EEEEEE"
+            app:layout_constraintEnd_toEndOf="@id/gd_right"
+            app:layout_constraintStart_toStartOf="@id/gd_left"
+            app:layout_constraintTop_toBottomOf="@+id/rv_ingredient" />
+
         <TextView
             android:id="@+id/tv_suggest_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/sub_space_24"
             android:text="@string/suggest_recipe"
             android:textAppearance="@style/Widget.TextView.Pretendard16_Black_Bold.TextAppearance"
             app:layout_constraintEnd_toEndOf="@id/gd_right"
             app:layout_constraintStart_toStartOf="@id/gd_left"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/v_separator" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_recipe"
