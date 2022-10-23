@@ -6,45 +6,83 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.angdroid.refrigerator_manament.BR
+import com.angdroid.refrigerator_manament.databinding.ItemIngredientDetailBinding
+import com.angdroid.refrigerator_manament.databinding.ItemIngredientsBinding
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeTitleBinding
+import com.angdroid.refrigerator_manament.databinding.ItemSelfIngredientsBinding
+import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
+import com.angdroid.refrigerator_manament.presentation.camera.adapter.AddIngredientAdapter
+import timber.log.Timber
 
 class RecipeTitleAdapter(
-    context: Context, private val itemClickListener: (String) -> Unit,
-) : ListAdapter<String, RecyclerView.ViewHolder>(SearchListDiffCallBack) {
+    context: Context, private val itemClickListener: (RecipeEntity) -> Unit,
+) : ListAdapter<RecipeEntity, RecyclerView.ViewHolder>(RecipeListDiffCallBack) {
 
     private val inflater by lazy { LayoutInflater.from(context) }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return SearchItemViewHolder(
-            ItemRecipeTitleBinding.inflate(inflater, parent, false)
-        )
+        return when (viewType) {
+            TITLE -> {
+                RecipeTitleViewHolder(
+                    ItemRecipeTitleBinding.inflate(inflater, parent, false)
+                )
+            }
+            else -> {
+                RecipeDetailViewHolder(
+                    ItemIngredientDetailBinding.inflate(inflater, parent, false)
+                )
+            }
+        }
     }
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentItem = getItem(position)
-        with(holder as SearchItemViewHolder) {
-//            binding.setVariable(, currentItem)
-            binding.root.setOnClickListener { itemClickListener(currentItem) }
+        Timber.e(holder.itemViewType.toString())
+
+        when (holder.itemViewType) {
+            RECIPE -> {
+                with(holder as RecipeDetailViewHolder) {
+                    holder.binding.setVariable(BR.recipeItem, getItem(position))
+                    binding.root.setOnClickListener { itemClickListener(currentItem) }
+                }
+            }
+            TITLE -> {
+                with(holder as RecipeTitleViewHolder) {
+                    holder.binding.setVariable(BR.ingredient, getItem(position))
+                }
+            }
+
         }
     }
 
 
-    class SearchItemViewHolder(val binding: ItemRecipeTitleBinding) :
+    class RecipeTitleViewHolder(val binding: ItemRecipeTitleBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    class RecipeDetailViewHolder(val binding: ItemIngredientDetailBinding) :
+        RecyclerView.ViewHolder(binding.root)
+
+    override fun getItemViewType(position: Int): Int {
+        return if (getItem(position).id == "") TITLE else RECIPE
+    }
 
     companion object {
 
-        private object SearchListDiffCallBack : DiffUtil.ItemCallback<String>() {
+        const val TITLE = 0
+        const val RECIPE = 1
+
+        private object RecipeListDiffCallBack : DiffUtil.ItemCallback<RecipeEntity>() {
             override fun areItemsTheSame(
-                oldItem: String,
-                newItem: String
+                oldItem: RecipeEntity,
+                newItem: RecipeEntity
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: String,
-                newItem: String
+                oldItem: RecipeEntity,
+                newItem: RecipeEntity
             ): Boolean {
                 return oldItem == newItem
             }
