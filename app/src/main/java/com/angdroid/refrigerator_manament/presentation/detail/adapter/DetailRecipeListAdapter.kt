@@ -1,4 +1,4 @@
-package com.angdroid.refrigerator_manament.presentation.detail
+package com.angdroid.refrigerator_manament.presentation.detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,14 +13,14 @@ class DetailListAdapter :
     ListAdapter<RecipeEntity, DetailListAdapter.DetailViewHolder>(DetailDiffCallBack) {
     private lateinit var inflater: LayoutInflater
 
-    class DetailViewHolder(val binding: ItemIngredientDetailBinding) : ViewHolder(binding.root)
+    class DetailViewHolder(val binding: ItemRecipeDetailBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DetailViewHolder {
         if (!::inflater.isInitialized) {
             inflater = LayoutInflater.from(parent.context)
         }
         return DetailViewHolder(
-            ItemIngredientDetailBinding.inflate(inflater, parent, false)
+            ItemRecipeDetailBinding.inflate(inflater, parent, false)
         )
     }
 
