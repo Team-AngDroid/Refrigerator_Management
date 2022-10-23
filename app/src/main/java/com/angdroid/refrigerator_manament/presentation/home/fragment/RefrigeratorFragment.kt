@@ -9,8 +9,6 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRefrigeratorBinding
 import com.angdroid.refrigerator_manament.presentation.custom.DynamicGridLayoutManager
 import com.angdroid.refrigerator_manament.presentation.detail.DetailActivity
-import com.angdroid.refrigerator_manament.presentation.home.CategoryListAdapter
-import com.angdroid.refrigerator_manament.presentation.DynamicGridLayoutManager
 import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.IngredientViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
@@ -29,7 +27,7 @@ class RefrigeratorFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        App.fireStoreUserReference.set(list) //FireStore Map 추가 로직! 주석처리하는거 추천~~
+        //App.fireStoreUserReference.set(list) //FireStore Map 추가 로직! 주석처리하는거 추천~~
         setAdapter()
     }
 
