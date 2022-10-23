@@ -65,24 +65,44 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_space_12"
             android:orientation="horizontal"
-            app:constraint_referenced_ids="iv_recommend1,iv_recommend2"
+            app:constraint_referenced_ids="cv_recommend1,cv_recommen2"
             app:flow_horizontalGap="@dimen/sub_space_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_recommend" />
 
-
-        <ImageView
-            android:id="@+id/iv_recommend1"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_recommend1"
             android:layout_width="0dp"
+            app:cardElevation="5dp"
             android:layout_height="@dimen/sub_space_200"
-            app:load_default_ingredient="@{recommend1.img}" />
+            app:cardCornerRadius="12dp">
 
-        <ImageView
-            android:id="@+id/iv_recommend2"
+            <ImageView
+                android:id="@+id/iv_recommend1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sub_space_200"
+                android:scaleType="fitXY"
+                tools:src="@drawable/ic_time_gray"
+                app:load_default_ingredient="@{recommend1.img}" />
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_recommen2"
             android:layout_width="0dp"
+            app:cardElevation="5dp"
             android:layout_height="@dimen/sub_space_200"
-            app:load_default_ingredient="@{recommend2.img}" />
+            app:cardCornerRadius="12dp">
+
+            <ImageView
+                android:id="@+id/iv_recommend2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sub_space_200"
+                android:scaleType="fitXY"
+                tools:src="@drawable/ic_time_gray"
+                app:load_default_ingredient="@{recommend2.img}" />
+        </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow_recommend1"
@@ -91,11 +111,12 @@
             android:layout_marginStart="@dimen/sub_space_16"
             android:layout_marginBottom="@dimen/sub_space_20"
             android:orientation="vertical"
-            app:flow_horizontalAlign="start"
             app:constraint_referenced_ids="tv_recipe1_name,flow_recommend1_detail"
+            app:flow_horizontalAlign="start"
             app:flow_verticalGap="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_recommend1"
-            app:layout_constraintStart_toStartOf="@+id/iv_recommend1" />
+            android:elevation="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_recommend1"
+            app:layout_constraintStart_toStartOf="@+id/cv_recommend1" />
 
         <TextView
             android:id="@+id/tv_recipe1_name"
@@ -112,8 +133,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:elevation="6dp"
             app:constraint_referenced_ids="iv_recommend1_time,tv_recipe1_time"
             app:layout_constraintStart_toStartOf="@id/flow_recommend1" />
+
 
         <ImageView
             android:id="@+id/iv_recommend1_time"
@@ -142,11 +165,12 @@
             android:layout_marginStart="@dimen/sub_space_16"
             android:layout_marginBottom="@dimen/sub_space_20"
             android:orientation="vertical"
-            app:flow_horizontalAlign="start"
             app:constraint_referenced_ids="tv_recipe2_name,flow_recommend2_detail"
+            app:flow_horizontalAlign="start"
             app:flow_verticalGap="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_recommend2"
-            app:layout_constraintStart_toStartOf="@+id/iv_recommend2" />
+            android:elevation="6dp"
+            app:layout_constraintBottom_toBottomOf="@+id/cv_recommen2"
+            app:layout_constraintStart_toStartOf="@+id/cv_recommen2" />
 
 
         <androidx.constraintlayout.helper.widget.Flow
@@ -154,6 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:elevation="6dp"
             app:constraint_referenced_ids="iv_recommend2_time,tv_recipe2_time"
             app:layout_constraintStart_toStartOf="@id/flow_recommend2" />
 
