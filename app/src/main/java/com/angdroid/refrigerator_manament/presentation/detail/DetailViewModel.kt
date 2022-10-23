@@ -15,7 +15,9 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(private val firebaseRepository: FireBaseRepository) :
     ViewModel() {
     private val _recipeList = MutableStateFlow<List<RecipeEntity>>(listOf())
+    private val _foodList = MutableStateFlow<List<IngredientType.Food>>(listOf())
     val recipeList get() = _recipeList
+    val foodList get() = _foodList
     val selectItem = MutableStateFlow<IngredientType.Food?>(null)
     fun getAllRecipe() {
         viewModelScope.launch {
@@ -31,6 +33,9 @@ class DetailViewModel @Inject constructor(private val firebaseRepository: FireBa
         viewModelScope.launch {
             firebaseRepository.getIngredientRecipe(ingredient) {
                 _recipeList.value = it
+            }
+            firebaseRepository.getFood(ingredient) {
+                _foodList.value = it.sortedBy { it.expirationDate }
             }
         }
     }

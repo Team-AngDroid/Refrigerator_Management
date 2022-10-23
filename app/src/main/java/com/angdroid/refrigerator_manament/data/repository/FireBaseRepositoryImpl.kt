@@ -83,4 +83,27 @@ class FireBaseRepositoryImpl @Inject constructor(
             throw Exception(e.message)
         }
     }
+
+    override suspend fun getFood(
+        ingredient: String,
+        onComplete: (List<IngredientType.Food>) -> Unit
+    ) {
+        userInfoDataSource.getUserInfo().addOnSuccessListener {
+            onComplete(
+                userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
+                    FoodDto(
+                        (result["id"] as String),
+                        ((result["foodId"] as Long).toInt()),
+                        (result["expirationDate"] as String),
+                        (result["name"] as String),
+                        (result["image"] as String?),
+                        ((result["categoryId"] as Long).toInt()),
+                        ((result["foodCount"] as Long).toInt())
+                    )
+                }).filter { item -> item.name == ingredient }
+            )
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
 }
