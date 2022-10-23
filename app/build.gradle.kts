@@ -50,6 +50,9 @@ android {
 dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.3.1")
     implementation("com.google.firebase:firebase-messaging-ktx:23.0.8")
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     addAndroidXDependencies()
     addNetworkDependencies()
     addNavigationDependencies()

@@ -30,13 +30,17 @@
     <string name="refrigerator_fragment">Refrigerator fragment</string>
     <string name="recipe_fragment">Recipe fragment</string>
     <string name="camera_fragment">Camera fragment</string>
+    <string name="already_have_ingredient">#0D99FF</string>
 
     <string-array name="spinner_ingredients">
         <item>채소</item>
-        <item>과일, 견과, 쌀</item>
-        <item>육류, 계란류</item>
+        <item>과일 · 견과 · 쌀</item>
+        <item>육류 · 계란류</item>
         <item>유제품</item>
-        <item>수산, 해산</item>
+        <item>수산 · 해산</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="suggest_recipe">💁🏻‍♀️ 추천 레시피</string>
 
 </resources>

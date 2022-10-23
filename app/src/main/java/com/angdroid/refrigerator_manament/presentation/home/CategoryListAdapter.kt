@@ -13,8 +13,7 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class CategoryListAdapter(
-    private val itemClickListener: (IngredientType.Food) -> Unit,
-    private val itemRemoveListener: (IngredientType.Food) -> Unit
+    private val itemClickListener: (IngredientType.Food) -> Unit
 ) : ListAdapter<IngredientType, RecyclerView.ViewHolder>(FoodListDiffCallBack) {
     private lateinit var inflater: LayoutInflater
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -42,7 +41,6 @@ class CategoryListAdapter(
                 with(holder as CategoryViewHolder) {
                     binding.setVariable(BR.food, (currentItem as IngredientType.Food))
                     binding.root.setOnClickListener { itemClickListener(currentItem) }
-                    binding.ivRemove.setOnClickListener { itemRemoveListener(currentItem) }
                     if (position == itemCount - 1) {
                         binding.clFood.layoutParams =
                             (binding.clFood.layoutParams as ViewGroup.MarginLayoutParams).apply {
