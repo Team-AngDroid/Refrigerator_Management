@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.snackbar.Snackbar.make
 
 fun View.makeSnackbar(messgae: String) {
     Snackbar.make(
