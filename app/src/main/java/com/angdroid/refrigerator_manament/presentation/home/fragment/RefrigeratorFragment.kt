@@ -9,13 +9,14 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRefrigeratorBinding
 import com.angdroid.refrigerator_manament.presentation.custom.DynamicGridLayoutManager
 import com.angdroid.refrigerator_manament.presentation.detail.DetailActivity
-import com.angdroid.refrigerator_manament.presentation.home.CategoryListAdapter
+import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.IngredientViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.presentation.util.getSpanSizeLookUp
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import com.startup.meetiing.presentation.state.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.LocalDate
 
 @AndroidEntryPoint
 class RefrigeratorFragment :
@@ -26,6 +27,7 @@ class RefrigeratorFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //App.fireStoreUserReference.set(list) //FireStore Map 추가 로직! 주석처리하는거 추천~~
         setAdapter()
     }
 

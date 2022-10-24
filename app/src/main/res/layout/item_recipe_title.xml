@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="ingredient"
+            type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_marginTop="@dimen/sub_space_24"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/sub_space_16"
+        android:text="@{ingredient.name}"
+        android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Bold.TextAppearance"
+        android:textColor="@color/primary_skyblue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="사과" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/made_by"
+        android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Bold.TextAppearance"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/made_by" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

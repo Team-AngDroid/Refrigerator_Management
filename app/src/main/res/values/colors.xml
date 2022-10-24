@@ -14,6 +14,7 @@
     <color name="warn_red">#ED5D77</color>
     <color name="gray1">#555555</color>
     <color name="gray2">#888888</color>
+    <color name="recipe_gray">#DDDDDD</color>
     <color name="search_light_gray">#E2EBF1</color>
     <color name="search_gray">#9DABB4</color>
     <color name="white_detail_title">#FAFBFC</color>

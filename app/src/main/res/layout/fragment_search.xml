@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.home.fragment.SearchFragment">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="@dimen/sub_space_16"
+            android:rotation="180"
+            android:src="@drawable/ic_arrow"
+            app:layout_constraintBottom_toBottomOf="@+id/layout_et_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layout_et_search" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_et_search"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/sub_space_54"
+            android:layout_marginEnd="@dimen/sub_space_16"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/sub_space_6"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_search">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/auto_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_rectangle_searchgray_12"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:hint="@string/recipe_hint"
+                android:maxLines="1"
+                android:inputType="text"
+                android:paddingVertical="0dp"
+                android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
+                android:textColor="@color/black"
+                android:textColorHint="@color/search_gray" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_search"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/sub_space_16"
+            android:layout_marginVertical="@dimen/sub_space_12"
+            android:orientation="vertical"
+            android:text="@string/search_recipe"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_et_search"
+            tools:listitem="@layout/item_search_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
