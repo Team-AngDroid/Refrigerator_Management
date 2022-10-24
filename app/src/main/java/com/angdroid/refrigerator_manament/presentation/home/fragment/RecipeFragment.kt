@@ -4,16 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ConcatAdapter
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
-import com.angdroid.refrigerator_manament.presentation.detail.DetailListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.RecipeViewmodel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeTitleAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 
 @AndroidEntryPoint
 class RecipeFragment:
@@ -35,6 +34,7 @@ class RecipeFragment:
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //recipeViewModel.getAllRecipe()
+        Dispatchers.Default
         collectData()
         setAdapter()
         binding.etSearch.setOnClickListener {

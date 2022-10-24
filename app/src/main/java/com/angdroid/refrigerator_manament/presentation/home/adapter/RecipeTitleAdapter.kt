@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemIngredientDetailBinding
+import com.angdroid.refrigerator_manament.databinding.ItemRecipeDetailBinding
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeTitleBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 
@@ -25,7 +26,7 @@ class RecipeTitleAdapter(
             }
             else -> {
                 RecipeDetailViewHolder(
-                    ItemIngredientDetailBinding.inflate(inflater, parent, false)
+                    ItemRecipeDetailBinding.inflate(inflater, parent, false)
                 )
             }
         }
@@ -55,7 +56,7 @@ class RecipeTitleAdapter(
     class RecipeTitleViewHolder(val binding: ItemRecipeTitleBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class RecipeDetailViewHolder(val binding: ItemIngredientDetailBinding) :
+    class RecipeDetailViewHolder(val binding: ItemRecipeDetailBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun getItemViewType(position: Int): Int {
