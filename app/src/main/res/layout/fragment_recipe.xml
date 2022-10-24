@@ -14,220 +14,224 @@
             type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.home.fragment.CameraFragment">
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_et_search"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sub_space_54"
-            android:gravity="center_vertical"
-            app:boxStrokeWidth="0dp"
-            app:boxStrokeWidthFocused="0dp"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:startIconDrawable="@drawable/ic_search">
+            android:layout_height="match_parent"
+            tools:context=".presentation.home.fragment.CameraFragment">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_search"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_et_search"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/shape_rectangle_searchgray_12"
-                android:clickable="true"
-                android:layout_marginHorizontal="@dimen/sub_space_16"
-                android:focusable="false"
+                android:layout_height="@dimen/sub_space_54"
                 android:gravity="center_vertical"
-                android:hint="@string/recipe_hint"
-                android:paddingVertical="0dp"
-                android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:startIconDrawable="@drawable/ic_search">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/sub_space_16"
+                    android:background="@drawable/shape_rectangle_searchgray_12"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:hint="@string/recipe_hint"
+                    android:paddingVertical="0dp"
+                    android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/search_gray" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/tv_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/sub_space_16"
+                android:layout_marginTop="@dimen/sub_space_24"
+                android:text="@string/recommended_recipe"
+                android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Bold.TextAppearance"
+                app:layout_constraintStart_toStartOf="@+id/layout_et_search"
+                app:layout_constraintTop_toBottomOf="@+id/layout_et_search" />
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/sub_space_16"
+                android:layout_marginTop="@dimen/sub_space_12"
+                android:orientation="horizontal"
+                app:constraint_referenced_ids="cv_recommend1,cv_recommen2"
+                app:flow_horizontalGap="@dimen/sub_space_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_recommend" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_recommend1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/sub_space_200"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp">
+
+                <ImageView
+                    android:id="@+id/iv_recommend1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sub_space_200"
+                    android:scaleType="fitXY"
+                    app:load_default_ingredient="@{recommend1.image}"
+                    tools:src="@drawable/ic_time_gray" />
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_recommen2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/sub_space_200"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="5dp">
+
+                <ImageView
+                    android:id="@+id/iv_recommend2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/sub_space_200"
+                    android:scaleType="fitXY"
+                    app:load_default_ingredient="@{recommend2.image}"
+                    tools:src="@drawable/ic_time_gray" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow_recommend1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sub_space_16"
+                android:layout_marginBottom="@dimen/sub_space_20"
+                android:elevation="6dp"
+                android:orientation="vertical"
+                app:constraint_referenced_ids="tv_recipe1_name,flow_recommend1_detail"
+                app:flow_horizontalAlign="start"
+                app:flow_verticalGap="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_recommend1"
+                app:layout_constraintStart_toStartOf="@+id/cv_recommend1" />
+
+            <TextView
+                android:id="@+id/tv_recipe1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{recommend1.name}"
+                android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
                 android:textColor="@color/black"
-                android:textColorHint="@color/search_gray" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
+                tools:text="@string/recipe" />
 
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow_recommend1_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="6dp"
+                android:orientation="horizontal"
+                app:constraint_referenced_ids="iv_recommend1_time,tv_recipe1_time"
+                app:layout_constraintStart_toStartOf="@id/flow_recommend1" />
 
-        <TextView
-            android:id="@+id/tv_recommend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sub_space_24"
-            android:layout_marginHorizontal="@dimen/sub_space_16"
-            android:text="@string/recommended_recipe"
-            android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Bold.TextAppearance"
-            app:layout_constraintStart_toStartOf="@+id/layout_et_search"
-            app:layout_constraintTop_toBottomOf="@+id/layout_et_search" />
-
-        <androidx.constraintlayout.helper.widget.Flow
-            android:id="@+id/flow_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/sub_space_12"
-            android:orientation="horizontal"
-            app:constraint_referenced_ids="cv_recommend1,cv_recommen2"
-            app:flow_horizontalGap="@dimen/sub_space_8"
-            android:layout_marginHorizontal="@dimen/sub_space_16"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_recommend" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_recommend1"
-            android:layout_width="0dp"
-            app:cardElevation="5dp"
-            android:layout_height="@dimen/sub_space_200"
-            app:cardCornerRadius="12dp">
 
             <ImageView
-                android:id="@+id/iv_recommend1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/sub_space_200"
-                android:scaleType="fitXY"
-                tools:src="@drawable/ic_time_gray"
-                app:load_default_ingredient="@{recommend1.image}" />
-        </androidx.cardview.widget.CardView>
+                android:id="@+id/iv_recommend1_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
+                app:layout_constraintEnd_toStartOf="@+id/tv_recipe1_time"
+                app:layout_constraintTop_toTopOf="@+id/tv_recipe1_time"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_recipe1_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{recommend1.time}"
+                android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
+                tools:text="5분" />
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_recommen2"
-            android:layout_width="0dp"
-            app:cardElevation="5dp"
-            android:layout_height="@dimen/sub_space_200"
-            app:cardCornerRadius="12dp">
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow_recommend2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/sub_space_16"
+                android:layout_marginBottom="@dimen/sub_space_20"
+                android:elevation="6dp"
+                android:orientation="vertical"
+                app:constraint_referenced_ids="tv_recipe2_name,flow_recommend2_detail"
+                app:flow_horizontalAlign="start"
+                app:flow_verticalGap="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cv_recommen2"
+                app:layout_constraintStart_toStartOf="@+id/cv_recommen2" />
+
+
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/flow_recommend2_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="6dp"
+                android:orientation="horizontal"
+                app:constraint_referenced_ids="iv_recommend2_time,tv_recipe2_time"
+                app:layout_constraintStart_toStartOf="@id/flow_recommend2" />
+
+            <TextView
+                android:id="@+id/tv_recipe2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{recommend2.name}"
+                android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
+                tools:text="@string/recipe" />
 
             <ImageView
-                android:id="@+id/iv_recommend2"
+                android:id="@+id/iv_recommend2_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_time_gray"
+                app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
+                app:layout_constraintEnd_toStartOf="@+id/tv_recipe2_time"
+                app:layout_constraintTop_toTopOf="@+id/tv_recipe2_time"
+                app:tint="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_recipe2_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{recommend2.time}"
+                android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
+                tools:text="5분" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_recipe"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/sub_space_200"
-                android:scaleType="fitXY"
-                tools:src="@drawable/ic_time_gray"
-                app:load_default_ingredient="@{recommend2.image}" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.constraintlayout.helper.widget.Flow
-            android:id="@+id/flow_recommend1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sub_space_16"
-            android:layout_marginBottom="@dimen/sub_space_20"
-            android:orientation="vertical"
-            app:constraint_referenced_ids="tv_recipe1_name,flow_recommend1_detail"
-            app:flow_horizontalAlign="start"
-            app:flow_verticalGap="8dp"
-            android:elevation="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_recommend1"
-            app:layout_constraintStart_toStartOf="@+id/cv_recommend1" />
-
-        <TextView
-            android:id="@+id/tv_recipe1_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{recommend1.name}"
-            android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
-            tools:text="@string/recipe" />
-
-        <androidx.constraintlayout.helper.widget.Flow
-            android:id="@+id/flow_recommend1_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:elevation="6dp"
-            app:constraint_referenced_ids="iv_recommend1_time,tv_recipe1_time"
-            app:layout_constraintStart_toStartOf="@id/flow_recommend1" />
-
-
-        <ImageView
-            android:id="@+id/iv_recommend1_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_time_gray"
-            app:tint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
-            app:layout_constraintEnd_toStartOf="@+id/tv_recipe1_time"
-            app:layout_constraintTop_toTopOf="@+id/tv_recipe1_time" />
-
-        <TextView
-            android:id="@+id/tv_recipe1_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{recommend1.time}"
-            android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
-            tools:text="5분" />
-
-
-        <androidx.constraintlayout.helper.widget.Flow
-            android:id="@+id/flow_recommend2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/sub_space_16"
-            android:layout_marginBottom="@dimen/sub_space_20"
-            android:orientation="vertical"
-            app:constraint_referenced_ids="tv_recipe2_name,flow_recommend2_detail"
-            app:flow_horizontalAlign="start"
-            app:flow_verticalGap="8dp"
-            android:elevation="6dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cv_recommen2"
-            app:layout_constraintStart_toStartOf="@+id/cv_recommen2" />
-
-
-        <androidx.constraintlayout.helper.widget.Flow
-            android:id="@+id/flow_recommend2_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:elevation="6dp"
-            app:constraint_referenced_ids="iv_recommend2_time,tv_recipe2_time"
-            app:layout_constraintStart_toStartOf="@id/flow_recommend2" />
-
-        <TextView
-            android:id="@+id/tv_recipe2_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{recommend2.name}"
-            android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
-            tools:text="@string/recipe" />
-
-        <ImageView
-            android:id="@+id/iv_recommend2_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_time_gray"
-            app:tint="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/flow_recommend1"
-            app:layout_constraintEnd_toStartOf="@+id/tv_recipe2_time"
-            app:layout_constraintTop_toTopOf="@+id/tv_recipe2_time" />
-
-        <TextView
-            android:id="@+id/tv_recipe2_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{recommend2.time}"
-            android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
-            tools:text="5분" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_recipe"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="vertical"
-            tools:listitem="@layout/item_ingredient_detail"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flow_recommend" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/flow_recommend"
+                tools:listitem="@layout/item_ingredient_detail" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>
