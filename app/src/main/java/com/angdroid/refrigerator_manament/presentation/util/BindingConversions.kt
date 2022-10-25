@@ -39,29 +39,30 @@ fun TextView.categoryText(categoryId: Int) {
 
 @BindingAdapter("app:necessary_ingredients")
 fun TextView.necessaryIngredients(ingredients: List<String>) {
+    if (App.getUserIngredientInfoInitialized()) {
+        App.userIngredientInfo.run {
+            val comparator: Comparator<String> =
+                compareByDescending {
+                    this.contains(it)
+                }
+            val sortedIngredients = ingredients.sortedWith(comparator)
 
-    App.userIngredientInfo.apply {
-        val comparator: Comparator<String> =
-            compareByDescending {
-                this.contains(it)
+            val builder =
+                SpannableStringBuilder(sortedIngredients.joinToString("·"))
+            this.forEach { ingredient ->
+                val startIndex = builder.indexOf(ingredient)
+                if (startIndex > -1) {
+                    val span =
+                        ForegroundColorSpan(Color.parseColor(resources.getString(R.string.already_have_ingredient)))
+                    builder.setSpan(
+                        span,
+                        startIndex,
+                        startIndex + ingredient.length,
+                        Spanned.SPAN_EXCLUSIVE_INCLUSIVE
+                    )
+                }
             }
-        val sortedIngredients = ingredients.sortedWith(comparator)
-
-        val builder =
-            SpannableStringBuilder(sortedIngredients.joinToString("·"))
-        this.forEach { ingredient ->
-            val startIndex = builder.indexOf(ingredient)
-            if (startIndex > -1) {
-                val span =
-                    ForegroundColorSpan(Color.parseColor(resources.getString(R.string.already_have_ingredient)))
-                builder.setSpan(
-                    span,
-                    startIndex,
-                    startIndex + ingredient.length,
-                    Spanned.SPAN_EXCLUSIVE_INCLUSIVE
-                )
-            }
+            text = builder
         }
-        text = builder
     }
 }
