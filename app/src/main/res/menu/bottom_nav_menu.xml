@@ -7,7 +7,7 @@
         android:title="@string/refrigerator" />
 
     <item
-        android:id="@+id/fragment_recipe"
+        android:id="@+id/recipe_nav_graph"
         android:iconTint="@color/gray2"
         android:icon="@drawable/ic_recipe"
         android:title="@string/recipe" />

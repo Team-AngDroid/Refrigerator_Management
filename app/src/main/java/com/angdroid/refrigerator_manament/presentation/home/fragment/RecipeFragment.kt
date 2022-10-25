@@ -38,10 +38,8 @@ class RecipeFragment:
         collectData()
         setAdapter()
         binding.etSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_recipe_to_searchFragment)
+            findNavController().navigate(R.id.action_recipeFragment_to_searchFragment)
         }
-
-
     }
 
     private fun setAdapter(){
