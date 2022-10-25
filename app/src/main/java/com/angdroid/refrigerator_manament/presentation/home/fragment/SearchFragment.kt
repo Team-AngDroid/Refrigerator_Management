@@ -1,6 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.home.fragment
 
-import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -36,7 +36,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private fun init(){
         binding.autoSearch.requestFocus() //키보드 focus
         val inputMethodManager =
-            context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.autoSearch, 0) //키보드 자동으로 올라오도록
     }
 
