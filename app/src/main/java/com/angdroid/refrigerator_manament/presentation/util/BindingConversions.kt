@@ -26,7 +26,6 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
     }
 }
 
-
 @BindingAdapter("app:load_default_ingredient")
 fun ImageView.loadDefaultIngredient(foodName: String) {
     this.setImageResource(FoodTypeFeatures.valueOf(foodName).imageRes)
@@ -65,4 +64,28 @@ fun TextView.necessaryIngredients(ingredients: List<String>) {
             text = builder
         }
     }
+}
+
+@BindingAdapter("foodName", "foodCount")
+fun spanColorCount(textView: TextView, foodName: String, foodCount: Int) {
+    val builder = SpannableStringBuilder(
+        textView.resources.getString(
+            R.string.ingredient,
+            foodName,
+            foodCount
+        )
+    )
+    val span =
+        ForegroundColorSpan(Color.parseColor(textView.resources.getString(R.string.already_have_ingredient)))
+    builder.indexOf(foodCount.toString()).run {
+        if (this > -1) {
+            builder.setSpan(
+                span,
+                this,
+                this + foodCount.toString().length,
+                Spanned.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+        }
+    }
+    textView.text = builder
 }
