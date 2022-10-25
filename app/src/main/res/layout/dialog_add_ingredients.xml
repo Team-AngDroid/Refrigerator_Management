@@ -37,6 +37,7 @@
             android:padding="@dimen/sub_space_16"
             android:paddingStart="@dimen/sub_space_16"
             android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
+            android:textCursorDrawable="@drawable/cursor_skyblue_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title" />

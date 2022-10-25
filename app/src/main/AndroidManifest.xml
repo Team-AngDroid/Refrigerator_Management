@@ -29,6 +29,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.home.HomeActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

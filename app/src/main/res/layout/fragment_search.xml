@@ -24,9 +24,9 @@
             android:id="@+id/layout_et_search"
             android:layout_width="0dp"
             android:layout_height="@dimen/sub_space_54"
+            android:layout_marginStart="@dimen/sub_space_6"
             android:layout_marginEnd="@dimen/sub_space_16"
             android:gravity="center_vertical"
-            android:layout_marginStart="@dimen/sub_space_6"
             app:boxStrokeWidth="0dp"
             app:boxStrokeWidthFocused="0dp"
             app:hintEnabled="false"
@@ -44,12 +44,13 @@
                 android:focusable="true"
                 android:gravity="center_vertical"
                 android:hint="@string/recipe_hint"
-                android:maxLines="1"
                 android:inputType="text"
+                android:maxLines="1"
                 android:paddingVertical="0dp"
                 android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
                 android:textColor="@color/black"
-                android:textColorHint="@color/search_gray" />
+                android:textColorHint="@color/search_gray"
+                android:textCursorDrawable="@drawable/cursor_skyblue_2" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,7 @@
             android:layout_marginHorizontal="@dimen/sub_space_16"
             android:layout_marginVertical="@dimen/sub_space_12"
             android:orientation="vertical"
+            android:overScrollMode="never"
             android:text="@string/search_recipe"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

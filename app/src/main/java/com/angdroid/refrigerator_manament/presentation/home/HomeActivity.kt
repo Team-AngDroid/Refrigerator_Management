@@ -12,6 +12,7 @@ import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
 import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
+import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +30,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         val host = supportFragmentManager.findFragmentById(R.id.nav_container) as NavHostFragment?
             ?: return
         navController = host.navController
-        binding.bottomNavHome.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.appbarHome.title = when (destination.id) {
@@ -42,7 +42,28 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     }
 
     private fun setOnClickListener() {
-        binding.fabCamera.setOnClickListener {
+        binding.bottomNavHome.setOnItemSelectedListener {
+            // 경로를 navigation을 통해서 직접 지정해주어서
+            //BottomNavigation Listener에 액션형태로 적용
+            when (it.itemId) {
+                R.id.fragment_recipe -> {
+                    navController.navigate(R.id.action_fragment_refrigerator_to_fragment_recipe)
+                    return@setOnItemSelectedListener true
+                }
+                else -> {
+                    if(navController.currentDestination!!.id == R.id.fragment_recipe){
+                        navController.navigate(R.id.action_fragment_recipe_to_fragment_refrigerator)
+                        return@setOnItemSelectedListener true
+                    }
+                    else{
+                        navController.navigate(R.id.action_fragment_search_to_fragment_refrigerator)
+                        return@setOnItemSelectedListener true
+                    }
+                }
+            }
+        }
+        
+        binding.fabCamera.setOnSingleClickListener {
             if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
                 showPermissionContextPopup()
             } else {
