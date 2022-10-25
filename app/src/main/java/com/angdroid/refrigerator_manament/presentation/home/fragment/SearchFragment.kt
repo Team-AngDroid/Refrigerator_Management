@@ -1,7 +1,9 @@
 package com.angdroid.refrigerator_manament.presentation.home.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
@@ -26,8 +28,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
         setAdapters()
         setListeners()
+    }
+
+    private fun init(){
+        binding.autoSearch.requestFocus() //키보드 focus
+        val inputMethodManager =
+            context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.autoSearch, 0) //키보드 자동으로 올라오도록
     }
 
     private fun setAdapters(){
@@ -40,8 +50,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun setListeners(){
-        binding.autoSearch.requestFocus()
-
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -53,6 +61,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 searchAdapter.submitList(resultList)
             binding.autoSearch.text = null
         }
+
     }
 
 }
