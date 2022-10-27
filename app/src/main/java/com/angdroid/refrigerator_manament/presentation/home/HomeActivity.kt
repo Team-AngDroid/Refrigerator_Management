@@ -15,6 +15,7 @@ import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
 import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
 import com.angdroid.refrigerator_manament.presentation.util.types.Food
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
@@ -34,10 +35,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         val recipeSet = mutableSetOf<String>()
         val foodSet = mutableSetOf<String>()
         while (recipeSet.size < 2){
-            recipeSet.add(Food.FOOD[(0..Food.FOOD.size).random()])
-            foodSet.add(Food.FOOD[(0..Food.FOOD.size).random()])
+            recipeSet.add(Food.FOOD[(0 until Food.FOOD.size).random(Random(System.nanoTime()))])
+            foodSet.add(Food.FOOD[(0 until Food.FOOD.size).random(Random(System.nanoTime()))])
         }
-        recipeViewModel.getIngredientRecipe(recipeSet.toList())
+        recipeViewModel.getRandomRecipe(recipeSet.toList()) // 랜덤 레시피 두개 받아오는 작업
     }
 
     private fun setNavigation() {

@@ -7,8 +7,8 @@ import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBaseRepository) :
@@ -21,27 +21,24 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
     //랜덤 식재료 레시피들
     val randomIngredientRecipeList get() = _randomIngredientRecipeList
 
-    fun getIngredientRecipe(ingredient: List<String>) {
+    fun getRandomRecipe(ingredient: List<String>) {
 
         viewModelScope.launch {
             val list = mutableListOf<RecipeEntity>()
 
             ingredient.forEach {
                 firebaseRepository.getIngredientRecipe(it) { randomIngredient ->
-                        list.add(randomIngredient[(0..randomIngredient.size).random()])
-                    Timber.e(list.toString())
-                    _randomIngredientRecipeList.value = list // value값 지정도 firebaseRepository안에 있어야함~!!!!!!!
-                    Timber.e(_randomIngredientRecipeList.value.toString())
+                        list.add(randomIngredient[(randomIngredient.indices).random(Random(System.nanoTime()))])
+                    _randomRecipeList.value = list // value값 지정도 firebaseRepository안에 있어야함~!!!!!!!
                 }
             }
         }
     }
 
-    fun getRandomRecipe(ingredient: String) {
-
+    fun getIngredientRecipe(ingredient: String) {
         viewModelScope.launch {
             firebaseRepository.getIngredientRecipe(ingredient) {
-                _randomRecipeList.value = it
+                _randomIngredientRecipeList.value = it
             }
         }
     }

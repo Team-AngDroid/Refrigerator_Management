@@ -26,19 +26,12 @@ class RecipeFragment :
     private lateinit var recipeAdapter: RecipeTitleAdapter
     private lateinit var recipeAdapter2: RecipeTitleAdapter
 
-    private val hardRecipeList = listOf<RecipeEntity>(
-        RecipeEntity("", "당큰케이크", "20분", "", "당근", listOf()),
-        RecipeEntity("", "과일 사라다", "30분", "", "사과", listOf()),
-        RecipeEntity("", "체다슬라이스칩스", "40분", "", "치즈", listOf()),
-        RecipeEntity("", "무생채", "60분", "", "무우", listOf()),
-        RecipeEntity("", "에어프라이어치킨", "30분", "", "생닭", listOf()),
-    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //recipeViewModel.getAllRecipe()
         collectData()
-        Timber.e(recipeViewModel.randomIngredientRecipeList.value.toString())
+        binding.reciepviewmodel = recipeViewModel
+
         setAdapter()
         binding.etSearch.setOnClickListener {
             findNavController().navigate(R.id.action_recipeFragment_to_searchFragment)
@@ -144,10 +137,7 @@ class RecipeFragment :
 
 
     private fun collectData() {
-        collectFlowWhenStarted(recipeViewModel.randomIngredientRecipeList){
-            binding.recommend1 = recipeViewModel.randomIngredientRecipeList.value[0]
-            binding.recommend2 = recipeViewModel.randomIngredientRecipeList.value[1]
-        }
+
     }
 //        binding.recommend1 = hardRecipeList[set.elementAt(0)]
 //        binding.recommend2 = hardRecipeList[set.elementAt(1)]
