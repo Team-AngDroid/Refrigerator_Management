@@ -31,7 +31,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         setOnClickListener()
     }
 
-    private fun setRecipe() {
+    private fun setRecipe() { 
+        // 해당 작업을 액티비티에서 해준 이유
+        // fragment에서 해당 로직을 해준다면, 프래그먼트를 전환할때 마다 레시피가 랜덤하게 호출되고
+        // 그렇게 되면 서버호출이 과도하게 많아진다는 느낌이 들어서 액티비티에서만 random Recipe를 호출해주고 
+        // 프래그먼트 전환간 서버호출이 발생하지 않도록 조절
         val recipeSet = mutableSetOf<String>()
         val foodSet = mutableSetOf<String>()
         while (recipeSet.size < 2) {

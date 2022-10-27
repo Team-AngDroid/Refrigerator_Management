@@ -7,12 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.angdroid.refrigerator_manament.BR
-import com.angdroid.refrigerator_manament.databinding.ItemIngredientDetailBinding
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeDetailBinding
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeTitleBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 
-class RecipeTitleAdapter(
+class RecipeAdapter(
     context: Context, private val itemClickListener: (RecipeEntity) -> Unit,
 ) : ListAdapter<RecipeEntity, RecyclerView.ViewHolder>(RecipeListDiffCallBack) {
 

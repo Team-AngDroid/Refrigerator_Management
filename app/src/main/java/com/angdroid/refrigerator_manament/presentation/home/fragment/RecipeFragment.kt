@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
 import com.angdroid.refrigerator_manament.presentation.home.RecipeViewModel
-import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeTitleAdapter
+import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +17,7 @@ class RecipeFragment :
 
     private val recipeViewModel: RecipeViewModel by activityViewModels()
 
-    private lateinit var recipeAdapter: RecipeTitleAdapter
+    private lateinit var recipeAdapter: RecipeAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,7 +30,7 @@ class RecipeFragment :
     }
 
     private fun setAdapter() {
-        recipeAdapter = RecipeTitleAdapter(requireContext(), {})
+        recipeAdapter = RecipeAdapter(requireContext(), {})
         binding.rcvRecipe.adapter = recipeAdapter
         recipeAdapter.submitList(recipeViewModel.randomIngredientRecipeList.value.toList())
     }

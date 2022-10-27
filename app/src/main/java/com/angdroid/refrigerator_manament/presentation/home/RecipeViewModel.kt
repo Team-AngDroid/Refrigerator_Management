@@ -23,6 +23,7 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
 
     private val _searchIngredientRecipeList = MutableStateFlow<List<RecipeEntity>>(listOf())
     val searchIngredientList get() = _searchIngredientRecipeList
+    //검색 결과 레시피들
 
     fun getRandomRecipe(ingredient: List<String>) {
         viewModelScope.launch {
