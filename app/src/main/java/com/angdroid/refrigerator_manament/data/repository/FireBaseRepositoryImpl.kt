@@ -16,6 +16,7 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import com.angdroid.refrigerator_manament.domain.util.ApiResult
 import com.google.firebase.firestore.FieldValue
+import kotlinx.coroutines.coroutineScope
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -71,19 +72,21 @@ class FireBaseRepositoryImpl @Inject constructor(
     override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
         val now = LocalDate.now()
         userInfoDataSource.getUserInfo().addOnSuccessListener {
-            onComplete(
-                userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
-                    FoodDto(
-                        (result["id"] as String),
-                        ((result["foodId"] as Long).toInt()),
-                        (result["expirationDate"] as String),
-                        (result["name"] as String),
-                        (result["image"] as String?),
-                        ((result["categoryId"] as Long).toInt()),
-                        ((result["foodCount"] as Long).toInt())
-                    )
-                }).filter { it.expirationDate >= now } as ArrayList<IngredientType>
-            )
+
+            userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
+                FoodDto(
+                    (result["id"] as String),
+                    ((result["foodId"] as Long).toInt()),
+                    (result["expirationDate"] as String),
+                    (result["name"] as String),
+                    (result["image"] as String?),
+                    ((result["categoryId"] as Long).toInt()),
+                    ((result["foodCount"] as Long).toInt())
+                )
+            }).filter { it.expirationDate >= now }.run {
+                userInfoDataSource.setFoodInfo(userMapper.mapToDto(this))
+                onComplete(this as ArrayList<IngredientType>)
+            }
         }.addOnFailureListener { e ->
             throw Exception(e.message)
         }
