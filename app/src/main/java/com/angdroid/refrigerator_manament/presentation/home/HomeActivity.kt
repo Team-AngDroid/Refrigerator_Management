@@ -3,8 +3,8 @@ package com.angdroid.refrigerator_manament.presentation.home
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.angdroid.refrigerator_manament.R
@@ -13,17 +13,31 @@ import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
 import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
+import com.angdroid.refrigerator_manament.presentation.util.types.Food
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
-    private lateinit var navController: NavController
+    private val recipeViewModel : RecipeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.lifecycleOwner = this
+
+        setRecipe()
         setNavigation()
         setOnClickListener()
+    }
+
+    private fun setRecipe(){
+        val recipeSet = mutableSetOf<String>()
+        val foodSet = mutableSetOf<String>()
+        while (recipeSet.size < 2){
+            recipeSet.add(Food.FOOD[(0..Food.FOOD.size).random()])
+            foodSet.add(Food.FOOD[(0..Food.FOOD.size).random()])
+        }
+        recipeViewModel.getIngredientRecipe(recipeSet.toList())
     }
 
     private fun setNavigation() {
