@@ -14,6 +14,7 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.util.CategoryType
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
+import java.time.LocalDate
 
 
 @BindingAdapter("app:load_remote_coil_corner")
@@ -87,4 +88,30 @@ fun spanColorCount(textView: TextView, foodName: String, foodCount: Int) {
         }
     }
     textView.text = builder
+}
+
+@BindingAdapter("app:setExpirationDate")
+fun TextView.setExpirationDate(expirationDate: LocalDate) {
+    val now = LocalDate.now()
+
+    if (expirationDate.year == now.year) {
+        text =
+            resources.getString(R.string.until_day, (expirationDate.dayOfYear - now.dayOfYear))
+        if ((expirationDate.dayOfYear - now.dayOfYear) <= 3) {
+            setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0)
+            compoundDrawablePadding = 4.dpToPx(context)
+            setTextColor(Color.parseColor(resources.getString(R.color.warn_red)))
+        }
+    } else {
+        text = resources.getString(
+            R.string.until_day,
+            (365 - now.dayOfYear) + expirationDate.dayOfYear
+        )
+        if ((365 - now.dayOfYear) + expirationDate.dayOfYear <= 3) {
+            setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0)
+            compoundDrawablePadding = 4.dpToPx(context)
+            setTextColor(Color.parseColor(resources.getString(R.color.warn_red)))
+        }
+
+    }
 }
