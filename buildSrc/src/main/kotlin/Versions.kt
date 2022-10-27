@@ -18,7 +18,7 @@ object Versions {
     const val recyclerView = "1.2.1"
     const val junit = "1.1.3"
 
-    const val lottieVersion = "3.6.0"
+    const val lottieVersion = "5.2.0"
     const val retrofitVersion = "2.9.0"
     const val okHttpVersion = "4.9.3"
     const val coilVersion = "1.4.0"
