@@ -5,26 +5,65 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
+import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailListAdapter
+import com.angdroid.refrigerator_manament.presentation.home.RecipeViewModel
+import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.adapter.SearchAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
+import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
-    private val recipes
-    =
-        listOf("당근케이크", "카레", "당근 머핀", "오이소박이", "오이미역냉국", "오이 무침", "무생채", "고등어 무조림"
-        ,"과일 사라다","사과 잼","사과 무상채 무침","배도라지대추차","배깍두기","사과배깍두기","귤잼","귤 그라니따","귤 머핀"
-        ,"계란 장조림","계란말이","에어프라이어 치킨","닭볶음탕","닭가슴오이냉채","우유 푸딩","딸기 우유","에그치즈토스트","체다치즈칩스"
-        ,"새우장","칠리새우","브로콜리 새우 볶음","오징어 볶음","오징어 찌개","고등어 구이","고등어 김치 조림","고등어 김치찜"
+    private val recipes =
+        listOf(
+            "당근케이크",
+            "카레",
+            "당근 머핀",
+            "오이소박이",
+            "오이미역냉국",
+            "오이 무침",
+            "무생채",
+            "고등어 무조림",
+            "과일 사라다",
+            "사과 잼",
+            "사과 무상채 무침",
+            "배도라지대추차",
+            "배깍두기",
+            "사과배깍두기",
+            "귤잼",
+            "귤 그라니따",
+            "귤 머핀",
+            "계란 장조림",
+            "계란말이",
+            "에어프라이어 치킨",
+            "닭볶음탕",
+            "닭가슴오이냉채",
+            "우유 푸딩",
+            "딸기 우유",
+            "에그치즈토스트",
+            "체다치즈칩스",
+            "새우장",
+            "칠리새우",
+            "브로콜리 새우 볶음",
+            "오징어 볶음",
+            "오징어 찌개",
+            "고등어 구이",
+            "고등어 김치 조림",
+            "고등어 김치찜"
         ) //TODO 띄어쓰기 같은거 통일 필요할듯
 
     private lateinit var autoAdapter: ArrayAdapter<String>
     private lateinit var searchAdapter: SearchAdapter
+    private lateinit var detailAdapter: DetailListAdapter
+    private val recipeViewModel: RecipeViewModel by activityViewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,35 +72,44 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         setListeners()
     }
 
-    private fun init(){
+    private fun init() {
         binding.autoSearch.requestFocus() //키보드 focus
         val inputMethodManager =
             requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.autoSearch, 0) //키보드 자동으로 올라오도록
     }
 
-    private fun setAdapters(){
-        searchAdapter = SearchAdapter(requireContext()){}
+    private fun setAdapters() {
+        searchAdapter = SearchAdapter(requireContext()) {}
+        detailAdapter = DetailListAdapter()
         binding.rcvSearch.adapter = searchAdapter
-        searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B"))
+        searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
 
         autoAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_list, recipes)
         binding.autoSearch.setAdapter(autoAdapter)
     }
 
-    private fun setListeners(){
+    private fun setListeners() {
         binding.ivBack.setOnClickListener {
             findNavController().popBackStack()
         }
         binding.layoutEtSearch.setStartIconOnClickListener {
-            val resultList = recipes.filter { it.contains(binding.autoSearch.text.toString())}
-            if(resultList.isEmpty())
-                searchAdapter.submitList(listOf("검색결과가 없습니다."))
-            else
-                searchAdapter.submitList(resultList)
-            binding.autoSearch.text = null
-        }
+            recipeViewModel.getIngredientSearchRecipe(binding.autoSearch.text.toString())
 
+            collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
+                val resultList = recipeViewModel.searchIngredientList.value
+                Timber.e(resultList.toString())
+                if (resultList.isEmpty()) {
+                    binding.rcvSearch.adapter = searchAdapter
+                    searchAdapter.submitList(listOf("검색결과가 없습니다."))
+                } else {
+                    binding.rcvSearch.adapter = detailAdapter
+                    detailAdapter.submitList(resultList)
+                }
+                binding.autoSearch.text = null
+            }
+
+        }
     }
 
 

@@ -21,8 +21,10 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
     val randomIngredientRecipeList get() = _randomIngredientRecipeList
     //랜덤 식재료 두개의 레시피들
 
-    fun getRandomRecipe(ingredient: List<String>) {
+    private val _searchIngredientRecipeList = MutableStateFlow<List<RecipeEntity>>(listOf())
+    val searchIngredientList get() = _searchIngredientRecipeList
 
+    fun getRandomRecipe(ingredient: List<String>) {
         viewModelScope.launch {
             val list = mutableListOf<RecipeEntity>()
 
@@ -51,5 +53,13 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
         }
     }
 
-
+    fun getIngredientSearchRecipe(ingredient: String) {
+        viewModelScope.launch {
+            firebaseRepository.getIngredientRecipe(ingredient) {
+                _searchIngredientRecipeList.value = it
+            }
+        }
+    }
 }
+
+
