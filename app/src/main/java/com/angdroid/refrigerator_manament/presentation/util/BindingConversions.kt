@@ -18,7 +18,6 @@ import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatur
 
 @BindingAdapter("app:load_remote_coil_corner")
 fun ImageView.loadRemoteCoilCorner(url: String) {
-
     if (url.isNotEmpty()) {
         this.load(url) {
             transformations(RoundedCornersTransformation(12.0F))
