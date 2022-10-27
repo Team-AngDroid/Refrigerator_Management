@@ -20,7 +20,7 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
-    private val recipeViewModel : RecipeViewModel by viewModels()
+    private val recipeViewModel: RecipeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +31,15 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         setOnClickListener()
     }
 
-    private fun setRecipe(){
+    private fun setRecipe() {
         val recipeSet = mutableSetOf<String>()
         val foodSet = mutableSetOf<String>()
-        while (recipeSet.size < 2){
+        while (recipeSet.size < 2) {
             recipeSet.add(Food.FOOD[(0 until Food.FOOD.size).random(Random(System.nanoTime()))])
             foodSet.add(Food.FOOD[(0 until Food.FOOD.size).random(Random(System.nanoTime()))])
         }
         recipeViewModel.getRandomRecipe(recipeSet.toList()) // 랜덤 레시피 두개 받아오는 작업
+        recipeViewModel.getIngredientRecipe(foodSet.toList()) // 랜덤 재료 레시피를 받아오는 작업
     }
 
     private fun setNavigation() {

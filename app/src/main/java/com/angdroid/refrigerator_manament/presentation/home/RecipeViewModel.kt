@@ -13,13 +13,13 @@ import kotlin.random.Random
 @HiltViewModel
 class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBaseRepository) :
     ViewModel() {
-    private val _randomRecipeList = MutableStateFlow<List<RecipeEntity>>(listOf()) 
-    // 랜덤 레시피 두개
+    private val _randomRecipeList = MutableStateFlow<List<RecipeEntity>>(listOf())
     val randomRecipeList get() = _randomRecipeList
+    // 랜덤 레시피 두개
 
     private val _randomIngredientRecipeList = MutableStateFlow<List<RecipeEntity>>(listOf())
-    //랜덤 식재료 레시피들
     val randomIngredientRecipeList get() = _randomIngredientRecipeList
+    //랜덤 식재료 두개의 레시피들
 
     fun getRandomRecipe(ingredient: List<String>) {
 
@@ -27,22 +27,29 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
             val list = mutableListOf<RecipeEntity>()
 
             ingredient.forEach {
-                firebaseRepository.getIngredientRecipe(it) { randomIngredient ->
-                        list.add(randomIngredient[(randomIngredient.indices).random(Random(System.nanoTime()))])
-                    _randomRecipeList.value = list // value값 지정도 firebaseRepository안에 있어야함~!!!!!!!
+                firebaseRepository.getIngredientRecipe(it) { randomRecipe ->
+                    list.add(randomRecipe[(randomRecipe.indices).random(Random(System.nanoTime()))])
+                    _randomRecipeList.value =
+                        list // value값에 지정해주는 시점도 firebaseRepository안에 있어야함~!!!!!!!
                 }
             }
         }
     }
 
-    fun getIngredientRecipe(ingredient: String) {
+    fun getIngredientRecipe(ingredient: List<String>) {
         viewModelScope.launch {
-            firebaseRepository.getIngredientRecipe(ingredient) {
-                _randomIngredientRecipeList.value = it
+            val list = mutableListOf<RecipeEntity>()
+
+            ingredient.forEach {
+                firebaseRepository.getIngredientRecipe(it) { randomIngredientRecipe ->
+                    list.add(RecipeEntity("", it, "", "", "", listOf())) //header용 더미데이터
+                    list.addAll(randomIngredientRecipe)
+                    _randomIngredientRecipeList.value = list
+                }
             }
+
         }
     }
-
 
 
 }
