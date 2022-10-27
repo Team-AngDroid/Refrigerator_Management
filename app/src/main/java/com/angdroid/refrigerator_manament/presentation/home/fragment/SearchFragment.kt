@@ -43,7 +43,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private fun setAdapters(){
         searchAdapter = SearchAdapter(requireContext()){}
         binding.rcvSearch.adapter = searchAdapter
-        searchAdapter.submitList(listOf("레시피 검색을 해보세요\uD83D\uDE0B"))
+        searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B"))
 
         autoAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_list, recipes)
         binding.autoSearch.setAdapter(autoAdapter)
@@ -63,5 +63,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         }
 
     }
+
 
 }

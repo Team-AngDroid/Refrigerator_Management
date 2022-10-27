@@ -8,29 +8,25 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
-import com.angdroid.refrigerator_manament.presentation.camera.AddIngredientActivity
-import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.CameraViewModel
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 import com.angdroid.refrigerator_manament.presentation.util.makeToast
 import timber.log.Timber
 import java.time.LocalDate
 
 
-class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
+class CustomDialog(val context: Context,
+                   private val itemAddListener: (IngredientType.Food) -> Unit,
+                   ) {
 
 
-    private lateinit var ingredient: IngredientType.Food
     private val activationList = mutableListOf<Boolean>(false, false, false)
-
 
     // 재료명 입력 여부 / 카테고리 선택 여부 / count 0 이 아닌 경우
     private val inflater by lazy { LayoutInflater.from(context) }
-    private var category: Int = 0
     private lateinit var dialog: Dialog
 
 
@@ -56,14 +52,14 @@ class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
             dialog.window!!.attributes = params
         }
         setSpinner()
-        setListener(viewModel)
+        setListener(itemAddListener)
         dialog.show()
     }
 
 
     private fun setSpinner() {
         val items = context.resources.getStringArray(R.array.spinner_ingredients)
-        val spinnerAapter = object : ArrayAdapter<String>(context, R.layout.spinner_list) {
+        val spinnerAdapter = object : ArrayAdapter<String>(context, R.layout.spinner_list) {
 
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val v = super.getView(position, convertView, parent)
@@ -81,11 +77,11 @@ class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
                 return super.getCount() - 1
             }
         }
-        spinnerAapter.addAll(items.toMutableList())
-        spinnerAapter.add(context.getString(R.string.category_choice))
+        spinnerAdapter.addAll(items.toMutableList())
+        spinnerAdapter.add(context.getString(R.string.category_choice))
         binding.spinnerCategory.apply {
-            adapter = spinnerAapter
-            setSelection(spinnerAapter.count)
+            adapter = spinnerAdapter
+            setSelection(spinnerAdapter.count)
             onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -96,22 +92,8 @@ class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
                     ) {
                         activationList[1] = true
                         //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
-                        when (position) { // 카테고리 선택
-                            0 -> {
-                                category = 1
-                            }
-                            1 -> {
-                                category = 2
-                            }
-                            2 -> {
-                                category = 3
-                            }
-                            3 -> {
-                                category = 4
-                            }
-                            4 -> {
-                                category = 5
-                            }
+                        when (position) { // 포지션 함수
+                            0 -> {}
                             else -> {}
                         }
                     }
@@ -121,12 +103,12 @@ class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
         }
     }
 
-    private fun setListener(viewModel: CameraViewModel) {
+    private fun setListener(viewModel: (IngredientType.Food) -> Unit) {
 
         binding.etIngredient.addTextChangedListener {
             activationList[0] = !it!!.isEmpty()
-            Timber.e("hi")
         }
+
         binding.ivPlus.setOnClickListener {
             binding.count = (binding.count!!.toInt() + 1).toString()
             activationList[2] = true
@@ -138,19 +120,19 @@ class CustomDialog(val context: Context, val viewModel: CameraViewModel) {
             } else
                 activationList[2] = false
         }
+
         binding.btnIngredientsAdd.setOnClickListener {
+            Timber.e(binding.spinnerCategory.selectedItemPosition.toString())
             if (activationList.all { it } && checkFoodname(binding.etIngredient.text.toString())) {
-                viewModel.addDialogFood(
-                    IngredientType.Food(
-                        "123",
-                        findFoodId(binding.etIngredient.text.toString()),
-                        LocalDate.now(),
-                        binding.etIngredient.text.toString(),
-                        "",
-                        category,
-                        binding.count!!.toInt()
-                    )
-                )
+                itemAddListener(IngredientType.Food(
+                    "123",
+                    findFoodId(binding.etIngredient.text.toString()),
+                    LocalDate.now(),
+                    binding.etIngredient.text.toString(),
+                    "",
+                    binding.spinnerCategory.selectedItemPosition + 1,
+                    binding.count!!.toInt()
+                ))
                 dialog.cancel()
 
             } else {
