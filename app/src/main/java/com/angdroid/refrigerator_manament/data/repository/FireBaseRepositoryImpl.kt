@@ -16,6 +16,7 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import com.angdroid.refrigerator_manament.domain.util.ApiResult
 import com.google.firebase.firestore.FieldValue
+import java.time.LocalDate
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(
@@ -68,6 +69,7 @@ class FireBaseRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
+        val now = LocalDate.now()
         userInfoDataSource.getUserInfo().addOnSuccessListener {
             onComplete(
                 userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
@@ -80,7 +82,7 @@ class FireBaseRepositoryImpl @Inject constructor(
                         ((result["categoryId"] as Long).toInt()),
                         ((result["foodCount"] as Long).toInt())
                     )
-                }) as ArrayList<IngredientType>
+                }).filter { it.expirationDate >= now } as ArrayList<IngredientType>
             )
         }.addOnFailureListener { e ->
             throw Exception(e.message)
@@ -111,7 +113,7 @@ class FireBaseRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addIngredients(
-        ingredients: List<IngredientType.Food>,
+        ingredients: List<IngredientType>,
         onApiResult: (Boolean) -> Unit
     ) {/*
         App.fireStoreUserReference.update("foodInfo",FieldValue.arrayUnion()

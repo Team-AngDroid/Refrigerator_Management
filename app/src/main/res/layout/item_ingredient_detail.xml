@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/sub_space_12"
-            android:text="@{@string/until_day(LocalDate.now().dayOfMonth-food.expirationDate.dayOfMonth)}"
+            android:text="@{@string/until_day(food.expirationDate.dayOfMonth-LocalDate.now().dayOfMonth)}"
             android:textAppearance="@style/Widget.TextView.Pretendard15_Black_SemiBold.TextAppearance"
             android:textColor="@color/black_second"
             app:layout_constraintEnd_toEndOf="@id/cv_food"
