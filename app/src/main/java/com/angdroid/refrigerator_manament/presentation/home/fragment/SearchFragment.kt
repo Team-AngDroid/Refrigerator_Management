@@ -11,12 +11,10 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.RecipeViewModel
-import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.adapter.SearchAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
@@ -98,7 +96,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
             collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
                 val resultList = recipeViewModel.searchIngredientList.value
-                Timber.e(resultList.toString())
                 if (resultList.isEmpty()) {
                     binding.rcvSearch.adapter = searchAdapter
                     searchAdapter.submitList(listOf("검색결과가 없습니다."))
@@ -108,7 +105,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 }
                 binding.autoSearch.text = null
             }
-
         }
     }
 

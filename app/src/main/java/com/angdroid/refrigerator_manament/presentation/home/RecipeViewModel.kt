@@ -55,8 +55,15 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
 
     fun getIngredientSearchRecipe(ingredient: String) {
         viewModelScope.launch {
-            firebaseRepository.getIngredientRecipe(ingredient) {
-                _searchIngredientRecipeList.value = it
+            val list = mutableSetOf<RecipeEntity>()
+            with(firebaseRepository){
+                getSearchRecipe(ingredient){
+                    list.addAll(it)
+                }
+                getIngredientRecipe(ingredient) {
+                    list.addAll(it)
+                    _searchIngredientRecipeList.value = list.toList()
+                }
             }
         }
     }
