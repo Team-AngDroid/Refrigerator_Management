@@ -6,12 +6,9 @@
     <data>
 
         <variable
-            name="recommend1"
-            type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
+            name="reciepviewmodel"
+            type="com.angdroid.refrigerator_manament.presentation.home.RecipeViewModel" />
 
-        <variable
-            name="recommend2"
-            type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
     </data>
 
 
@@ -52,8 +49,8 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:overScrollMode="never"
             android:layout_marginTop="@dimen/sub_space_24"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,9 +95,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/sub_space_200"
                         android:scaleType="fitXY"
-                        app:tint="#60000000"
                         android:tintMode="src_atop"
-                        app:load_default_ingredient="@{recommend1.image}"
+                        app:load_remote_coil_corner="@{reciepviewmodel.randomRecipeList[0].image}"
+                        app:tint="#60000000"
                         tools:src="@drawable/chicken" />
                 </androidx.cardview.widget.CardView>
 
@@ -117,9 +114,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/sub_space_200"
                         android:scaleType="fitXY"
-                        app:tint="#60000000"
                         android:tintMode="src_atop"
-                        app:load_default_ingredient="@{recommend2.image}"
+                        app:load_remote_coil_corner="@{reciepviewmodel.randomRecipeList[1].image}"
+                        app:tint="#60000000"
                         tools:src="@drawable/cheese" />
                 </androidx.cardview.widget.CardView>
 
@@ -141,7 +138,7 @@
                     android:id="@+id/tv_recipe1_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{recommend1.name}"
+                    android:text="@{reciepviewmodel.randomRecipeList[0].name}"
                     android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
@@ -171,7 +168,7 @@
                     android:id="@+id/tv_recipe1_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{recommend1.time}"
+                    android:text="@{reciepviewmodel.randomRecipeList[0].time}"
                     android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="@+id/flow_recommend1"
@@ -206,7 +203,7 @@
                     android:id="@+id/tv_recipe2_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{recommend2.name}"
+                    android:text="@{reciepviewmodel.randomRecipeList[1].name}"
                     android:textAppearance="@style/Widget.TextView.Pretendard16_Black_SemiBold.TextAppearance"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
@@ -226,7 +223,7 @@
                     android:id="@+id/tv_recipe2_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{recommend2.time}"
+                    android:text="@{reciepviewmodel.randomRecipeList[1].time}"
                     android:textAppearance="@style/Widget.TextView.Pretendard12_Black_Regular.TextAppearance"
                     android:textColor="@color/white"
                     app:layout_constraintStart_toStartOf="@+id/flow_recommend2"
