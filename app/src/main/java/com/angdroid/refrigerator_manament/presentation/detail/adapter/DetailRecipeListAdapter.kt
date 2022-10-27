@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeDetailBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
+import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class DetailListAdapter :
     ListAdapter<RecipeEntity, DetailListAdapter.DetailViewHolder>(DetailDiffCallBack) {
@@ -25,6 +26,11 @@ class DetailListAdapter :
     }
 
     override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
+        (holder.binding.clCategory.layoutParams as ViewGroup.MarginLayoutParams).apply {
+            if (position == itemCount - 1) {
+                bottomMargin = 32.dpToPx(context = holder.binding.clCategory.context)
+            }
+        }
         holder.binding.setVariable(BR.recipeItem, getItem(position))
     }
 
