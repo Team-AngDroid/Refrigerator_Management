@@ -64,6 +64,26 @@ class FireBaseRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * 재료뿐만 아니라 레시피 이름으로도 검색할 수 있도록 name field를 통해서 검색
+     */
+    override suspend fun getSearchRecipe(
+        name: String,
+        onComplete: (List<RecipeEntity>) -> Unit
+    ) {
+        recipeDataSource.getSearchRecipe(name).addOnSuccessListener { documents ->
+            val result = mutableListOf<RecipeDto>()
+            for (document in documents) {
+                Log.e("Result Query", document.data.toString())
+                result.add(document.toObject(RecipeDto::class.java))
+            }
+            onComplete(recipeMapper.mapToEntity(result))
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
+
+
     override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
         userInfoDataSource.getUserInfo().addOnSuccessListener {
             onComplete(
