@@ -1,6 +1,7 @@
 package com.angdroid.refrigerator_manament.data.repository
 
 import android.util.Log
+import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
 import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
@@ -13,6 +14,8 @@ import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
+import com.angdroid.refrigerator_manament.domain.util.ApiResult
+import com.google.firebase.firestore.FieldValue
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(
@@ -105,5 +108,19 @@ class FireBaseRepositoryImpl @Inject constructor(
         }.addOnFailureListener { e ->
             throw Exception(e.message)
         }
+    }
+
+    override suspend fun addIngredients(
+        ingredients: List<IngredientType.Food>,
+        onApiResult: (Boolean) -> Unit
+    ) {/*
+        App.fireStoreUserReference.update("foodInfo",FieldValue.arrayUnion()
+        )
+            .addOnSuccessListener {
+                onApiResult(true)
+            }.addOnFailureListener { e ->
+                onApiResult(false)
+                throw Exception(e.message)
+            } 나중에 할래..*/
     }
 }
