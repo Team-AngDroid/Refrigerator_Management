@@ -83,8 +83,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.rcvSearch.adapter = searchAdapter
         searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
 
-        autoAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_list, recipes)
-        binding.autoSearch.setAdapter(autoAdapter)
+        recipeViewModel.getRecipeNameList()
+        collectFlowWhenStarted(recipeViewModel.recipeNameList){
+            autoAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_list, it)
+            binding.autoSearch.setAdapter(autoAdapter)
+        }
     }
 
     private fun setListeners() {

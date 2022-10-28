@@ -7,6 +7,7 @@ import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -24,6 +25,19 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
     private val _searchIngredientRecipeList = MutableStateFlow<List<RecipeEntity>>(listOf())
     val searchIngredientList get() = _searchIngredientRecipeList
     //검색 결과 레시피들
+
+    private val _recipeNameList = MutableStateFlow<List<String>>(listOf())
+    val recipeNameList  get() = _recipeNameList
+    // 레시피 이름 리스트
+
+    fun getRecipeNameList(){
+        viewModelScope.launch{
+            firebaseRepository.getRecipeNameList {
+                _recipeNameList.value = it
+                Timber.e(it.toString())
+            }
+        }
+    }
 
     fun getRandomRecipe(ingredient: List<String>) {
         viewModelScope.launch {
