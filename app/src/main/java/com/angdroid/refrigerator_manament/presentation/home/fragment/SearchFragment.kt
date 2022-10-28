@@ -78,15 +78,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         val inputMethodManager =
             requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.autoSearch, 0) //키보드 자동으로 올라오도록
-
-        (binding.rcvSearch.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false // 깜빡임 방지
-
     }
 
     private fun setAdapters() {
         searchAdapter = SearchAdapter(requireContext()) {}
         detailAdapter = SearchRecipeAdapter()
-        binding.rcvSearch.adapter = searchAdapter
+        binding.rcvEmpty.adapter = searchAdapter
+        binding.rcvSearch.adapter = detailAdapter
+        binding.searching = true
         searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
 
         recipeViewModel.getRecipeNameList()
@@ -101,18 +100,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             findNavController().popBackStack()
         }
         binding.layoutEtSearch.setStartIconOnClickListener {
-            binding.searching = true
 
             recipeViewModel.getIngredientSearchRecipe(binding.autoSearch.text.toString())
             collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
                 val resultList = recipeViewModel.searchIngredientList.value
                 if (resultList.isEmpty()) {
-                    binding.rcvSearch.adapter = searchAdapter
                     searchAdapter.submitList(listOf("검색결과가 없습니다."))
-                    binding.searching = false
+                    binding.searching = true
 
                 } else {
-                    binding.rcvSearch.adapter = detailAdapter
                     detailAdapter.submitList(resultList)
                     binding.searching = false
                 }

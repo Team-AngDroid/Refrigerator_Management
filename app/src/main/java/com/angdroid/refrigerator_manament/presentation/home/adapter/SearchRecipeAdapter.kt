@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.angdroid.refrigerator_manament.BR
-import com.angdroid.refrigerator_manament.databinding.ItemRecipeDetailBinding
 import com.angdroid.refrigerator_manament.databinding.ItemSearchRecipeBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 
@@ -36,14 +35,14 @@ class SearchRecipeAdapter :
                 oldItem: RecipeEntity,
                 newItem: RecipeEntity
             ): Boolean {
-                return oldItem.id == newItem.id
+                return false
             }
 
             override fun areContentsTheSame(
                 oldItem: RecipeEntity,
                 newItem: RecipeEntity
             ): Boolean {
-                return oldItem == newItem
+                return false
             }
         }
     }
