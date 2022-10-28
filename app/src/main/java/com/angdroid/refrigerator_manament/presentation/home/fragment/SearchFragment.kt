@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailListAdapter
@@ -15,6 +16,7 @@ import com.angdroid.refrigerator_manament.presentation.home.adapter.SearchAdapte
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
@@ -75,6 +77,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         val inputMethodManager =
             requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.autoSearch, 0) //키보드 자동으로 올라오도록
+
+        (binding.rcvSearch.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false // 깜빡임 방지
+
     }
 
     private fun setAdapters() {
@@ -95,16 +100,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             findNavController().popBackStack()
         }
         binding.layoutEtSearch.setStartIconOnClickListener {
-            recipeViewModel.getIngredientSearchRecipe(binding.autoSearch.text.toString())
+            binding.searching = true
 
+            recipeViewModel.getIngredientSearchRecipe(binding.autoSearch.text.toString())
             collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
                 val resultList = recipeViewModel.searchIngredientList.value
                 if (resultList.isEmpty()) {
                     binding.rcvSearch.adapter = searchAdapter
                     searchAdapter.submitList(listOf("검색결과가 없습니다."))
+                    binding.searching = false
+
                 } else {
                     binding.rcvSearch.adapter = detailAdapter
                     detailAdapter.submitList(resultList)
+                    binding.searching = false
                 }
                 binding.autoSearch.text = null
             }

@@ -74,6 +74,7 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
             with(firebaseRepository){
                 getSearchRecipe(ingredient){
                     list.addAll(it)
+                    _searchIngredientRecipeList.value = list.toList()
                 }
                 getIngredientRecipe(ingredient) {
                     list.addAll(it)
