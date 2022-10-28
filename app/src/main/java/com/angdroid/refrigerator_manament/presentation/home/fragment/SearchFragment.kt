@@ -13,6 +13,7 @@ import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.SearchAdapter
+import com.angdroid.refrigerator_manament.presentation.home.adapter.SearchRecipeAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
@@ -61,7 +62,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private lateinit var autoAdapter: ArrayAdapter<String>
     private lateinit var searchAdapter: SearchAdapter
-    private lateinit var detailAdapter: DetailListAdapter
+    private lateinit var detailAdapter: SearchRecipeAdapter
     private val recipeViewModel: RecipeViewModel by activityViewModels()
 
 
@@ -84,7 +85,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun setAdapters() {
         searchAdapter = SearchAdapter(requireContext()) {}
-        detailAdapter = DetailListAdapter()
+        detailAdapter = SearchRecipeAdapter()
         binding.rcvSearch.adapter = searchAdapter
         searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
 
