@@ -39,6 +39,7 @@
                 android:clickable="true"
                 android:focusable="false"
                 android:gravity="center_vertical"
+                android:imeOptions="actionSearch"
                 android:hint="@string/recipe_hint"
                 android:paddingVertical="0dp"
                 android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"

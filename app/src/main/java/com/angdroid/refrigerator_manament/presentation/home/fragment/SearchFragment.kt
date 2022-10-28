@@ -2,6 +2,7 @@ package com.angdroid.refrigerator_manament.presentation.home.fragment
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
@@ -21,44 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
-
-    private val recipes =
-        listOf(
-            "당근케이크",
-            "카레",
-            "당근 머핀",
-            "오이소박이",
-            "오이미역냉국",
-            "오이 무침",
-            "무생채",
-            "고등어 무조림",
-            "과일 사라다",
-            "사과 잼",
-            "사과 무상채 무침",
-            "배도라지대추차",
-            "배깍두기",
-            "사과배깍두기",
-            "귤잼",
-            "귤 그라니따",
-            "귤 머핀",
-            "계란 장조림",
-            "계란말이",
-            "에어프라이어 치킨",
-            "닭볶음탕",
-            "닭가슴오이냉채",
-            "우유 푸딩",
-            "딸기 우유",
-            "에그치즈토스트",
-            "체다치즈칩스",
-            "새우장",
-            "칠리새우",
-            "브로콜리 새우 볶음",
-            "오징어 볶음",
-            "오징어 찌개",
-            "고등어 구이",
-            "고등어 김치 조림",
-            "고등어 김치찜"
-        ) //TODO 띄어쓰기 같은거 통일 필요할듯
 
     private lateinit var autoAdapter: ArrayAdapter<String>
     private lateinit var searchAdapter: SearchAdapter
@@ -88,11 +51,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         detailAdapter = SearchRecipeAdapter()
         binding.rcvEmpty.adapter = searchAdapter
         binding.rcvSearch.adapter = detailAdapter
-        binding.searching = true 
+        binding.searching = true
         searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
 
         recipeViewModel.getRecipeNameList()
-        collectFlowWhenStarted(recipeViewModel.recipeNameList){
+        collectFlowWhenStarted(recipeViewModel.recipeNameList) {
             autoAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_list, it)
             binding.autoSearch.setAdapter(autoAdapter)
         }
@@ -103,22 +66,38 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             findNavController().popBackStack()
         }
         binding.layoutEtSearch.setStartIconOnClickListener {
+            searchRecipe(binding.autoSearch.text.toString())
+        }
 
-            recipeViewModel.getIngredientSearchRecipe(binding.autoSearch.text.toString())
+        binding.autoSearch.setOnKeyListener { _, keyCode, event -> // enter키 이벤트
+            if ((event.action == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                searchRecipe(binding.autoSearch.text.toString())
+                true
+            } else {
+                false
+            }
+        }
+
+    }
+
+    private fun searchRecipe(search:String) { // 검색함수
+        if (search != "") {
+            recipeViewModel.getIngredientSearchRecipe(search)
             collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
                 val resultList = recipeViewModel.searchIngredientList.value
                 if (resultList.isEmpty()) {
                     searchAdapter.submitList(listOf("검색결과가 없습니다."))
                     binding.searching = true
-
                 } else {
                     detailAdapter.submitList(resultList)
                     binding.searching = false
                 }
                 binding.autoSearch.text = null
             }
+            val inputMethodManager =
+                requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(binding.autoSearch.windowToken, 0) //키보드 내리기
         }
     }
-
 
 }
