@@ -14,18 +14,17 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.util.CategoryType
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
+import java.time.LocalDate
 
 
 @BindingAdapter("app:load_remote_coil_corner")
 fun ImageView.loadRemoteCoilCorner(url: String) {
-
     if (url.isNotEmpty()) {
         this.load(url) {
             transformations(RoundedCornersTransformation(12.0F))
         }
     }
 }
-
 
 @BindingAdapter("app:load_default_ingredient")
 fun ImageView.loadDefaultIngredient(foodName: String) {
@@ -39,29 +38,80 @@ fun TextView.categoryText(categoryId: Int) {
 
 @BindingAdapter("app:necessary_ingredients")
 fun TextView.necessaryIngredients(ingredients: List<String>) {
+    if (App.getUserIngredientInfoInitialized()) {
+        App.userIngredientInfo.run {
+            val comparator: Comparator<String> =
+                compareByDescending {
+                    this.contains(it)
+                }
+            val sortedIngredients = ingredients.sortedWith(comparator)
 
-    App.userIngredientInfo.apply {
-        val comparator: Comparator<String> =
-            compareByDescending {
-                this.contains(it)
+            val builder =
+                SpannableStringBuilder(sortedIngredients.joinToString("·"))
+            this.forEach { ingredient ->
+                val startIndex = builder.indexOf(ingredient)
+                if (startIndex > -1) {
+                    val span =
+                        ForegroundColorSpan(Color.parseColor(resources.getString(R.string.already_have_ingredient)))
+                    builder.setSpan(
+                        span,
+                        startIndex,
+                        startIndex + ingredient.length,
+                        Spanned.SPAN_EXCLUSIVE_INCLUSIVE
+                    )
+                }
             }
-        val sortedIngredients = ingredients.sortedWith(comparator)
-
-        val builder =
-            SpannableStringBuilder(sortedIngredients.joinToString("·"))
-        this.forEach { ingredient ->
-            val startIndex = builder.indexOf(ingredient)
-            if (startIndex > -1) {
-                val span =
-                    ForegroundColorSpan(Color.parseColor(resources.getString(R.string.already_have_ingredient)))
-                builder.setSpan(
-                    span,
-                    startIndex,
-                    startIndex + ingredient.length,
-                    Spanned.SPAN_EXCLUSIVE_INCLUSIVE
-                )
-            }
+            text = builder
         }
-        text = builder
+    }
+}
+
+@BindingAdapter("foodName", "foodCount")
+fun spanColorCount(textView: TextView, foodName: String, foodCount: Int) {
+    val builder = SpannableStringBuilder(
+        textView.resources.getString(
+            R.string.ingredient,
+            foodName,
+            foodCount
+        )
+    )
+    val span =
+        ForegroundColorSpan(Color.parseColor(textView.resources.getString(R.string.already_have_ingredient)))
+    builder.indexOf(foodCount.toString()).run {
+        if (this > -1) {
+            builder.setSpan(
+                span,
+                this,
+                this + foodCount.toString().length,
+                Spanned.SPAN_EXCLUSIVE_INCLUSIVE
+            )
+        }
+    }
+    textView.text = builder
+}
+
+@BindingAdapter("app:setExpirationDate")
+fun TextView.setExpirationDate(expirationDate: LocalDate) {
+    val now = LocalDate.now()
+
+    if (expirationDate.year == now.year) {
+        text =
+            resources.getString(R.string.until_day, (expirationDate.dayOfYear - now.dayOfYear))
+        if ((expirationDate.dayOfYear - now.dayOfYear) <= 3) {
+            setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0)
+            compoundDrawablePadding = 4.dpToPx(context)
+            setTextColor(Color.parseColor(resources.getString(R.color.warn_red)))
+        }
+    } else {
+        text = resources.getString(
+            R.string.until_day,
+            (365 - now.dayOfYear) + expirationDate.dayOfYear
+        )
+        if ((365 - now.dayOfYear) + expirationDate.dayOfYear <= 3) {
+            setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0)
+            compoundDrawablePadding = 4.dpToPx(context)
+            setTextColor(Color.parseColor(resources.getString(R.color.warn_red)))
+        }
+
     }
 }

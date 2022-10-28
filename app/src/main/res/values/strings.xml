@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Refrigerator_Manament</string>
+    <string name="app_name">냉장고를 부탁해</string>
     <string name="category_vegetable">채소</string>
     <string name="category_fruit">과일 · 견과 · 쌀</string>
     <string name="category_meat">육류 · 계란류</string>
@@ -10,7 +10,7 @@
     <string name="permission_agree">동의하기</string>
     <string name="permission_cancel">취소하기</string>
 
-    <string name="ingredient">%s <font color='#0D99FF'>%d개</font></string>
+    <string name="ingredient">%s %d</string>
     <string name="ingredient_name">%s </string>
     <string name="ingredient_count">%d</string>
     <string name="category_seasoning">조미료</string>
