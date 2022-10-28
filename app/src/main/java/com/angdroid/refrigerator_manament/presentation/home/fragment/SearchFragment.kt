@@ -81,11 +81,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun setAdapters() {
+        // 두개의 리싸이클러뷰를 넣어준 이유 -> 멀티뷰홀더 어댑터를 쓰기에는 Entity상 적합하지 않은거 같아서
+        // 하나의 리싸이클러뷰에서 어댑터를 교체해주는 작업을 했으나 PR의 스크린샷 처럼 Blinking이 지속적으로 발생
+        // 따라서 데이터바인딩을 통해서 두개의 RecyclerView의 visibility를 조절하는 방식을 사용
         searchAdapter = SearchAdapter(requireContext()) {}
         detailAdapter = SearchRecipeAdapter()
         binding.rcvEmpty.adapter = searchAdapter
         binding.rcvSearch.adapter = detailAdapter
-        binding.searching = true
+        binding.searching = true 
         searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
 
         recipeViewModel.getRecipeNameList()

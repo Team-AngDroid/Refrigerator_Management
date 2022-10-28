@@ -1,5 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
@@ -72,13 +73,12 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
         viewModelScope.launch {
             val list = mutableSetOf<RecipeEntity>()
             with(firebaseRepository){
-                getSearchRecipe(ingredient){
+                getSearchRecipe(ingredient){ // [레시피이름]에 검색창에서 입력받은 텍스트가 있는 경우
                     list.addAll(it)
-                    _searchIngredientRecipeList.value = list.toList()
                 }
-                getIngredientRecipe(ingredient) {
+                getIngredientRecipe(ingredient) { // [레시피 재료 리스트]에 검색창에서 입력받은 텍스트가 있는 경우
                     list.addAll(it)
-                    _searchIngredientRecipeList.value = list.toList()
+                    _searchIngredientRecipeList.value = list.distinctBy { it.name } // RecipeEntity 중복 제거
                 }
             }
         }
