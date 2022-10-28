@@ -83,6 +83,20 @@ class FireBaseRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * AutoCompleteTextView에 사용할 레시피 이름들을 파이어베이스에서 받아오는 함수
+     */
+    override suspend fun getRecipeNameList(onComplete: (List<String>) -> Unit) {
+        recipeDataSource.getRecipeNameList().addOnSuccessListener { documents ->
+            val result = mutableListOf<String>()
+            for (document in documents) {
+                result.add(document["name"] as String)
+            }
+            onComplete(result)
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
 
     override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
         userInfoDataSource.getUserInfo().addOnSuccessListener {
