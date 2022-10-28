@@ -10,6 +10,7 @@ import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeDetailBinding
 import com.angdroid.refrigerator_manament.databinding.ItemRecipeTitleBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
+import com.angdroid.refrigerator_manament.presentation.util.types.Food
 
 class RecipeAdapter(
     context: Context, private val itemClickListener: (RecipeEntity) -> Unit,
@@ -38,13 +39,17 @@ class RecipeAdapter(
         when (holder.itemViewType) {
             RECIPE -> {
                 with(holder as RecipeDetailViewHolder) {
-                    holder.binding.setVariable(BR.recipeItem, getItem(position))
+                    binding.setVariable(BR.recipeItem, getItem(position))
                     binding.root.setOnClickListener { itemClickListener(currentItem) }
                 }
             }
             TITLE -> {
                 with(holder as RecipeTitleViewHolder) {
-                    holder.binding.setVariable(BR.ingredient, getItem(position))
+                    if(currentItem.name == Food.FOOD[0] || currentItem.name == Food.FOOD[6]) //예외처리
+                        binding.setVariable(BR.except, true)
+                    else
+                        binding.setVariable(BR.except, false)
+                    binding.setVariable(BR.ingredient, getItem(position))
                 }
             }
 
