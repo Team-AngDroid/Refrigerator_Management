@@ -1,6 +1,7 @@
 package com.angdroid.refrigerator_manament.data.repository
 
 import android.util.Log
+import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
 import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
@@ -13,6 +14,10 @@ import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
+import com.angdroid.refrigerator_manament.domain.util.ApiResult
+import com.google.firebase.firestore.FieldValue
+import kotlinx.coroutines.coroutineScope
+import java.time.LocalDate
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(
@@ -65,20 +70,23 @@ class FireBaseRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
+        val now = LocalDate.now()
         userInfoDataSource.getUserInfo().addOnSuccessListener {
-            onComplete(
-                userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
-                    FoodDto(
-                        (result["id"] as String),
-                        ((result["foodId"] as Long).toInt()),
-                        (result["expirationDate"] as String),
-                        (result["name"] as String),
-                        (result["image"] as String?),
-                        ((result["categoryId"] as Long).toInt()),
-                        ((result["foodCount"] as Long).toInt())
-                    )
-                }) as ArrayList<IngredientType>
-            )
+
+            userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
+                FoodDto(
+                    (result["id"] as String),
+                    ((result["foodId"] as Long).toInt()),
+                    (result["expirationDate"] as String),
+                    (result["name"] as String),
+                    (result["image"] as String?),
+                    ((result["categoryId"] as Long).toInt()),
+                    ((result["foodCount"] as Long).toInt())
+                )
+            }).filter { it.expirationDate >= now }.run {
+                userInfoDataSource.setFoodInfo(userMapper.mapToDto(this))
+                onComplete(this as ArrayList<IngredientType>)
+            }
         }.addOnFailureListener { e ->
             throw Exception(e.message)
         }
@@ -105,5 +113,19 @@ class FireBaseRepositoryImpl @Inject constructor(
         }.addOnFailureListener { e ->
             throw Exception(e.message)
         }
+    }
+
+    override suspend fun addIngredients(
+        ingredients: List<IngredientType>,
+        onApiResult: (Boolean) -> Unit
+    ) {/*
+        App.fireStoreUserReference.update("foodInfo",FieldValue.arrayUnion()
+        )
+            .addOnSuccessListener {
+                onApiResult(true)
+            }.addOnFailureListener { e ->
+                onApiResult(false)
+                throw Exception(e.message)
+            } 나중에 할래..*/
     }
 }
