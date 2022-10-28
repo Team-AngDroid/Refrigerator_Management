@@ -45,7 +45,7 @@ class RecipeAdapter(
             }
             TITLE -> {
                 with(holder as RecipeTitleViewHolder) {
-                    if(currentItem.name == Food.FOOD[0] || currentItem.name == Food.FOOD[6]) //예외처리
+                    if(currentItem.name == Food.FOOD[0] || currentItem.name == Food.FOOD[6] || currentItem.name == Food.FOOD[7]) //예외처리
                         binding.setVariable(BR.except, true)
                     else
                         binding.setVariable(BR.except, false)
