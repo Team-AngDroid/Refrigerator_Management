@@ -13,6 +13,7 @@ import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
+import com.google.firebase.firestore.ktx.toObject
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(
@@ -74,8 +75,9 @@ class FireBaseRepositoryImpl @Inject constructor(
         recipeDataSource.getSearchRecipe(name).addOnSuccessListener { documents ->
             val result = mutableListOf<RecipeDto>()
             for (document in documents) {
-                Log.e("Result Query", document.data.toString())
-                result.add(document.toObject(RecipeDto::class.java))
+                if((document["name"] as String).contains(name)){
+                    result.add(document.toObject(RecipeDto::class.java))
+                }
             }
             onComplete(recipeMapper.mapToEntity(result))
         }.addOnFailureListener { e ->
