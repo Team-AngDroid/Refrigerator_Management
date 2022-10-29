@@ -22,6 +22,7 @@ class RecipeFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.reciepviewmodel = recipeViewModel // 데이터바인딩
+        binding.lifecycleOwner = this
 
         setAdapter()
         binding.etSearch.setOnClickListener {

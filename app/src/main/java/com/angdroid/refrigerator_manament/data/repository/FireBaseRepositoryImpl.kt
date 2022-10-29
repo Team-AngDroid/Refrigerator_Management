@@ -13,11 +13,7 @@ import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
-import com.angdroid.refrigerator_manament.domain.util.ApiResult
-import com.google.firebase.firestore.FieldValue
-import kotlinx.coroutines.coroutineScope
 import java.time.LocalDate
-import com.google.firebase.firestore.ktx.toObject
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(

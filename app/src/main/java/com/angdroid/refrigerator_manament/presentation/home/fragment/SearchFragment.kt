@@ -27,11 +27,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private lateinit var searchAdapter: SearchAdapter
     private lateinit var detailAdapter: SearchRecipeAdapter
     private val recipeViewModel: RecipeViewModel by activityViewModels()
-
+    private var FLAG :Boolean = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+
         setAdapters()
         setListeners()
     }
@@ -41,6 +42,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         val inputMethodManager =
             requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.autoSearch, 0) //키보드 자동으로 올라오도록
+        collectSearchData()
     }
 
     private fun setAdapters() {
@@ -52,7 +54,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.rcvEmpty.adapter = searchAdapter
         binding.rcvSearch.adapter = detailAdapter
         binding.searching = true
-        searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
 
         recipeViewModel.getRecipeNameList()
         collectFlowWhenStarted(recipeViewModel.recipeNameList) {
@@ -81,22 +82,29 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun searchRecipe(search:String) { // 검색함수
-        if (search != "") {
-            recipeViewModel.getIngredientSearchRecipe(search)
-            collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
-                val resultList = recipeViewModel.searchIngredientList.value
-                if (resultList.isEmpty()) {
+        if (search != "") recipeViewModel.getIngredientSearchRecipe(search)
+            val inputMethodManager =
+            requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(binding.autoSearch.windowToken, 0) //키보드 내리기
+        binding.autoSearch.text = null
+    }
+
+    private fun collectSearchData(){
+        collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
+            val resultList = recipeViewModel.searchIngredientList.value
+            if (resultList.isEmpty()) {
+                if(FLAG){
+                    searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
+                    FLAG = false
+                }
+                else{
                     searchAdapter.submitList(listOf("검색결과가 없습니다."))
                     binding.searching = true
-                } else {
-                    detailAdapter.submitList(resultList)
-                    binding.searching = false
                 }
-                binding.autoSearch.text = null
+            } else {
+                detailAdapter.submitList(resultList)
+                binding.searching = false
             }
-            val inputMethodManager =
-                requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(binding.autoSearch.windowToken, 0) //키보드 내리기
         }
     }
 

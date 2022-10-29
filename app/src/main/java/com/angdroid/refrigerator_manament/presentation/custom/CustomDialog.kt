@@ -18,9 +18,10 @@ import timber.log.Timber
 import java.time.LocalDate
 
 
-class CustomDialog(val context: Context,
-                   private val itemAddListener: (IngredientType.Food) -> Unit,
-                   ) {
+class CustomDialog(
+    val context: Context,
+    private val itemAddListener: (IngredientType.Food) -> Unit
+) {
 
 
     private val activationList = mutableListOf<Boolean>(false, false, false)
@@ -103,7 +104,7 @@ class CustomDialog(val context: Context,
         }
     }
 
-    private fun setListener(viewModel: (IngredientType.Food) -> Unit) {
+    private fun setListener(itemAddListener: (IngredientType.Food) -> Unit) {
 
         binding.etIngredient.addTextChangedListener {
             activationList[0] = !it!!.isEmpty()
@@ -122,17 +123,18 @@ class CustomDialog(val context: Context,
         }
 
         binding.btnIngredientsAdd.setOnClickListener {
-            Timber.e(binding.spinnerCategory.selectedItemPosition.toString())
             if (activationList.all { it } && checkFoodname(binding.etIngredient.text.toString())) {
-                itemAddListener(IngredientType.Food(
-                    "123",
-                    findFoodId(binding.etIngredient.text.toString()),
-                    LocalDate.now(),
-                    binding.etIngredient.text.toString(),
-                    "",
-                    binding.spinnerCategory.selectedItemPosition + 1,
-                    binding.count!!.toInt()
-                ))
+                itemAddListener(
+                    IngredientType.Food(
+                        "123",
+                        findFoodId(binding.etIngredient.text.toString()),
+                        LocalDate.now(),
+                        binding.etIngredient.text.toString(),
+                        "",
+                        binding.spinnerCategory.selectedItemPosition + 1,
+                        binding.count!!.toInt()
+                    )
+                )
                 dialog.cancel()
 
             } else {
