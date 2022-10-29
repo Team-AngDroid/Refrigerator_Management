@@ -91,7 +91,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun collectSearchData(){
         collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
-            val resultList = recipeViewModel.searchIngredientList.value
+            val resultList = it
             if (resultList.isEmpty()) {
                 if(FLAG){
                     searchAdapter.submitList(listOf("레시피를 검색해보세요\uD83D\uDE0B")) //초기 설정
