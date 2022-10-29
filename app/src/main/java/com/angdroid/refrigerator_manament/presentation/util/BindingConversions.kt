@@ -66,6 +66,24 @@ fun TextView.necessaryIngredients(ingredients: List<String>) {
     }
 }
 
+@BindingAdapter("app:search_ingredients")
+fun TextView.searchIngredient(ingredients: List<String>) {
+    if (App.getUserIngredientInfoInitialized()) {
+        App.userIngredientInfo.run {
+            val comparator: Comparator<String> =
+                compareByDescending {
+                    this.contains(it)
+                }
+            val sortedIngredients = ingredients.sortedWith(comparator)
+
+            val builder =
+                SpannableStringBuilder(sortedIngredients.joinToString("·"))
+            text = builder
+        }
+    }
+}
+
+
 @BindingAdapter("foodName", "foodCount")
 fun spanColorCount(textView: TextView, foodName: String, foodCount: Int) {
     val builder = SpannableStringBuilder(

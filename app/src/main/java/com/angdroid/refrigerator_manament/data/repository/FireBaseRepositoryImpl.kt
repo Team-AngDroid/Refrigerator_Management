@@ -1,7 +1,6 @@
 package com.angdroid.refrigerator_manament.data.repository
 
 import android.util.Log
-import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
 import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
@@ -14,9 +13,6 @@ import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
-import com.angdroid.refrigerator_manament.domain.util.ApiResult
-import com.google.firebase.firestore.FieldValue
-import kotlinx.coroutines.coroutineScope
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -64,6 +60,41 @@ class FireBaseRepositoryImpl @Inject constructor(
                 result.add(document.toObject(RecipeDto::class.java))
             }
             onComplete(recipeMapper.mapToEntity(result))
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
+
+    /**
+     * 재료뿐만 아니라 레시피 이름으로도 검색할 수 있도록 name field를 통해서 검색
+     */
+    override suspend fun getSearchRecipe(
+        name: String,
+        onComplete: (List<RecipeEntity>) -> Unit
+    ) {
+        recipeDataSource.getSearchRecipe(name).addOnSuccessListener { documents ->
+            val result = mutableListOf<RecipeDto>()
+            for (document in documents) {
+                if((document["name"] as String).contains(name)){
+                    result.add(document.toObject(RecipeDto::class.java))
+                }
+            }
+            onComplete(recipeMapper.mapToEntity(result))
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
+
+    /**
+     * AutoCompleteTextView에 사용할 레시피 이름들을 파이어베이스에서 받아오는 함수
+     */
+    override suspend fun getRecipeNameList(onComplete: (List<String>) -> Unit) {
+        recipeDataSource.getRecipeNameList().addOnSuccessListener { documents ->
+            val result = mutableListOf<String>()
+            for (document in documents) {
+                result.add(document["name"] as String)
+            }
+            onComplete(result)
         }.addOnFailureListener { e ->
             throw Exception(e.message)
         }
