@@ -84,7 +84,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         if (search != "") {
             recipeViewModel.getIngredientSearchRecipe(search)
             collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
-                val resultList = recipeViewModel.searchIngredientList.value
+                val resultList = it
                 if (resultList.isEmpty()) {
                     searchAdapter.submitList(listOf("검색결과가 없습니다."))
                     binding.searching = true
