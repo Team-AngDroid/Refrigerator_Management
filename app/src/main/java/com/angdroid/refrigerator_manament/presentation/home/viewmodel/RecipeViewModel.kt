@@ -1,6 +1,5 @@
-package com.angdroid.refrigerator_manament.presentation.home
+package com.angdroid.refrigerator_manament.presentation.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity

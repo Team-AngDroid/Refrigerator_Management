@@ -6,7 +6,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
-import com.angdroid.refrigerator_manament.presentation.home.RecipeViewModel
+import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint

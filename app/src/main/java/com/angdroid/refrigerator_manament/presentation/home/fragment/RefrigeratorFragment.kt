@@ -10,13 +10,12 @@ import com.angdroid.refrigerator_manament.databinding.FragmentRefrigeratorBindin
 import com.angdroid.refrigerator_manament.presentation.custom.DynamicGridLayoutManager
 import com.angdroid.refrigerator_manament.presentation.detail.DetailActivity
 import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
-import com.angdroid.refrigerator_manament.presentation.home.IngredientViewModel
+import com.angdroid.refrigerator_manament.presentation.home.viewmodel.IngredientViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.presentation.util.getSpanSizeLookUp
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import com.startup.meetiing.presentation.state.UiState
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
 
 @AndroidEntryPoint
 class RefrigeratorFragment :

@@ -8,11 +8,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
-import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailListAdapter
-import com.angdroid.refrigerator_manament.presentation.home.RecipeViewModel
+import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.SearchAdapter
 import com.angdroid.refrigerator_manament.presentation.home.adapter.SearchRecipeAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
