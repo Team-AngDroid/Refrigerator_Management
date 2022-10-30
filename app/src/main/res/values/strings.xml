@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">냉장고를 부탁해</string>
+    <string name="app_name">Fridge</string>
     <string name="category_vegetable">채소</string>
     <string name="category_fruit">과일 · 견과 · 쌀</string>
     <string name="category_meat">육류 · 계란류</string>
