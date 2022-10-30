@@ -6,25 +6,24 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityAddIngredientBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.camera.adapter.AddIngredientAdapter
-import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.CameraViewModel
+import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.AddIngredientViewModel
 import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
-import timber.log.Timber
 import java.time.LocalDate
 
 class AddIngredientActivity :
     BaseActivity<ActivityAddIngredientBinding>(R.layout.activity_add_ingredient) {
 
     private lateinit var adapter: AddIngredientAdapter
-    private val cameraViewModel: CameraViewModel by viewModels()
+    private val addIngredientViewModel: AddIngredientViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initBinding()
         intent?.let {
-            cameraViewModel.setIntentFoodList(getIngredients())
+            addIngredientViewModel.setIntentFoodList(getIngredients())
         }
         setAppbar()
         initAdapter()
@@ -32,7 +31,7 @@ class AddIngredientActivity :
 
     private fun initBinding() {
         binding.lifecycleOwner = this
-        binding.cameraViewModel = cameraViewModel
+        binding.addIngredientViewModel = addIngredientViewModel
     }
 
     private fun setAppbar() {
@@ -51,17 +50,17 @@ class AddIngredientActivity :
         adapter = AddIngredientAdapter(
             this,
             itemDeleteListener = {
-                cameraViewModel.removeItem(it)
+                addIngredientViewModel.removeItem(it)
             },
             itemMinusListener = {
-                cameraViewModel.minusItemCount(it)
+                addIngredientViewModel.minusItemCount(it)
             },
             itemPlusListener = {
-                cameraViewModel.plusItemCount(it)
+                addIngredientViewModel.plusItemCount(it)
             },
             itemDialogListener = {
                 CustomDialog(this, itemAddListener = {
-                    cameraViewModel.addDialogFood(it)
+                    addIngredientViewModel.addDialogFood(it)
                 }).showDialog()
             }
         )
@@ -70,7 +69,7 @@ class AddIngredientActivity :
     }
 
     private fun collectFoodList() {
-        collectFlowWhenStarted(cameraViewModel.foodList) {
+        collectFlowWhenStarted(addIngredientViewModel.foodList) {
             adapter.submitList(it.toList())
         }
     }

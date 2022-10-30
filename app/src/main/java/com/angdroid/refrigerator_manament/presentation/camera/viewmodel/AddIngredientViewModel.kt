@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class CameraViewModel : ViewModel() {
+class AddIngredientViewModel : ViewModel() {
 
     private val _foodList = MutableStateFlow<List<IngredientType.Food>>(emptyList())
     val foodList get() = _foodList

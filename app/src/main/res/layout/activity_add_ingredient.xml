@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="cameraViewModel"
-            type="com.angdroid.refrigerator_manament.presentation.camera.viewmodel.CameraViewModel" />
+            name="addIngredientViewModel"
+            type="com.angdroid.refrigerator_manament.presentation.camera.viewmodel.AddIngredientViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
