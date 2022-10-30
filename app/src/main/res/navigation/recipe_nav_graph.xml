@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recipe_nav_graph"
+    app:startDestination="@id/fragment_recipe">
+
+    <fragment
+        android:id="@+id/fragment_recipe"
+        android:name="com.angdroid.refrigerator_manament.presentation.home.fragment.RecipeFragment"
+        tools:layout="@layout/fragment_recipe"
+        android:label="@string/recipe" >
+        <action
+            android:id="@+id/action_recipeFragment_to_searchFragment"
+            app:destination="@id/fragment_search" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.angdroid.refrigerator_manament.presentation.home.fragment.SearchFragment"
+        tools:layout="@layout/fragment_search"
+        android:label="@string/search_recipe" />
+</navigation>

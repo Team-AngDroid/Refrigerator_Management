@@ -10,7 +10,7 @@
     <string name="permission_agree">동의하기</string>
     <string name="permission_cancel">취소하기</string>
 
-    <string name="ingredient">%s <font color='#0D99FF'>%d개</font></string>
+    <string name="ingredient">%s %d</string>
     <string name="ingredient_name">%s </string>
     <string name="ingredient_count">%d</string>
     <string name="category_seasoning">조미료</string>
@@ -35,6 +35,8 @@
     <string name="search_recipe">레시피 검색</string>
     <string name="already_have_ingredient">#0D99FF</string>
     <string name="made_by">로 만들수 있는 요리</string>
+    <string name="except">으</string>
+
     <string-array name="spinner_ingredients">
         <item>채소</item>
         <item>과일, 견과, 쌀</item>

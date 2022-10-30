@@ -7,6 +7,7 @@ import com.angdroid.refrigerator_manament.domain.usecase.EnterRefrigeratorPageUs
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.startup.meetiing.presentation.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -22,7 +23,7 @@ class IngredientViewModel @Inject constructor(
     val ingredient get() = _ingredient
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             enterRefrigeratorPageUseCase(viewModelScope) {
                 it.onStart {
                     _ingredient.value = UiState.Loading(true)

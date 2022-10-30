@@ -3,6 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="searching"
+            type="boolean" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,13 +62,31 @@
                 android:textCursorDrawable="@drawable/cursor_skyblue_2" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/sub_space_16"
             android:layout_marginVertical="@dimen/sub_space_12"
             android:orientation="vertical"
+            android:visibility="@{searching ? View.GONE : View.VISIBLE}"
+            android:overScrollMode="never"
+            android:text="@string/search_recipe"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_et_search"
+            tools:listitem="@layout/item_search_recipe" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/sub_space_12"
+            android:orientation="vertical"
+            android:visibility="@{searching ? View.VISIBLE : View.GONE}"
             android:overScrollMode="never"
             android:text="@string/search_recipe"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -68,6 +95,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layout_et_search"
             tools:listitem="@layout/item_search_list" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

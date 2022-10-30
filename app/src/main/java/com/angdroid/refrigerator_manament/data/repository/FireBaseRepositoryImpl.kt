@@ -13,6 +13,7 @@ import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
+import java.time.LocalDate
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(
@@ -64,21 +65,59 @@ class FireBaseRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * 재료뿐만 아니라 레시피 이름으로도 검색할 수 있도록 name field를 통해서 검색
+     */
+    override suspend fun getSearchRecipe(
+        name: String,
+        onComplete: (List<RecipeEntity>) -> Unit
+    ) {
+        recipeDataSource.getSearchRecipe(name).addOnSuccessListener { documents ->
+            val result = mutableListOf<RecipeDto>()
+            for (document in documents) {
+                if((document["name"] as String).contains(name)){
+                    result.add(document.toObject(RecipeDto::class.java))
+                }
+            }
+            onComplete(recipeMapper.mapToEntity(result))
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
+
+    /**
+     * AutoCompleteTextView에 사용할 레시피 이름들을 파이어베이스에서 받아오는 함수
+     */
+    override suspend fun getRecipeNameList(onComplete: (List<String>) -> Unit) {
+        recipeDataSource.getRecipeNameList().addOnSuccessListener { documents ->
+            val result = mutableListOf<String>()
+            for (document in documents) {
+                result.add(document["name"] as String)
+            }
+            onComplete(result)
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
+        }
+    }
+
     override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
+        val now = LocalDate.now()
         userInfoDataSource.getUserInfo().addOnSuccessListener {
-            onComplete(
-                userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
-                    FoodDto(
-                        (result["id"] as String),
-                        ((result["foodId"] as Long).toInt()),
-                        (result["expirationDate"] as String),
-                        (result["name"] as String),
-                        (result["image"] as String?),
-                        ((result["categoryId"] as Long).toInt()),
-                        ((result["foodCount"] as Long).toInt())
-                    )
-                }) as ArrayList<IngredientType>
-            )
+
+            userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
+                FoodDto(
+                    (result["id"] as String),
+                    ((result["foodId"] as Long).toInt()),
+                    (result["expirationDate"] as String),
+                    (result["name"] as String),
+                    (result["image"] as String?),
+                    ((result["categoryId"] as Long).toInt()),
+                    ((result["foodCount"] as Long).toInt())
+                )
+            }).filter { it.expirationDate >= now }.run {
+                userInfoDataSource.setFoodInfo(userMapper.mapToDto(this))
+                onComplete(this as ArrayList<IngredientType>)
+            }
         }.addOnFailureListener { e ->
             throw Exception(e.message)
         }
@@ -105,5 +144,19 @@ class FireBaseRepositoryImpl @Inject constructor(
         }.addOnFailureListener { e ->
             throw Exception(e.message)
         }
+    }
+
+    override suspend fun addIngredients(
+        ingredients: List<IngredientType>,
+        onApiResult: (Boolean) -> Unit
+    ) {/*
+        App.fireStoreUserReference.update("foodInfo",FieldValue.arrayUnion()
+        )
+            .addOnSuccessListener {
+                onApiResult(true)
+            }.addOnFailureListener { e ->
+                onApiResult(false)
+                throw Exception(e.message)
+            } 나중에 할래..*/
     }
 }

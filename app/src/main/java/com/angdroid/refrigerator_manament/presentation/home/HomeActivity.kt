@@ -3,8 +3,8 @@ package com.angdroid.refrigerator_manament.presentation.home
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.angdroid.refrigerator_manament.R
@@ -13,23 +13,47 @@ import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
 import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
+import com.angdroid.refrigerator_manament.presentation.util.types.Food
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
-    private lateinit var navController: NavController
+    private val recipeViewModel: RecipeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.lifecycleOwner = this
+
+        setRecipe()
         setNavigation()
         setOnClickListener()
     }
 
+    private fun setRecipe() { 
+        // 해당 작업을 액티비티에서 해준 이유
+        // fragment에서 해당 로직을 해준다면, 프래그먼트를 전환할때 마다 레시피가 랜덤하게 호출되고
+        // 그렇게 되면 서버호출이 과도하게 많아진다는 느낌이 들어서 액티비티에서만 random Recipe를 호출해주고 
+        // 프래그먼트 전환간 서버호출이 발생하지 않도록 조절
+        val recipeSet = mutableSetOf<String>()
+        val foodSet = mutableSetOf<String>()
+        while (recipeSet.size < 2) {
+            recipeSet.add(Food.FOOD[(0 until Food.FOOD.size).random(Random(System.nanoTime()))])
+            foodSet.add(Food.FOOD[(0 until Food.FOOD.size).random(Random(System.nanoTime()))])
+        }
+        recipeViewModel.getRandomRecipe(recipeSet.toList()) // 랜덤 레시피 두개 받아오는 작업
+        recipeViewModel.getIngredientRecipe(foodSet.toList()) // 랜덤 재료 레시피를 받아오는 작업
+    }
+
     private fun setNavigation() {
-        val host = supportFragmentManager.findFragmentById(R.id.nav_container) as NavHostFragment?
-            ?: return
-        navController = host.navController
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_container) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.bottom_nav_graph)
+        navController.graph = navGraph
+
+        binding.bottomNavHome.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             binding.appbarHome.title = when (destination.id) {
@@ -42,27 +66,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     }
 
     private fun setOnClickListener() {
-        binding.bottomNavHome.setOnItemSelectedListener {
-            // 경로를 navigation을 통해서 직접 지정해주어서
-            //BottomNavigation Listener에 액션형태로 적용
-            when (it.itemId) {
-                R.id.fragment_recipe -> {
-                    navController.navigate(R.id.action_fragment_refrigerator_to_fragment_recipe)
-                    return@setOnItemSelectedListener true
-                }
-                else -> {
-                    if(navController.currentDestination!!.id == R.id.fragment_recipe){
-                        navController.navigate(R.id.action_fragment_recipe_to_fragment_refrigerator)
-                        return@setOnItemSelectedListener true
-                    }
-                    else{
-                        navController.navigate(R.id.action_fragment_search_to_fragment_refrigerator)
-                        return@setOnItemSelectedListener true
-                    }
-                }
-            }
-        }
-        
+
         binding.fabCamera.setOnSingleClickListener {
             if (shouldShowRequestPermissionRationale(android.Manifest.permission.CAMERA)) {
                 showPermissionContextPopup()

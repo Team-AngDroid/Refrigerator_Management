@@ -60,7 +60,9 @@ class AddIngredientActivity :
                 cameraViewModel.plusItemCount(it)
             },
             itemDialogListener = {
-                CustomDialog(this, cameraViewModel).showDialog()
+                CustomDialog(this, itemAddListener = {
+                    cameraViewModel.addDialogFood(it)
+                }).showDialog()
             }
         )
         binding.rcvIngredients.adapter = adapter

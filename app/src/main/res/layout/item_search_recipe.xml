@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,8 +9,8 @@
             type="com.angdroid.refrigerator_manament.domain.entity.RecipeEntity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_category"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/sub_space_16"
@@ -63,7 +62,6 @@
             app:layout_constraintStart_toEndOf="@+id/iv_time"
             app:layout_constraintTop_toTopOf="@+id/iv_time" />
 
-        <!--TODO(BindingAdapter로 Span Text Color 적용해야함 일단 이렇게만 해둠-->
         <TextView
             android:id="@+id/tv_food_list"
             android:layout_width="0dp"
@@ -74,9 +72,9 @@
             android:maxLines="1"
             android:textAppearance="@style/Widget.TextView.Pretendard14_Black_Regular.TextAppearance"
             android:textColor="@color/gray1"
+            app:search_ingredients="@{recipeItem.foodList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tv_recipe_name"
-            app:necessary_ingredients="@{recipeItem.foodList}" />
+            app:layout_constraintStart_toStartOf="@id/tv_recipe_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
