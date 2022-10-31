@@ -33,7 +33,7 @@ class CustomDialog(
     val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(inflater)
 
     fun showDialog() {
-        binding.enabled = true
+        binding.enabled = false
         binding.count = ingredientCount.toString()
 
         dialog = Dialog(context)
@@ -90,10 +90,13 @@ class CustomDialog(
                         position: Int,
                         id: Long
                     ) {
-                        activationList[1] = true
+
                         //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
                         when (position) { // 포지션 함수
-                            0 -> {}
+                            0,1,2,3,4 -> {
+                                activationList[1] = true
+                                checkEnabled()
+                            }
                             else -> {}
                         }
                     }
@@ -107,6 +110,7 @@ class CustomDialog(
 
         binding.etIngredient.addTextChangedListener {
             activationList[0] = !it!!.isEmpty()
+            checkEnabled()
         }
 
         binding.ivPlus.setOnClickListener {
@@ -140,6 +144,11 @@ class CustomDialog(
             }
         }
     }
+
+    private fun checkEnabled(){
+        binding.enabled = activationList.all { it }
+    }
+
 
     private fun checkFoodname(name: String): Boolean {
         when (name) {
