@@ -63,13 +63,23 @@
 
         <ImageView
             android:id="@+id/iv_minus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/ingredient_btn"
+            android:layout_height="@dimen/ingredient_btn"
             android:layout_marginEnd="@dimen/sub_space_11"
-            android:src="@drawable/img_minus"
+            android:src="@drawable/img_circle_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_ingredient_count"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ic_minus"
+            android:layout_width="@dimen/sub_space_11"
+            android:layout_height="@dimen/sub_space_11"
+            android:src="@drawable/ic_minus"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_minus"
+            app:layout_constraintEnd_toEndOf="@+id/iv_minus"
+            app:layout_constraintStart_toStartOf="@+id/iv_minus"
+            app:layout_constraintTop_toTopOf="@+id/iv_minus" />
 
         <TextView
             android:id="@+id/tv_ingredient_count"
@@ -88,8 +98,8 @@
 
         <ImageView
             android:id="@+id/iv_plus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/ingredient_btn"
+            android:layout_height="@dimen/ingredient_btn"
             android:src="@drawable/img_plus"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -73,8 +73,19 @@
             android:id="@+id/iv_minus"
             android:layout_width="@dimen/sub_space_44"
             android:layout_height="@dimen/sub_space_44"
-            android:src="@drawable/img_minus"
+            android:src="@drawable/img_circle_button"
             app:layout_constraintStart_toStartOf="@+id/flow" />
+
+        <ImageView
+            android:id="@+id/ic_minus"
+            android:layout_width="@dimen/sub_space_16"
+            android:layout_height="@dimen/sub_space_16"
+            android:src="@drawable/ic_minus"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_minus"
+            app:layout_constraintEnd_toEndOf="@+id/iv_minus"
+            app:layout_constraintStart_toStartOf="@+id/iv_minus"
+            app:layout_constraintTop_toTopOf="@+id/iv_minus" />
+
 
         <TextView
             android:id="@+id/tv_count"
