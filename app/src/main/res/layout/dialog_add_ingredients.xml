@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="enabled"
+            type="boolean" />
+
+        <variable
             name="count"
             type="String" />
     </data>
@@ -97,6 +101,7 @@
             android:layout_height="@dimen/sub_space_51"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="@dimen/sub_space_24"
+            android:enabled="@{enabled}"
             android:background="@drawable/selector_primary_gray"
             android:text="@string/add_complete"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -14,7 +14,6 @@ import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBindin
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 import com.angdroid.refrigerator_manament.presentation.util.makeToast
-import timber.log.Timber
 import java.time.LocalDate
 
 
@@ -24,9 +23,9 @@ class CustomDialog(
 ) {
 
 
-    private val activationList = mutableListOf<Boolean>(false, false, false)
-
-    // 재료명 입력 여부 / 카테고리 선택 여부 / count 0 이 아닌 경우
+    private val activationList = mutableListOf<Boolean>(false, false)
+    // 재료명 입력 여부 / 카테고리 선택 여부
+    private var ingredientCount = 1 // 초기 카운트값
     private val inflater by lazy { LayoutInflater.from(context) }
     private lateinit var dialog: Dialog
 
@@ -34,8 +33,8 @@ class CustomDialog(
     val binding: DialogAddIngredientsBinding = DialogAddIngredientsBinding.inflate(inflater)
 
     fun showDialog() {
-        binding.count = 0.toString()
-
+        binding.enabled = true
+        binding.count = ingredientCount.toString()
 
         dialog = Dialog(context)
         dialog.apply {
@@ -111,15 +110,14 @@ class CustomDialog(
         }
 
         binding.ivPlus.setOnClickListener {
-            binding.count = (binding.count!!.toInt() + 1).toString()
-            activationList[2] = true
+            ingredientCount += 1
+            binding.count = ingredientCount.toString()
         }
         binding.ivMinus.setOnClickListener {
-            if (binding.count!!.toInt() != 0) {
-                binding.count = (binding.count!!.toInt() - 1).toString()
-                activationList[2] = true
-            } else
-                activationList[2] = false
+            if (ingredientCount != 1) {
+                ingredientCount -= 1
+                binding.count = ingredientCount.toString()
+            }
         }
 
         binding.btnIngredientsAdd.setOnClickListener {
@@ -132,7 +130,7 @@ class CustomDialog(
                         binding.etIngredient.text.toString(),
                         "",
                         binding.spinnerCategory.selectedItemPosition + 1,
-                        binding.count!!.toInt()
+                        ingredientCount
                     )
                 )
                 dialog.cancel()
