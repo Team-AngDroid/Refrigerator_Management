@@ -9,6 +9,7 @@ import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
+import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +25,7 @@ class RecipeFragment :
         binding.reciepviewmodel = recipeViewModel // 데이터바인딩
         binding.lifecycleOwner = this
 
+        collectList()
         setAdapter()
         binding.etSearch.setOnClickListener {
             findNavController().navigate(R.id.action_recipeFragment_to_searchFragment)
@@ -33,9 +35,14 @@ class RecipeFragment :
     private fun setAdapter() {
         recipeAdapter = RecipeAdapter(requireContext(), {})
         binding.rcvRecipe.adapter = recipeAdapter
-        recipeAdapter.submitList(recipeViewModel.randomIngredientRecipeList.value.toList())
     }
 
+    private fun collectList()
+    {
+        collectFlowWhenStarted(recipeViewModel.randomIngredientRecipeList){
+            recipeAdapter.submitList(it)
+        }
+    }
 }
 
 

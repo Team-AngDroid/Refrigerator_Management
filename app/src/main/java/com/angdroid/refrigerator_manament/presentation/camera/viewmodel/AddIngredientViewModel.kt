@@ -1,5 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.camera.viewmodel
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,9 +15,9 @@ class AddIngredientViewModel : ViewModel() {
         _foodList.value = intentList
     }
 
-    fun addDialogFood(food:IngredientType.Food){
+    fun addDialogFood(food: IngredientType.Food) {
         val currentList = _foodList.value.toMutableList()
-        currentList.add(1,food)
+        currentList.add(1, food)
         _foodList.value = currentList
     }
 
