@@ -3,17 +3,17 @@ package com.angdroid.refrigerator_manament.presentation.util
 import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.application.App
-import com.angdroid.refrigerator_manament.util.CategoryType
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
+import com.angdroid.refrigerator_manament.util.CategoryType
 import java.time.LocalDate
 
 
@@ -132,4 +132,9 @@ fun TextView.setExpirationDate(expirationDate: LocalDate) {
         }
 
     }
+}
+
+@BindingAdapter("app:count_btn_tint")
+fun ImageView.setImageTint(@ColorInt color: Int) {
+    setColorFilter(color)
 }

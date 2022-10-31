@@ -26,6 +26,7 @@ class CustomDialog(
 
 
     private val activationList = mutableListOf<Boolean>(false, false)
+
     // 재료명 입력 여부 / 카테고리 선택 여부
     private var ingredientCount = 1 // 초기 카운트값
     private val inflater by lazy { LayoutInflater.from(context) }
@@ -36,7 +37,7 @@ class CustomDialog(
 
     fun showDialog() {
         binding.enabled = false
-        binding.count = ingredientCount.toString()
+        binding.count = ingredientCount
 
         dialog = Dialog(context)
         dialog.apply {
@@ -95,7 +96,7 @@ class CustomDialog(
 
                         //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작
                         when (position) { // 포지션 함수
-                            0,1,2,3,4 -> {
+                            0, 1, 2, 3, 4 -> {
                                 activationList[1] = true
                                 checkEnabled()
                             }
@@ -117,12 +118,12 @@ class CustomDialog(
 
         binding.ivPlus.setOnClickListener {
             ingredientCount += 1
-            binding.count = ingredientCount.toString()
+            binding.count = ingredientCount
         }
         binding.ivMinus.setOnClickListener {
             if (ingredientCount != 1) {
                 ingredientCount -= 1
-                binding.count = ingredientCount.toString()
+                binding.count = ingredientCount
             }
         }
 
@@ -147,14 +148,14 @@ class CustomDialog(
         }
     }
 
-    private fun checkEnabled(){
+    private fun checkEnabled() {
         binding.enabled = activationList.all { it }
     }
 
 
     private fun checkFoodName(name: String): Boolean {
         FoodTypeFeatures.values().map { it.name }.forEach {
-            if(name == it)
+            if (name == it)
                 return true
         }
         return false
@@ -162,7 +163,7 @@ class CustomDialog(
 
     private fun findFoodId(name: String): Int {
         FoodTypeFooId.values().map { it }.forEach {
-            if(name == it.name)
+            if (name == it.name)
                 return it.foodId
         }
         return 0

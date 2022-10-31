@@ -11,7 +11,7 @@
 
         <variable
             name="count"
-            type="String" />
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,6 +74,7 @@
             android:layout_width="@dimen/sub_space_44"
             android:layout_height="@dimen/sub_space_44"
             android:src="@drawable/img_circle_button"
+            app:count_btn_tint="@{count == 1 ? @color/recipe_gray : @color/primary_skyblue }"
             app:layout_constraintStart_toStartOf="@+id/flow" />
 
         <ImageView
@@ -92,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@={count}"
+            android:text="@{@string/ingredient_count(count)}"
             android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Medium.TextAppearance"
             android:textColor="@color/black_second"
             tools:text="1" />
@@ -112,8 +113,8 @@
             android:layout_height="@dimen/sub_space_51"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="@dimen/sub_space_24"
-            android:enabled="@{enabled}"
             android:background="@drawable/selector_skyblue_recipe_gray_dialog_btn"
+            android:enabled="@{enabled}"
             android:text="@string/add_complete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
