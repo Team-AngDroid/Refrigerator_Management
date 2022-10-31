@@ -14,6 +14,8 @@ import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBindin
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 import com.angdroid.refrigerator_manament.presentation.util.makeToast
+import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
+import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFooId
 import java.time.LocalDate
 
 
@@ -125,7 +127,7 @@ class CustomDialog(
         }
 
         binding.btnIngredientsAdd.setOnClickListener {
-            if (activationList.all { it } && checkFoodname(binding.etIngredient.text.toString())) {
+            if (activationList.all { it } && checkFoodName(binding.etIngredient.text.toString())) {
                 itemAddListener(
                     IngredientType.Food(
                         "123",
@@ -140,7 +142,7 @@ class CustomDialog(
                 dialog.cancel()
 
             } else {
-                binding.root.makeToast("재료 입력을 정확히 해주세요!")
+                binding.etIngredient.makeToast("재료 입력을 정확히 해주세요!")
             }
         }
     }
@@ -150,42 +152,18 @@ class CustomDialog(
     }
 
 
-    private fun checkFoodname(name: String): Boolean {
-        when (name) {
-            "당근" -> return true
-            "오이" -> return true
-            "무우" -> return true
-            //"무" -> return true
-            "사과" -> return true
-            "배" -> return true
-            "귤" -> return true
-            "계란" -> return true
-            "생닭" -> return true
-            "우유" -> return true
-            "치즈" -> return true
-            "새우" -> return true
-            "오징어" -> return true
-            "고등어" -> return true
+    private fun checkFoodName(name: String): Boolean {
+        FoodTypeFeatures.values().map { it.name }.forEach {
+            if(name == it)
+                return true
         }
         return false
     }
 
     private fun findFoodId(name: String): Int {
-        when (name) {
-            "당근" -> return 101
-            "오이" -> return 102
-            "무우" -> return 103
-            //"무" -> return 103
-            "사과" -> return 104
-            "배" -> return 105
-            "귤" -> return 106
-            "계란" -> return 107
-            "생닭" -> return 108
-            "우유" -> return 109
-            "치즈" -> return 110
-            "새우" -> return 111
-            "오징어" -> return 112
-            "고등어" -> return 113
+        FoodTypeFooId.values().map { it }.forEach {
+            if(name == it.name)
+                return it.foodId
         }
         return 0
     }
