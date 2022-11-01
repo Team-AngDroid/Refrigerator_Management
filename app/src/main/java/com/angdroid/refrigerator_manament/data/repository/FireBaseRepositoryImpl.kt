@@ -2,15 +2,13 @@ package com.angdroid.refrigerator_manament.data.repository
 
 import android.util.Log
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
-import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
+import com.angdroid.refrigerator_manament.data.datasource.user.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
 import com.angdroid.refrigerator_manament.data.dto.RecipeDto
-import com.angdroid.refrigerator_manament.data.mapper.home.UserMapper
 import com.angdroid.refrigerator_manament.data.mapper.recipe.RecipeMapper
-import com.angdroid.refrigerator_manament.domain.entity.FoodEntity
+import com.angdroid.refrigerator_manament.data.mapper.user.UserMapper
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
-import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import java.time.LocalDate
@@ -23,20 +21,7 @@ class FireBaseRepositoryImpl @Inject constructor(
     private val recipeMapper: RecipeMapper,
     private val userMapper: UserMapper
 ) : FireBaseRepository {
-    override suspend fun deleteFood(foodDto: FoodEntity) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addFood(vararg foodDto: FoodEntity) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getUserInfo(): UserEntity {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getAllRecipe(onComplete: (List<RecipeEntity>) -> Unit) {
-
         recipeDataSource.getAllRecipe().addOnSuccessListener { documents ->
             val result = mutableListOf<RecipeDto>()
             for (document in documents) {
@@ -149,7 +134,9 @@ class FireBaseRepositoryImpl @Inject constructor(
     override suspend fun addIngredients(
         ingredients: List<IngredientType>,
         onApiResult: (Boolean) -> Unit
-    ) {/*
+    ) {
+        foodInfoController.addIngredients(ingredients)
+    /*
         App.fireStoreUserReference.update("foodInfo",FieldValue.arrayUnion()
         )
             .addOnSuccessListener {

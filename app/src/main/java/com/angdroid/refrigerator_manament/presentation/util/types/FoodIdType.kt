@@ -1,6 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.util.types
 
-enum class FoodTypeFooId (val foodId: Int) {
+enum class FoodIdType (val foodId: Int) {
     당근(101), 오이(102), 무우(103),
     사과(104), 배(105), 귤(106),
     계란(107), 생닭(108), 우유(109),

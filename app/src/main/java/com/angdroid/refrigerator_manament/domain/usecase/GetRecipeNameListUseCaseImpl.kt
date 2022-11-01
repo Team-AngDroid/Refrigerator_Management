@@ -3,11 +3,9 @@ package com.angdroid.refrigerator_manament.domain.usecase
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import javax.inject.Inject
 
-
-//Todo("User Profile 보여줄지 고민)
-class GetUserProfileUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
-    GetUserProfileUseCase {
-    override fun invoke() {
+class GetRecipeNameListUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
+    GetRecipeNameListUseCase {
+    override fun invoke(): List<String> {
         TODO("Not yet implemented")
     }
 }

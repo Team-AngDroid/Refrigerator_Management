@@ -1,9 +1,7 @@
 package com.angdroid.refrigerator_manament.di
 
-import com.angdroid.refrigerator_manament.data.datasource.camera.CameraDataSource
-import com.angdroid.refrigerator_manament.data.datasource.camera.CameraDataSourceImpl
-import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSource
-import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSourceImpl
+import com.angdroid.refrigerator_manament.data.datasource.user.UserInfoDataSource
+import com.angdroid.refrigerator_manament.data.datasource.user.UserInfoDataSourceImpl
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSourceImpl
 import dagger.Binds
@@ -18,13 +16,9 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindToCameraDataSource(cameraDataSourceImpl: CameraDataSourceImpl):CameraDataSource
+    abstract fun bindToRecipeDataSource(recipeDataSourceImpl: RecipeDataSourceImpl): RecipeDataSource
 
     @Binds
     @Singleton
-    abstract fun bindToRecipeDataSource(recipeDataSourceImpl: RecipeDataSourceImpl):RecipeDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindToUserInfoDataSource(userInfoDataSourceImpl: UserInfoDataSourceImpl):UserInfoDataSource
+    abstract fun bindToUserInfoDataSource(userInfoDataSourceImpl: UserInfoDataSourceImpl): UserInfoDataSource
 }
