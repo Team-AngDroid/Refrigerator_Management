@@ -67,6 +67,7 @@
             android:layout_height="@dimen/ingredient_btn"
             android:layout_marginEnd="@dimen/sub_space_11"
             android:src="@drawable/img_circle_button"
+            app:count_btn_tint="@{food.count == 1 ? @color/recipe_gray : @color/primary_skyblue }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_ingredient_count"
             app:layout_constraintTop_toTopOf="parent" />
