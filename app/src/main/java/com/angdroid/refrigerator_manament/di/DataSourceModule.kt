@@ -20,23 +20,18 @@ import javax.inject.Singleton
 @Module
 object DataSourceModule {
 
-    @Provides
-    @Singleton
-    fun provideFireStoreRecipeReference(): CollectionReference =
-        Firebase.firestore.collection("Recipe")
+    private val fireStoreRecipeReference: CollectionReference
+        get() = Firebase.firestore.collection("Recipe")
+    private val fireStoreUserReference
+        get() = Firebase.firestore.collection("User").document(BuildConfig.USER_ID)
 
     @Provides
     @Singleton
-    fun provideFireStoreUserReference(): DocumentReference =
-        Firebase.firestore.collection("User").document(BuildConfig.USER_ID)
-
-    @Provides
-    @Singleton
-    fun provideToRecipeDataSource(fireStoreRecipeReference: CollectionReference): RecipeDataSource =
+    fun provideToRecipeDataSource(): RecipeDataSource =
         RecipeDataSourceImpl(fireStoreRecipeReference)
 
     @Provides
     @Singleton
-    fun provideToUserInfoDataSource(fireStoreUserReference: DocumentReference): UserInfoDataSource =
+    fun provideToUserInfoDataSource(): UserInfoDataSource =
         UserInfoDataSourceImpl(fireStoreUserReference)
 }
