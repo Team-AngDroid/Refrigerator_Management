@@ -11,6 +11,7 @@ import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 
 class DetailRecipeListAdapter(
+    private val itemClickListener: (RecipeEntity) -> Unit
 ) :
     ListAdapter<RecipeEntity, DetailRecipeListAdapter.DetailViewHolder>(DetailDiffCallBack) {
     private lateinit var inflater: LayoutInflater
@@ -27,13 +28,18 @@ class DetailRecipeListAdapter(
     }
 
     override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
-        (holder.binding.clCategory.layoutParams as ViewGroup.MarginLayoutParams).apply {
-            if (position == itemCount - 1) {
-                bottomMargin = 32.dpToPx(context = holder.binding.clCategory.context)
+        val currentItem = getItem(position)
+        with(holder.binding){
+            (clCategory.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                if (position == itemCount - 1) {
+                    bottomMargin = 32.dpToPx(context = clCategory.context)
+                }
             }
+            setVariable(BR.recipeItem,currentItem)
+            root.setOnClickListener { itemClickListener(currentItem) }
         }
-        holder.binding.setVariable(BR.recipeItem, getItem(position))
     }
+
 
     companion object {
         private object DetailDiffCallBack : DiffUtil.ItemCallback<RecipeEntity>() {

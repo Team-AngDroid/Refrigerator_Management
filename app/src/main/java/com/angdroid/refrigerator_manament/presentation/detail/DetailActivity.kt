@@ -1,5 +1,7 @@
 package com.angdroid.refrigerator_manament.presentation.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.window.layout.WindowMetrics
@@ -8,7 +10,7 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityDetailBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailIngredientListAdapter
-import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailListAdapter
+import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,13 +19,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_detail) {
 
     private val detailViewModel: DetailViewModel by viewModels()
-    private lateinit var detailListAdapter: DetailListAdapter
+    private lateinit var detailListAdapter: DetailRecipeListAdapter
     private lateinit var ingredientDetailListAdapter: DetailIngredientListAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
         binding.detailViewModel = detailViewModel
-        detailListAdapter = DetailListAdapter()
+        detailListAdapter = DetailRecipeListAdapter(){
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+        } // 암시적 인텐트를 통한 링크 연결
 
         val windowMetrics: WindowMetrics = WindowMetricsCalculator.getOrCreate().computeCurrentWindowMetrics(this)
         ingredientDetailListAdapter = DetailIngredientListAdapter(windowMetrics)

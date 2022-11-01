@@ -1,6 +1,8 @@
 package com.angdroid.refrigerator_manament.presentation.home.fragment
 
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -10,18 +12,19 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
-import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailListAdapter
+import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
     private lateinit var autoAdapter: ArrayAdapter<String>
-    private lateinit var detailAdapter: DetailListAdapter
+    private lateinit var detailAdapter: DetailRecipeListAdapter
     private val recipeViewModel: RecipeViewModel by activityViewModels()
     private var FLAG: Boolean = true // 최초 진입 시점 확인
 
@@ -43,7 +46,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun setAdapters() {
         // 두개의 리싸이클러뷰에서 텍스트뷰, 리싸이클러뷰를 두고 visibility와 text 내용을 조절하는 것으로 변경
-        detailAdapter = DetailListAdapter()
+        detailAdapter = DetailRecipeListAdapter(){
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+        } // 암시적 인텐트를 통한 링크
         binding.rcvSearch.adapter = detailAdapter
         binding.searching = true
 
