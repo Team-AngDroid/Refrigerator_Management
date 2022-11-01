@@ -1,4 +1,4 @@
-package com.angdroid.refrigerator_manament.presentation.home
+package com.angdroid.refrigerator_manament.presentation.home.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

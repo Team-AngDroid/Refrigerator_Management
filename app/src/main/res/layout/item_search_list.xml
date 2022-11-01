@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <!--현재 사용처 없음 -->
     <data>
         <variable
             name="result"

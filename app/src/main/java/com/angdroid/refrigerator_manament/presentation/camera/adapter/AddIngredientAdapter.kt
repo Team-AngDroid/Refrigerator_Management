@@ -10,7 +10,6 @@ import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemIngredientsBinding
 import com.angdroid.refrigerator_manament.databinding.ItemSelfIngredientsBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
-import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
 
 class AddIngredientAdapter(
@@ -20,7 +19,7 @@ class AddIngredientAdapter(
     private val itemPlusListener: (IngredientType.Food) -> Unit,
     private val itemDialogListener: (IngredientType.Food) -> Unit
 
-    ) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
+) : ListAdapter<IngredientType.Food, RecyclerView.ViewHolder>(IngredientDiffCallBack) {
     private val inflater by lazy { LayoutInflater.from(context) }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -49,15 +48,11 @@ class AddIngredientAdapter(
         when (holder.itemViewType) {
             INGREDIENTS -> {
                 with(holder as IngredientViewHolder) {
-                    binding.setVariable(BR.food, (currentItem as IngredientType.Food))
-                    binding.ivMinus.setOnSingleClickListener {
-                        itemMinusListener(currentItem)
-                    }
-                    binding.ivPlus.setOnSingleClickListener {
-                        itemPlusListener(currentItem)
-                    }
-                    binding.ivDelete.setOnSingleClickListener {
-                        itemDeleteListener(currentItem)
+                    binding.apply {
+                        setVariable(BR.food, (currentItem as IngredientType.Food))
+                        ivMinus.setOnSingleClickListener { itemMinusListener(currentItem) }
+                        ivPlus.setOnSingleClickListener { itemPlusListener(currentItem) }
+                        ivDelete.setOnSingleClickListener { itemDeleteListener(currentItem) }
                     }
                 }
             }

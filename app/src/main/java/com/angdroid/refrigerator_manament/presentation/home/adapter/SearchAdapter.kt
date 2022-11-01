@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemSearchListBinding
 
+//TODO 현재 사용처 없음
 class SearchAdapter(
     context: Context, private val itemClickListener: (String) -> Unit,
 ) : ListAdapter<String, RecyclerView.ViewHolder>(SearchListDiffCallBack) {
