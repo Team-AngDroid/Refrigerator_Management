@@ -78,7 +78,7 @@
                     android:layout_marginHorizontal="@dimen/sub_space_16"
                     android:layout_marginTop="@dimen/sub_space_12"
                     android:orientation="horizontal"
-                    app:constraint_referenced_ids="cv_recommend1,cv_recommen2"
+                    app:constraint_referenced_ids="cv_recommend1,cv_recommend2"
                     app:flow_horizontalGap="@dimen/sub_space_8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_recommen2"
+                    android:id="@+id/cv_recommend2"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/sub_space_200"
                     app:cardCornerRadius="12dp"
@@ -187,8 +187,8 @@
                     app:constraint_referenced_ids="tv_recipe2_name,flow_recommend2_detail"
                     app:flow_horizontalAlign="start"
                     app:flow_verticalGap="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cv_recommen2"
-                    app:layout_constraintStart_toStartOf="@+id/cv_recommen2" />
+                    app:layout_constraintBottom_toBottomOf="@+id/cv_recommend2"
+                    app:layout_constraintStart_toStartOf="@+id/cv_recommend2" />
 
 
                 <androidx.constraintlayout.helper.widget.Flow

@@ -11,6 +11,7 @@ import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
+import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +30,29 @@ class RecipeFragment :
 
         collectList()
         setAdapter()
+        setListener()
+
+
+    }
+
+    private fun setListener() {
+        binding.cvRecommend1.setOnSingleClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(recipeViewModel.randomRecipeList.value[0].link)
+                )
+            )
+        }
+        binding.cvRecommend2.setOnSingleClickListener {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(recipeViewModel.randomRecipeList.value[1].link)
+                )
+            )
+        }
+
         binding.etSearch.setOnClickListener {
             findNavController().navigate(R.id.action_recipeFragment_to_searchFragment)
         }
@@ -41,9 +65,8 @@ class RecipeFragment :
         binding.rcvRecipe.adapter = recipeAdapter
     }
 
-    private fun collectList()
-    {
-        collectFlowWhenStarted(recipeViewModel.randomIngredientRecipeList){
+    private fun collectList() {
+        collectFlowWhenStarted(recipeViewModel.randomIngredientRecipeList) {
             recipeAdapter.submitList(it)
         }
     }
