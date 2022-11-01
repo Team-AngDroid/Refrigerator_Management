@@ -4,12 +4,10 @@ import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import com.angdroid.refrigerator_manament.domain.util.CategoryType
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class EnterRefrigeratorPageUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
@@ -54,5 +52,5 @@ class EnterRefrigeratorPageUseCaseImpl @Inject constructor(private val fireBaseR
             )
         )
         emit(result)
-    }
+    }.flowOn(Dispatchers.Default)
 }
