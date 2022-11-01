@@ -22,10 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
     private lateinit var autoAdapter: ArrayAdapter<String>
-    private lateinit var searchAdapter: SearchAdapter
     private lateinit var detailAdapter: SearchRecipeAdapter
     private val recipeViewModel: RecipeViewModel by activityViewModels()
-    private var FLAG :Boolean = true
+    private var FLAG :Boolean = true // 최초 진입 시점 확인
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,12 +43,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun setAdapters() {
-        // 두개의 리싸이클러뷰를 넣어준 이유 -> 멀티뷰홀더 어댑터를 쓰기에는 Entity상 적합하지 않은거 같아서
-        // 하나의 리싸이클러뷰에서 어댑터를 교체해주는 작업을 했으나 PR의 스크린샷 처럼 Blinking이 지속적으로 발생
-        // 따라서 데이터바인딩을 통해서 두개의 RecyclerView의 visibility를 조절하는 방식을 사용
-        searchAdapter = SearchAdapter(requireContext()) {}
+        // 두개의 리싸이클러뷰에서 텍스트뷰, 리싸이클러뷰를 두고 visibility와 text 내용을 조절하는 것으로 변경
         detailAdapter = SearchRecipeAdapter()
-        binding.rcvEmpty.adapter = searchAdapter
         binding.rcvSearch.adapter = detailAdapter
         binding.searching = true
 
@@ -92,11 +87,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             val resultList = it
             if (resultList.isEmpty()) {
                 if(FLAG){
-                    searchAdapter.submitList(listOf(getString(R.string.search_recipe_intro))) //초기 설정
+                    binding.emptySearch = getString(R.string.search_recipe_intro) //초기 설정
                     FLAG = false
                 }
                 else{
-                    searchAdapter.submitList(listOf(getString(R.string.search_empty)))
+                    binding.emptySearch = getString(R.string.search_empty)
                     binding.searching = true
                 }
             } else {
