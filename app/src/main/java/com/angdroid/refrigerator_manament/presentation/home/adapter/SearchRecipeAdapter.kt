@@ -10,6 +10,7 @@ import com.angdroid.refrigerator_manament.BR
 import com.angdroid.refrigerator_manament.databinding.ItemSearchRecipeBinding
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 
+//TODO 레시피 검색결과당시 가지고 있는 재료 색깔 없이 보여주는 어댑터 현재 사용처 없음
 class SearchRecipeAdapter :
     ListAdapter<RecipeEntity, SearchRecipeAdapter.DetailViewHolder>(DetailDiffCallBack) {
     private lateinit var inflater: LayoutInflater

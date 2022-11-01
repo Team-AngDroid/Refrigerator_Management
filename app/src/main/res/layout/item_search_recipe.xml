@@ -2,6 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 레시피 재료 색깔없이 보여주는 뷰 현재사용처 없음-->
     <data>
 
         <variable
