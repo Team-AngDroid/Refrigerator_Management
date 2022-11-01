@@ -24,7 +24,6 @@ class App : Application() {
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 
-
     companion object {
         lateinit var fireStoreUserReference: DocumentReference
         lateinit var fireStoreRecipeReference: CollectionReference

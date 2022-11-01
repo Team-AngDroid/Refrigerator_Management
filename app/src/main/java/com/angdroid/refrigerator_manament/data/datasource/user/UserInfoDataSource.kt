@@ -1,7 +1,6 @@
-package com.angdroid.refrigerator_manament.data.datasource.home
+package com.angdroid.refrigerator_manament.data.datasource.user
 
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
-import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 

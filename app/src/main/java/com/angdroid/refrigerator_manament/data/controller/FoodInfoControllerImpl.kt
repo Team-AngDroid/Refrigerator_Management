@@ -1,14 +1,10 @@
 package com.angdroid.refrigerator_manament.data.controller
 
-import com.angdroid.refrigerator_manament.data.dto.FoodDto
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import javax.inject.Inject
 
 class FoodInfoControllerImpl @Inject constructor() : FoodInfoController {
-    override suspend fun deleteFood(foodDto: FoodDto) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addFood(vararg foodDto: FoodDto) {
+    override suspend fun addIngredients(ingredients: List<IngredientType>) {
         TODO("Not yet implemented")
     }
 }

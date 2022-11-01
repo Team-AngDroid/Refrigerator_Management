@@ -15,7 +15,7 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 import com.angdroid.refrigerator_manament.presentation.util.makeToast
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
-import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFooId
+import com.angdroid.refrigerator_manament.presentation.util.types.FoodIdType
 import java.time.LocalDate
 
 
@@ -162,7 +162,7 @@ class CustomDialog(
     }
 
     private fun findFoodId(name: String): Int {
-        FoodTypeFooId.values().map { it }.forEach {
+        FoodIdType.values().map { it }.forEach {
             if (name == it.name)
                 return it.foodId
         }

@@ -13,7 +13,7 @@ import coil.transform.RoundedCornersTransformation
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
-import com.angdroid.refrigerator_manament.util.CategoryType
+import com.angdroid.refrigerator_manament.domain.util.CategoryType
 import java.time.LocalDate
 
 

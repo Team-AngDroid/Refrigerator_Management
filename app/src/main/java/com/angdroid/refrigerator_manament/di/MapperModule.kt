@@ -1,6 +1,6 @@
 package com.angdroid.refrigerator_manament.di
 
-import com.angdroid.refrigerator_manament.data.mapper.home.UserMapper
+import com.angdroid.refrigerator_manament.data.mapper.user.UserMapper
 import com.angdroid.refrigerator_manament.data.mapper.recipe.RecipeMapper
 import dagger.Module
 import dagger.Provides

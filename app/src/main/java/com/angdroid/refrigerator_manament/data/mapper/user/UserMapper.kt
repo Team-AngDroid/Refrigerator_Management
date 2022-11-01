@@ -1,17 +1,9 @@
-package com.angdroid.refrigerator_manament.data.mapper.home
+package com.angdroid.refrigerator_manament.data.mapper.user
 
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
-import com.angdroid.refrigerator_manament.data.dto.UserDto
 import com.angdroid.refrigerator_manament.data.util.BaseMapper
-import com.angdroid.refrigerator_manament.domain.entity.FoodEntity
-import com.angdroid.refrigerator_manament.domain.entity.FoodInfoEntity
-import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
-import com.google.firebase.Timestamp
-import java.time.Instant
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 class UserMapper : BaseMapper<List<FoodDto>, List<IngredientType.Food>> {

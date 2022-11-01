@@ -1,4 +1,4 @@
-package com.angdroid.refrigerator_manament.util
+package com.angdroid.refrigerator_manament.domain.util
 
 import com.angdroid.refrigerator_manament.R
 
