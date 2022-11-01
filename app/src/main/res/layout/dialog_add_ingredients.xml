@@ -6,8 +6,12 @@
     <data>
 
         <variable
+            name="enabled"
+            type="boolean" />
+
+        <variable
             name="count"
-            type="String" />
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,15 +73,27 @@
             android:id="@+id/iv_minus"
             android:layout_width="@dimen/sub_space_44"
             android:layout_height="@dimen/sub_space_44"
-            android:src="@drawable/img_minus"
+            android:src="@drawable/img_circle_button"
+            app:count_btn_tint="@{count == 1 ? @color/recipe_gray : @color/primary_skyblue }"
             app:layout_constraintStart_toStartOf="@+id/flow" />
+
+        <ImageView
+            android:id="@+id/ic_minus"
+            android:layout_width="@dimen/sub_space_16"
+            android:layout_height="@dimen/sub_space_16"
+            android:src="@drawable/ic_minus"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_minus"
+            app:layout_constraintEnd_toEndOf="@+id/iv_minus"
+            app:layout_constraintStart_toStartOf="@+id/iv_minus"
+            app:layout_constraintTop_toTopOf="@+id/iv_minus" />
+
 
         <TextView
             android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@={count}"
+            android:text="@{@string/ingredient_count(count)}"
             android:textAppearance="@style/Widget.TextView.Pretendard18_Black_Medium.TextAppearance"
             android:textColor="@color/black_second"
             tools:text="1" />
@@ -97,7 +113,8 @@
             android:layout_height="@dimen/sub_space_51"
             android:layout_marginHorizontal="0dp"
             android:layout_marginTop="@dimen/sub_space_24"
-            android:background="@drawable/shape_rectangle_skyblue_8"
+            android:background="@drawable/selector_skyblue_recipe_gray_dialog_btn"
+            android:enabled="@{enabled}"
             android:text="@string/add_complete"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

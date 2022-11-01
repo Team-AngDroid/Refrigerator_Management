@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
 import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
+import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
 import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener

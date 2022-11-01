@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
-import com.angdroid.refrigerator_manament.domain.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -21,7 +20,7 @@ class DetailViewModel @Inject constructor(private val firebaseRepository: FireBa
     val selectItem = MutableStateFlow<IngredientType.Food?>(null)
     fun getAllRecipe() {
         viewModelScope.launch {
-            firebaseRepository.getAllRecipe().let {
+            firebaseRepository.getAllRecipe {
                 _recipeList.value = it
             }
         }

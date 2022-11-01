@@ -47,5 +47,7 @@
     <string name="suggest_recipe">💁🏻‍♀️ 추천 레시피</string>
     <string name="until_day">%d일 남았어요</string>
     <string name="food_count">%d개</string>
+    <string name="search_empty">검색결과가 없습니다.</string>
+    <string name="search_recipe_intro">레시피를 검색해보세요😋</string>
 
 </resources>

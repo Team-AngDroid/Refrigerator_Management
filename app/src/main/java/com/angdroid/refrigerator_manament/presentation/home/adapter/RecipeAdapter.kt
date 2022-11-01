@@ -39,7 +39,7 @@ class RecipeAdapter(
         when (holder.itemViewType) {
             RECIPE -> {
                 with(holder as RecipeDetailViewHolder) {
-                    binding.setVariable(BR.recipeItem, getItem(position))
+                    binding.setVariable(BR.recipeItem, currentItem)
                     binding.root.setOnClickListener { itemClickListener(currentItem) }
                 }
             }
@@ -49,7 +49,7 @@ class RecipeAdapter(
                         binding.setVariable(BR.except, true)
                     else
                         binding.setVariable(BR.except, false)
-                    binding.setVariable(BR.ingredient, getItem(position))
+                    binding.setVariable(BR.ingredient, currentItem)
                 }
             }
 

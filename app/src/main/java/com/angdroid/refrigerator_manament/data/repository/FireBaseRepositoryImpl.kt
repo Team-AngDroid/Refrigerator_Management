@@ -2,15 +2,13 @@ package com.angdroid.refrigerator_manament.data.repository
 
 import android.util.Log
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
-import com.angdroid.refrigerator_manament.data.datasource.home.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
+import com.angdroid.refrigerator_manament.data.datasource.user.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
 import com.angdroid.refrigerator_manament.data.dto.RecipeDto
-import com.angdroid.refrigerator_manament.data.mapper.home.UserMapper
 import com.angdroid.refrigerator_manament.data.mapper.recipe.RecipeMapper
-import com.angdroid.refrigerator_manament.domain.entity.FoodEntity
+import com.angdroid.refrigerator_manament.data.mapper.user.UserMapper
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
-import com.angdroid.refrigerator_manament.domain.entity.UserEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
 import kotlinx.coroutines.tasks.await
@@ -24,23 +22,22 @@ class FireBaseRepositoryImpl @Inject constructor(
     private val recipeMapper: RecipeMapper,
     private val userMapper: UserMapper
 ) : FireBaseRepository {
-    override suspend fun deleteFood(foodDto: FoodEntity) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun addFood(vararg foodDto: FoodEntity) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getUserInfo(): UserEntity {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getAllRecipe(): List<RecipeEntity> {
-        recipeDataSource.getAllRecipe().await().let { documents ->
-            return recipeMapper.mapToEntity(documents.map { document -> document.toObject(RecipeDto::class.java) })
+    override suspend fun getAllRecipe(onComplete: (List<RecipeEntity>) -> Unit) {
+        recipeDataSource.getAllRecipe().addOnSuccessListener { documents ->
+            val result = mutableListOf<RecipeDto>()
+            for (document in documents) {
+                Log.e("Result Query", document.data.toString())
+                result.add(document.toObject(RecipeDto::class.java))
+            }
+            onComplete(recipeMapper.mapToEntity(result))
+        }.addOnFailureListener { e ->
+            throw Exception(e.message)
         }
     }
+
+    /**
+     * 재료뿐만 아니라 레시피 이름으로도 검색할 수 있도록 name field를 통해서 검색
+     */
 
     override suspend fun getIngredientRecipe(
         ingredient: String
@@ -57,33 +54,20 @@ class FireBaseRepositoryImpl @Inject constructor(
      */
     override suspend fun getSearchRecipe(
         name: String,
-        onComplete: (List<RecipeEntity>) -> Unit
-    ) {
-        recipeDataSource.getSearchRecipe(name).addOnSuccessListener { documents ->
-            val result = mutableListOf<RecipeDto>()
-            for (document in documents) {
-                if ((document["name"] as String).contains(name)) {
-                    result.add(document.toObject(RecipeDto::class.java))
-                }
-            }
-            onComplete(recipeMapper.mapToEntity(result))
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
+    ): List<RecipeEntity> {
+        recipeDataSource.getSearchRecipe(name).await().let { documents ->
+            return recipeMapper.mapToEntity(documents.map {
+                it.toObject(RecipeDto::class.java)
+            }.filter { it.name.contains(name) })
         }
     }
 
     /**
      * AutoCompleteTextView에 사용할 레시피 이름들을 파이어베이스에서 받아오는 함수
      */
-    override suspend fun getRecipeNameList(onComplete: (List<String>) -> Unit) {
-        recipeDataSource.getRecipeNameList().addOnSuccessListener { documents ->
-            val result = mutableListOf<String>()
-            for (document in documents) {
-                result.add(document["name"] as String)
-            }
-            onComplete(result)
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
+    override suspend fun getRecipeNameList(): List<String> {
+        recipeDataSource.getRecipeNameList().await().let { documents ->
+            return documents.map { document -> document["name"] as String }
         }
     }
 
