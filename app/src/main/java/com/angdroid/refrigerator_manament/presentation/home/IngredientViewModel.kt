@@ -23,23 +23,20 @@ class IngredientViewModel @Inject constructor(
     val ingredient get() = _ingredient
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            enterRefrigeratorPageUseCase(viewModelScope) {
-                it.onStart {
-                    _ingredient.value = UiState.Loading(true)
-                    Log.e("onStart???", "WHY?!?!?!?")
-                }.catch {
-                    Log.e("onCatch???", "WHY?!?!?!?")
-                    _ingredient.value = UiState.Error(this.toString())
-                }.collect { collect ->
-                    if (collect.isEmpty()) {
-                        _ingredient.value = UiState.Empty(true)
-                    } else {
-                        _ingredient.value = UiState.Success(collect)
-                    }
+        viewModelScope.launch {
+            enterRefrigeratorPageUseCase().onStart {
+                _ingredient.value = UiState.Loading(true)
+                Log.e("onStart???", "WHY?!?!?!?")
+            }.catch {
+                Log.e("onCatch???", "WHY?!?!?!?")
+                _ingredient.value = UiState.Error(this.toString())
+            }.collect { collect ->
+                if (collect.isEmpty()) {
+                    _ingredient.value = UiState.Empty(true)
+                } else {
+                    _ingredient.value = UiState.Success(collect)
                 }
             }
         }
     }
-
 }
