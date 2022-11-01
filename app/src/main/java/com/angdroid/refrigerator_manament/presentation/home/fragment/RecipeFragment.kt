@@ -1,5 +1,7 @@
 package com.angdroid.refrigerator_manament.presentation.home.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -33,7 +35,9 @@ class RecipeFragment :
     }
 
     private fun setAdapter() {
-        recipeAdapter = RecipeAdapter(requireContext(), {})
+        recipeAdapter = RecipeAdapter(requireContext()) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+        }
         binding.rcvRecipe.adapter = recipeAdapter
     }
 
