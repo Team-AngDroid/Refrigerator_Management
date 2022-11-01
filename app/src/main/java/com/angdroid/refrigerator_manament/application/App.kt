@@ -19,19 +19,12 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        fireStoreUserReference = Firebase.firestore.collection("User").document(BuildConfig.USER_ID)
-        fireStoreRecipeReference = Firebase.firestore.collection("Recipe")
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 
     companion object {
-        lateinit var fireStoreUserReference: DocumentReference
-        lateinit var fireStoreRecipeReference: CollectionReference
-        lateinit var userIngredientInfo: List<String>
+        lateinit var userIngredientInfo: List<String> // Caching 느낌으로 남겨두자,, 얘만은 어떻게 하기가 애매함, BindingAdapter에도 붙어 있어서,,
         private lateinit var instance: App
-        fun getInstance(): Context {
-            return instance.applicationContext
-        }
         fun getUserIngredientInfoInitialized(): Boolean = ::userIngredientInfo.isInitialized
     }
 }
