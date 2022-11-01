@@ -81,6 +81,13 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
             }
         }
     }
+
+    /**
+     * 프래그먼트 전환간 리스트 비워주는 함수
+     */
+    fun clearSearchRecipe(){ 
+        _searchIngredientRecipeList.value = listOf()
+    }
 }
 
 
