@@ -20,7 +20,7 @@ class DetailViewModel @Inject constructor(private val firebaseRepository: FireBa
     val selectItem = MutableStateFlow<IngredientType.Food?>(null)
     fun getAllRecipe() {
         viewModelScope.launch {
-            firebaseRepository.getAllRecipe {
+            firebaseRepository.getAllRecipe().let {
                 _recipeList.value = it
             }
         }
