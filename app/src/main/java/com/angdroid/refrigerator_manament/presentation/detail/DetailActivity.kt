@@ -12,7 +12,6 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailIngredientListAdapter
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
-import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,14 +33,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
 
         binding.rcRecipe.adapter = detailListAdapter
         binding.rvIngredient.adapter = ingredientDetailListAdapter
-        collectData()
-        intent.getParcelableExtra<IngredientType.Food>("foodName").let { food ->
-            if (food == null) {
-                detailViewModel.getAllRecipe()
-            } else {
+        intent.getParcelableExtra<IngredientType.Food>("foodName")?.let { food ->
                 detailViewModel.selectItem.value = food
                 detailViewModel.getIngredientRecipe(food.name)
-            }
         }
 
         binding.appbarIngredientDetail.topAppbar.setOnMenuItemClickListener {
@@ -52,15 +46,6 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
                 }
                 else -> false
             }
-        }
-    }
-
-    private fun collectData() {
-        collectFlowWhenStarted(detailViewModel.recipeList) {
-             detailListAdapter.submitList(it)
-        }
-        collectFlowWhenStarted(detailViewModel.foodList) {
-            ingredientDetailListAdapter.submitList(it)
         }
     }
 }

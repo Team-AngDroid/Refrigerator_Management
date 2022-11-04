@@ -14,9 +14,12 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.application.App
+import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
 import com.angdroid.refrigerator_manament.domain.util.CategoryType
+import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailIngredientListAdapter
+import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
 import com.startup.meetiing.presentation.state.UiState
 import java.time.LocalDate
@@ -145,11 +148,37 @@ fun ImageView.setImageTint(@ColorInt color: Int) {
     setColorFilter(color)
 }
 
-@BindingAdapter("app:ui_state_List")
-fun RecyclerView.bindUiStateList(uiState: UiState) {
+@BindingAdapter("app:ui_state_category_list")
+fun RecyclerView.bindUiStateCategoryList(uiState: UiState) {
     val boundAdapter = this.adapter
     visibility = if (boundAdapter is CategoryListAdapter && uiState is UiState.Success<*>) {
         (uiState.data as List<IngredientType>).run {
+            boundAdapter.submitList(this)
+        }
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}
+
+@BindingAdapter("app:ui_state_recipe_list")
+fun RecyclerView.bindUiStateRecipeList(uiState: UiState) {
+    val boundAdapter = this.adapter
+    visibility = if (boundAdapter is DetailRecipeListAdapter && uiState is UiState.Success<*>) {
+        (uiState.data as List<RecipeEntity>).run {
+            boundAdapter.submitList(this)
+        }
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}
+
+@BindingAdapter("app:ui_state_food_list")
+fun RecyclerView.bindUiStateFoodList(uiState: UiState) {
+    val boundAdapter = this.adapter
+    visibility = if (boundAdapter is DetailIngredientListAdapter && uiState is UiState.Success<*>) {
+        (uiState.data as List<IngredientType.Food>).run {
             boundAdapter.submitList(this)
         }
         View.VISIBLE

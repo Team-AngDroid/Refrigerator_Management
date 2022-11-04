@@ -17,7 +17,6 @@ import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeView
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -40,13 +39,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         val inputMethodManager =
             requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.autoSearch, 0) //키보드 자동으로 올라오도록
-
         binding.emptySearch = getString(R.string.search_recipe_intro) //초기 문구 설정
     }
 
     private fun setAdapters() {
         // 두개의 리싸이클러뷰에서 텍스트뷰, 리싸이클러뷰를 두고 visibility와 text 내용을 조절하는 것으로 변경
-        detailAdapter = DetailRecipeListAdapter(){
+        detailAdapter = DetailRecipeListAdapter() {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
         } // 암시적 인텐트를 통한 링크
         binding.rcvSearch.adapter = detailAdapter
@@ -67,7 +65,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         }
         binding.layoutEtSearch.setStartIconOnClickListener {
             searchRecipe(binding.autoSearch.text.toString())
-            if(FLAG){ //FLAG를 통해서 collectSearchData는 딱한번 불리도록 설정
+            if (FLAG) { //FLAG를 통해서 collectSearchData는 딱한번 불리도록 설정
                 collectSearchData()
             }
             FLAG = false // 검색버튼을 누르는 순간 초기 소개 문구는 보이지 않도록 설정
@@ -76,8 +74,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.autoSearch.setOnKeyListener { _, keyCode, _ -> // enter키 이벤트
             if ((keyCode == KeyEvent.KEYCODE_ENTER)) {
                 searchRecipe(binding.autoSearch.text.toString())
-                if(FLAG){ //FLAG를 통해서 collectSearchData는 딱한번 불리도록 설정
-                   collectSearchData()
+                if (FLAG) { //FLAG를 통해서 collectSearchData는 딱한번 불리도록 설정
+                    collectSearchData()
                 }
                 FLAG = false // 검색버튼을 누르는 순간 초기 소개 문구는 보이지 않도록 설정
                 true
@@ -100,8 +98,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
             val resultList = it
             if (resultList.isEmpty()) {
-                    binding.emptySearch = getString(R.string.search_empty)
-                    binding.searching = true
+                binding.emptySearch = getString(R.string.search_empty)
+                binding.searching = true
             } else {
                 detailAdapter.submitList(resultList)
                 binding.searching = false

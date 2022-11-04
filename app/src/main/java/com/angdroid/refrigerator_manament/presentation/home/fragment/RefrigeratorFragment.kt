@@ -2,7 +2,6 @@ package com.angdroid.refrigerator_manament.presentation.home.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.angdroid.refrigerator_manament.R
@@ -24,8 +23,9 @@ class RefrigeratorFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setAdapter()
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.ingredientViewModel = ingredientViewModel
+        setAdapter()
     }
 
     private fun setAdapter() {
@@ -42,5 +42,4 @@ class RefrigeratorFragment :
             DynamicGridLayoutManager(requireContext(), adapter.getSpanSizeLookUp())
         binding.rvList.adapter = adapter
     }
-
 }
