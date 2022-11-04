@@ -19,7 +19,7 @@ import javax.inject.Inject
 class IngredientViewModel @Inject constructor(
     private val enterRefrigeratorPageUseCase: EnterRefrigeratorPageUseCase
 ) : ViewModel() {
-    private val _ingredient = MutableStateFlow<UiState<List<IngredientType>>>(UiState.Init)
+    private val _ingredient = MutableStateFlow<UiState>(UiState.Init)
     val ingredient get() = _ingredient
 
     init {
