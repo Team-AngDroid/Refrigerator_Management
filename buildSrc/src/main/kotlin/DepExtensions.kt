@@ -41,6 +41,15 @@ fun DependencyHandlerScope.addAndroidXDependencies() {
     )
 }
 
+fun DependencyHandlerScope.addFireBaseDependencies() {
+    implementations(
+        FireBaseDependencies.firebaseFireStore,
+        FireBaseDependencies.firebaseBom,
+        FireBaseDependencies.firebaseMessaging
+    )
+    platform(FireBaseDependencies.analytics)
+}
+
 fun DependencyHandlerScope.addNetworkDependencies() {
     implementations(
         ThirdPartyDependencies.okHttp,

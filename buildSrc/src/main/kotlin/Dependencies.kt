@@ -17,12 +17,14 @@ object AndroidXDependencies {
     const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragmentKtxVersion}"
     const val coroutines =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroidVersion}"
+    const val coroutinePlayService =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.coroutinePlayService}"
     const val lifeCycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleVersion}"
     const val lifecycleJava8 =
         "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycleVersion}"
 
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
-    const val liveData =  "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleVersion}"
+    const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleVersion}"
     const val legacy = "androidx.legacy:legacy-support-v4:${Versions.legacySupportVersion}"
     const val security = "androidx.security:security-crypto:${Versions.securityVersion}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
@@ -30,6 +32,7 @@ object AndroidXDependencies {
     const val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
     const val roomRuntime = "androidx.room:room-runtime:${Versions.roomVersion}"
     const val room = "androidx.room:room-ktx:${Versions.roomVersion}"
+    const val window = "androidx.window:window:${Versions.window}"
 }
 
 object HiltDependencies {
@@ -49,6 +52,14 @@ object TestDependencies {
 object MaterialDesignDependencies {
     const val materialDesign =
         "com.google.android.material:material:${Versions.materialDesignVersion}"
+}
+
+object FireBaseDependencies {
+    const val firebaseFireStore = "com.google.firebase:firebase-firestore-ktx:${Versions.fireStore}"
+    const val firebaseMessaging =
+        "com.google.firebase:firebase-messaging-ktx:${Versions.fireBaseMessaging}"
+    const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.fireBaseBom}"
+    const val analytics = "com.google.firebase:firebase-analytics-ktx"
 }
 
 object KaptDependencies {
@@ -75,5 +86,6 @@ object ThirdPartyDependencies {
 
 object Plugins {
     const val HILT_PLUGIN = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltVersion}"
-    const val SAFE_ARGS_PLUGIN = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navVersion}"
+    const val SAFE_ARGS_PLUGIN =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navVersion}"
 }

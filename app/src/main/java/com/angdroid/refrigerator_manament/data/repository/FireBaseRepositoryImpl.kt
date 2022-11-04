@@ -11,6 +11,7 @@ import com.angdroid.refrigerator_manament.data.mapper.user.UserMapper
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.repository.FireBaseRepository
+import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -34,19 +35,17 @@ class FireBaseRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * 재료뿐만 아니라 레시피 이름으로도 검색할 수 있도록 name field를 통해서 검색
+     */
+
     override suspend fun getIngredientRecipe(
-        ingredient: String,
-        onComplete: (List<RecipeEntity>) -> Unit
-    ) {
-        recipeDataSource.getIngredientRecipe(ingredient).addOnSuccessListener { documents ->
-            val result = mutableListOf<RecipeDto>()
-            for (document in documents) {
-                Log.e("Result Query", document.data.toString())
-                result.add(document.toObject(RecipeDto::class.java))
-            }
-            onComplete(recipeMapper.mapToEntity(result))
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
+        ingredient: String
+    ): List<RecipeEntity> {
+        recipeDataSource.getIngredientRecipe(ingredient).await().let { documents ->
+            return recipeMapper.mapToEntity(documents.map {
+                it.toObject(RecipeDto::class.java)
+            })
         }
     }
 
@@ -55,40 +54,26 @@ class FireBaseRepositoryImpl @Inject constructor(
      */
     override suspend fun getSearchRecipe(
         name: String,
-        onComplete: (List<RecipeEntity>) -> Unit
-    ) {
-        recipeDataSource.getSearchRecipe(name).addOnSuccessListener { documents ->
-            val result = mutableListOf<RecipeDto>()
-            for (document in documents) {
-                if((document["name"] as String).contains(name)){
-                    result.add(document.toObject(RecipeDto::class.java))
-                }
-            }
-            onComplete(recipeMapper.mapToEntity(result))
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
+    ): List<RecipeEntity> {
+        recipeDataSource.getSearchRecipe(name).await().let { documents ->
+            return recipeMapper.mapToEntity(documents.map {
+                it.toObject(RecipeDto::class.java)
+            }.filter { it.name.contains(name) })
         }
     }
 
     /**
      * AutoCompleteTextView에 사용할 레시피 이름들을 파이어베이스에서 받아오는 함수
      */
-    override suspend fun getRecipeNameList(onComplete: (List<String>) -> Unit) {
-        recipeDataSource.getRecipeNameList().addOnSuccessListener { documents ->
-            val result = mutableListOf<String>()
-            for (document in documents) {
-                result.add(document["name"] as String)
-            }
-            onComplete(result)
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
+    override suspend fun getRecipeNameList(): List<String> {
+        recipeDataSource.getRecipeNameList().await().let { documents ->
+            return documents.map { document -> document["name"] as String }
         }
     }
 
-    override suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit) {
+    override suspend fun getFoodList(): ArrayList<IngredientType> {
         val now = LocalDate.now()
-        userInfoDataSource.getUserInfo().addOnSuccessListener {
-
+        userInfoDataSource.getUserInfo().await().let {
             userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
                 FoodDto(
                     (result["id"] as String),
@@ -101,42 +86,31 @@ class FireBaseRepositoryImpl @Inject constructor(
                 )
             }).filter { it.expirationDate >= now }.run {
                 userInfoDataSource.setFoodInfo(userMapper.mapToDto(this))
-                onComplete(this as ArrayList<IngredientType>)
+                return this as ArrayList<IngredientType>
             }
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
         }
     }
 
     override suspend fun getFood(
-        ingredient: String,
-        onComplete: (List<IngredientType.Food>) -> Unit
-    ) {
-        userInfoDataSource.getUserInfo().addOnSuccessListener {
-            onComplete(
-                userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
-                    FoodDto(
-                        (result["id"] as String),
-                        ((result["foodId"] as Long).toInt()),
-                        (result["expirationDate"] as String),
-                        (result["name"] as String),
-                        (result["image"] as String?),
-                        ((result["categoryId"] as Long).toInt()),
-                        ((result["foodCount"] as Long).toInt())
-                    )
-                }).filter { item -> item.name == ingredient }
+        ingredient: String
+    ) = userMapper.mapToEntity(
+        (userInfoDataSource.getUserInfo()
+            .await().data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
+            FoodDto(
+                (result["id"] as String),
+                ((result["foodId"] as Long).toInt()),
+                (result["expirationDate"] as String),
+                (result["name"] as String),
+                (result["image"] as String?),
+                ((result["categoryId"] as Long).toInt()),
+                ((result["foodCount"] as Long).toInt())
             )
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
-        }
-    }
+        }).filter { item -> item.name == ingredient }
 
     override suspend fun addIngredients(
         ingredients: List<IngredientType>,
         onApiResult: (Boolean) -> Unit
-    ) {
-        foodInfoController.addIngredients(ingredients)
-    /*
+    ) {/*
         App.fireStoreUserReference.update("foodInfo",FieldValue.arrayUnion()
         )
             .addOnSuccessListener {

@@ -27,12 +27,12 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
     //검색 결과 레시피들
 
     private val _recipeNameList = MutableStateFlow<List<String>>(listOf())
-    val recipeNameList  get() = _recipeNameList.asStateFlow()
+    val recipeNameList get() = _recipeNameList.asStateFlow()
     // 레시피 이름 리스트
 
-    fun getRecipeNameList(){
-        viewModelScope.launch{
-            firebaseRepository.getRecipeNameList {
+    fun getRecipeNameList() {
+        viewModelScope.launch {
+            firebaseRepository.getRecipeNameList().let {
                 _recipeNameList.value = it
             }
         }
@@ -43,7 +43,7 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
             val list = mutableListOf<RecipeEntity>()
 
             ingredient.forEach {
-                firebaseRepository.getIngredientRecipe(it) { randomRecipe ->
+                firebaseRepository.getIngredientRecipe(it).let { randomRecipe ->
                     list.add(randomRecipe[(randomRecipe.indices).random(Random(System.nanoTime()))])
                     _randomRecipeList.value =
                         list // value값에 지정해주는 시점도 firebaseRepository안에 있어야함~!!!!!!!
@@ -55,28 +55,27 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
     fun getIngredientRecipe(ingredient: List<String>) {
         viewModelScope.launch {
             val list = mutableListOf<RecipeEntity>()
-
             ingredient.forEach {
-                firebaseRepository.getIngredientRecipe(it) { randomIngredientRecipe ->
+                firebaseRepository.getIngredientRecipe(it).let { randomIngredientRecipe ->
                     list.add(RecipeEntity("", it, "", "", "", listOf())) //header용 더미데이터
                     list.addAll(randomIngredientRecipe)
                     _randomIngredientRecipeList.value = list
                 }
             }
-
         }
     }
 
     fun getIngredientSearchRecipe(ingredient: String) {
         viewModelScope.launch {
             val list = mutableSetOf<RecipeEntity>()
-            with(firebaseRepository){
-                getSearchRecipe(ingredient){ // [레시피이름]에 검색창에서 입력받은 텍스트가 있는 경우
+            with(firebaseRepository) {
+                getSearchRecipe(ingredient).let { // [레시피이름]에 검색창에서 입력받은 텍스트가 있는 경우
                     list.addAll(it)
                 }
-                getIngredientRecipe(ingredient) { // [레시피 재료 리스트]에 검색창에서 입력받은 텍스트가 있는 경우
+                getIngredientRecipe(ingredient).let { // [레시피 재료 리스트]에 검색창에서 입력받은 텍스트가 있는 경우
                     list.addAll(it)
-                    _searchIngredientRecipeList.value = list.distinctBy { it.name } // RecipeEntity 중복 제거
+                    _searchIngredientRecipeList.value =
+                        list.distinctBy { it.name } // RecipeEntity 중복 제거
                 }
             }
         }
@@ -85,7 +84,7 @@ class RecipeViewModel @Inject constructor(private val firebaseRepository: FireBa
     /**
      * 프래그먼트 전환간 리스트 비워주는 함수
      */
-    fun clearSearchRecipe(){ 
+    fun clearSearchRecipe() {
         _searchIngredientRecipeList.value = listOf()
     }
 }

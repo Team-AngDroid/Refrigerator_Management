@@ -5,11 +5,11 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 
 interface FireBaseRepository {
     suspend fun getAllRecipe(onComplete: (List<RecipeEntity>) -> Unit)
-    suspend fun getIngredientRecipe(ingredient: String, onComplete: (List<RecipeEntity>) -> Unit)
-    suspend fun getSearchRecipe(name:String, onComplete: (List<RecipeEntity>) -> Unit)
-    suspend fun getRecipeNameList(onComplete: (List<String>) -> Unit)
-    suspend fun getFoodList(onComplete: (ArrayList<IngredientType>) -> Unit)
-    suspend fun getFood(ingredient: String, onComplete: (List<IngredientType.Food>) -> Unit)
+    suspend fun getIngredientRecipe(ingredient: String):List<RecipeEntity>
+    suspend fun getSearchRecipe(name:String):List<RecipeEntity>
+    suspend fun getRecipeNameList():List<String>
+    suspend fun getFoodList(): ArrayList<IngredientType>
+    suspend fun getFood(ingredient: String):List<IngredientType.Food>
     suspend fun addIngredients(
         ingredients: List<IngredientType>,
         onApiResult: (Boolean) -> Unit

@@ -27,12 +27,9 @@ class RecipeFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.reciepviewmodel = recipeViewModel // 데이터바인딩
         binding.lifecycleOwner = this
-
         collectList()
         setAdapter()
         setListener()
-
-
     }
 
     private fun setListener() {
