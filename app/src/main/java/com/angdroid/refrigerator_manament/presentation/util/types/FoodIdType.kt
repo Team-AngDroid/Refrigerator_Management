@@ -15,5 +15,8 @@ enum class FoodIdType(val foodId: Int) {
         in 116..118 -> 5
         else -> 0
     }
-    fun findFoodId(name:String) = valueOf(name).foodId
+    fun isFinalConsonant() = when(name){
+        "당근", "계란", "생닭" -> true
+        else -> false
+    }
 }
