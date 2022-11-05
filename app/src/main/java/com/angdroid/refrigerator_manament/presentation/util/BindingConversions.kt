@@ -1,6 +1,7 @@
 package com.angdroid.refrigerator_manament.presentation.util
 
 import android.graphics.Color
+import android.net.Uri
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -31,6 +32,18 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
         this.load(url) {
             transformations(RoundedCornersTransformation(12.0F))
         }
+    }
+}
+
+@BindingAdapter("loadUri", "loadDefault")
+fun loadUriCoil(imageView: ImageView, loadUri: Uri, loadDefaultFoodName: String) {
+    if (!loadUri.path.isNullOrEmpty()) {
+        imageView.load(loadUri) {
+            crossfade(true)
+            placeholder(FoodTypeFeatures.valueOf(loadDefaultFoodName).imageRes)
+        }
+    } else {
+        imageView.setImageResource(FoodTypeFeatures.valueOf(loadDefaultFoodName).imageRes)
     }
 }
 
