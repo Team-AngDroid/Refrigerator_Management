@@ -21,7 +21,7 @@ object Versions {
     const val lottieVersion = "5.2.0"
     const val retrofitVersion = "2.9.0"
     const val okHttpVersion = "4.9.3"
-    const val coilVersion = "1.4.0"
+    const val coilVersion = "2.2.2"
     const val kotlinxSerializationConverterVersion = "0.8.0"
     const val junitVersion = "4.13.2"
     const val espressoVersion = "3.4.0"
@@ -40,4 +40,5 @@ object Versions {
     const val fireStore = "24.4.0"
     const val fireBaseMessaging = "23.1.0"
     const val fireBaseBom = "31.0.1"
+    const val fireStorage = "20.1.0"
 }

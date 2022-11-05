@@ -66,4 +66,5 @@ dependencies {
     implementation(AndroidXDependencies.coroutines)
     implementation(ThirdPartyDependencies.gson)
     implementation(KotlinDependencies.kotlinxSerialization)
+
 }
