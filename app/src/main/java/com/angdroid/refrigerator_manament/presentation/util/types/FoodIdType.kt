@@ -8,12 +8,20 @@ enum class FoodIdType(val foodId: Int) {
     치즈(115), 새우(116), 오징어(117), 고등어(118);
 
     fun returnCategoryType() = when (foodId) {
-        in 101..103 -> 1
-        in 104..111 -> 2
-        in 112..113 -> 3
-        in 114..115 -> 4
-        in 116..118 -> 5
-        else -> 0
+        in 101..103 -> "1"
+        in 104..111 -> "2"
+        in 112..113 -> "3"
+        in 114..115 -> "4"
+        in 116..118 -> "5"
+        else -> "0"
+    }
+    fun returnCategoryText() = when (foodId) {
+        in 101..103 -> "채소"
+        in 104..111 -> "과일 · 견과 · 쌀"
+        in 112..113 -> "육류 · 계란류"
+        in 114..115 -> "유제품"
+        in 116..118 -> "수산 · 해산"
+        else -> ""
     }
     fun isFinalConsonant() = when(name){
         "당근", "계란", "생닭" -> true
