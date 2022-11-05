@@ -18,7 +18,8 @@
             android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:src="@drawable/apple"
+            loadUri="@{ingredientViewModel.uri}"
+            loadDefaultFoodName="@{`키위`}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

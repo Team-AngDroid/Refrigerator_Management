@@ -5,6 +5,7 @@ import android.net.Uri
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,12 +18,17 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
-import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
 import com.angdroid.refrigerator_manament.domain.util.CategoryType
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailIngredientListAdapter
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
+import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.google.android.gms.tasks.Task
 import com.startup.meetiing.presentation.state.UiState
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
+import java.io.IOException
 import java.time.LocalDate
 
 
@@ -35,16 +41,31 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
     }
 }
 
-@BindingAdapter("loadUri", "loadDefault")
-fun loadUriCoil(imageView: ImageView, loadUri: Uri, loadDefaultFoodName: String) {
-    if (!loadUri.path.isNullOrEmpty()) {
-        imageView.load(loadUri) {
-            crossfade(true)
-            placeholder(FoodTypeFeatures.valueOf(loadDefaultFoodName).imageRes)
+@BindingAdapter("loadUri", "loadDefaultFoodName")
+fun loadUriCoil(imageView: ImageView, loadUri: Task<Uri>, loadDefaultFoodName: String) {
+    CoroutineScope(Dispatchers.Main).launch {
+        val uri = withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
+            try {
+                loadUri.await()
+            } catch (e: Exception) {
+                imageView.post {
+                    imageView.setImageResource(
+                        FoodTypeFeatures.valueOf(
+                            loadDefaultFoodName
+                        ).imageRes
+                    )
+                }
+            }
         }
-    } else {
-        imageView.setImageResource(FoodTypeFeatures.valueOf(loadDefaultFoodName).imageRes)
+        if (uri !is Boolean) {
+            imageView.load(uri) {
+                crossfade(true)
+                placeholder(FoodTypeFeatures.valueOf(loadDefaultFoodName).imageRes)
+            }
+        }
     }
+
+
 }
 
 @BindingAdapter("app:load_default_ingredient")

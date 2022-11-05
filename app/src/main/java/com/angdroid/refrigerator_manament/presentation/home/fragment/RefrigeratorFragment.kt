@@ -50,11 +50,6 @@ class RefrigeratorFragment :
         val selectedImageBytes = outputStream.toByteArray()
         //upLoadImage(selectedImageBytes)
 
-        binding.imageView.setOnClickListener {
-            pathToReference("/x2pt8UANvml9SldmWItQ/2c5529bb-b61c-3116-8f01-056eeb6f03d1").downloadUrl.addOnCompleteListener {
-                binding.imageView.load(it.result)
-            }
-        }
     }
 
     private fun upLoadImage(byteArray: ByteArray) {
