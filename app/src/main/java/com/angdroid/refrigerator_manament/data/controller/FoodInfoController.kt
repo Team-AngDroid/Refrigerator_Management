@@ -5,6 +5,6 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 
 interface FoodInfoController {
     suspend fun addIngredients(
-        ingredients: List<IngredientType>
+        ingredients: List<FoodDto>
     )
 }
