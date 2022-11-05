@@ -14,4 +14,5 @@ interface FireBaseRepository {
         ingredients: List<IngredientType>,
         onApiResult: (Boolean) -> Unit
     )
+    suspend fun upLoadFoodImage(paths: List<String>, byteArrayImages: List<ByteArray>)
 }

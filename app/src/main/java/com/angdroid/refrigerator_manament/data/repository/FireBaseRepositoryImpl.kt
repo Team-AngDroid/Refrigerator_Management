@@ -1,7 +1,7 @@
 package com.angdroid.refrigerator_manament.data.repository
 
-import android.util.Log
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
+import com.angdroid.refrigerator_manament.data.controller.StorageController
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
 import com.angdroid.refrigerator_manament.data.datasource.user.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
@@ -16,6 +16,7 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(
+    private val storageController: StorageController,
     private val foodInfoController: FoodInfoController,
     private val userInfoDataSource: UserInfoDataSource,
     private val recipeDataSource: RecipeDataSource,
@@ -114,5 +115,9 @@ class FireBaseRepositoryImpl @Inject constructor(
                 onApiResult(false)
                 throw Exception(e.message)
             } 나중에 할래..*/
+    }
+
+    override suspend fun upLoadFoodImage(paths: List<String>, byteArrayImages: List<ByteArray>) {
+        storageController.upLoadFoodImage(paths, byteArrayImages)
     }
 }
