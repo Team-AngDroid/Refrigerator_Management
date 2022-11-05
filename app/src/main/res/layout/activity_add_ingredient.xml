@@ -32,17 +32,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appbar_ingredient" />
 
+        <View
+            android:id="@+id/view_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/sub_space_12"
+            android:background="#EEEEEE"
+            app:layout_constraintTop_toBottomOf="@id/tv_right" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_ingredients"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:overScrollMode="never"
             android:layout_marginHorizontal="@dimen/sub_space_16"
-            android:layout_marginVertical="@dimen/sub_space_20"
+            android:clipToPadding="false"
             android:orientation="vertical"
+            android:overScrollMode="never"
+            android:paddingVertical="@dimen/sub_space_10"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/btn_ingredients_add"
-            app:layout_constraintTop_toBottomOf="@+id/tv_right"
+            app:layout_constraintTop_toBottomOf="@+id/view_separator"
             tools:listitem="@layout/item_ingredients" />
 
 

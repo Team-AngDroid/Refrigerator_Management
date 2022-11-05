@@ -162,10 +162,6 @@ class CustomDialog(
     }
 
     private fun findFoodId(name: String): Int {
-        FoodIdType.values().map { it }.forEach {
-            if (name == it.name)
-                return it.foodId
-        }
-        return 0
+        return FoodIdType.valueOf(name).foodId
     }
 }

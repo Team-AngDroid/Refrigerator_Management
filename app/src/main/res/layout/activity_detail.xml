@@ -82,6 +82,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_ingredient_category"
+                    app:ui_state_food_list="@{detailViewModel.foodList}"
                     tools:listitem="@layout/item_ingredient_detail" />
 
                 <View
@@ -114,6 +115,7 @@
                     app:fastScrollEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintTop_toBottomOf="@+id/tv_suggest_title"
+                    app:ui_state_recipe_list="@{detailViewModel.recipeList}"
                     tools:listitem="@layout/item_recipe_detail" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

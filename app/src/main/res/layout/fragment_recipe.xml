@@ -39,23 +39,32 @@
                 android:clickable="true"
                 android:focusable="false"
                 android:gravity="center_vertical"
-                android:imeOptions="actionSearch"
                 android:hint="@string/recipe_hint"
+                android:imeOptions="actionSearch"
                 android:paddingVertical="0dp"
                 android:textAppearance="@style/Widget.TextView.Pretendard15_Black_Regular.TextAppearance"
                 android:textColor="@color/black"
                 android:textColorHint="@color/search_gray" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <View
+            android:id="@+id/view_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/sub_space_12"
+            android:background="#EEEEEE"
+            app:layout_constraintTop_toBottomOf="@id/layout_et_search" />
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/sub_space_24"
+            android:clipToPadding="false"
             android:overScrollMode="never"
+            android:paddingTop="@dimen/sub_space_12"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_et_search">
+            app:layout_constraintTop_toBottomOf="@+id/view_separator">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

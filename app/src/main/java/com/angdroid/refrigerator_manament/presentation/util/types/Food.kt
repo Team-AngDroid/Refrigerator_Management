@@ -1,6 +1,5 @@
 package com.angdroid.refrigerator_manament.presentation.util.types
 
-import com.angdroid.refrigerator_manament.R
 
 object Food {
     val FOOD = listOf<String>(

@@ -22,16 +22,11 @@ class FireBaseRepositoryImpl @Inject constructor(
     private val recipeMapper: RecipeMapper,
     private val userMapper: UserMapper
 ) : FireBaseRepository {
-    override suspend fun getAllRecipe(onComplete: (List<RecipeEntity>) -> Unit) {
-        recipeDataSource.getAllRecipe().addOnSuccessListener { documents ->
-            val result = mutableListOf<RecipeDto>()
-            for (document in documents) {
-                Log.e("Result Query", document.data.toString())
-                result.add(document.toObject(RecipeDto::class.java))
-            }
-            onComplete(recipeMapper.mapToEntity(result))
-        }.addOnFailureListener { e ->
-            throw Exception(e.message)
+    override suspend fun getAllRecipe(): List<RecipeEntity> {
+        recipeDataSource.getAllRecipe().await().let { documents ->
+            return recipeMapper.mapToEntity(documents.map {
+                it.toObject(RecipeDto::class.java)
+            })
         }
     }
 
