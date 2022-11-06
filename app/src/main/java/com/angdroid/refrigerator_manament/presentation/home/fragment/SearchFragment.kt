@@ -24,14 +24,14 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private lateinit var autoAdapter: ArrayAdapter<String>
     private lateinit var detailAdapter: DetailRecipeListAdapter
-    //private val recipeViewModel: RecipeViewModel by activityViewModels()
+    private val recipeViewModel: RecipeViewModel by activityViewModels()
     private var FLAG: Boolean = true // 최초 진입 시점 확인
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*init()
+        init()
         setAdapters()
-        setListeners()*/
+        setListeners()
     }
 
     private fun init() {
@@ -53,10 +53,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         autoAdapter = ArrayAdapter<String>(requireContext(), R.layout.spinner_list, mutableListOf())
         binding.autoSearch.setAdapter(autoAdapter)
 
-        /*recipeViewModel.getRecipeNameList()
+        recipeViewModel.getRecipeNameList()
         collectFlowWhenStarted(recipeViewModel.recipeNameList) {
             autoAdapter.addAll(it)
-        }*/
+        }
     }
 
     private fun setListeners() {
@@ -87,7 +87,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun searchRecipe(search: String) { // 검색함수
-        //if (search != "") recipeViewModel.getIngredientSearchRecipe(search)
+        if (search != "") recipeViewModel.getIngredientSearchRecipe(search)
         val inputMethodManager =
             requireContext().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(binding.autoSearch.windowToken, 0) //키보드 내리기
@@ -95,7 +95,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun collectSearchData() {
-        /*collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
+        collectFlowWhenStarted(recipeViewModel.searchIngredientList) {
             val resultList = it
             if (resultList.isEmpty()) {
                 binding.emptySearch = getString(R.string.search_empty)
@@ -104,12 +104,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 detailAdapter.submitList(resultList)
                 binding.searching = false
             }
-        }*/
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //recipeViewModel.clearSearchRecipe()
+        recipeViewModel.clearSearchRecipe()
     }
 
 }

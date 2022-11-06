@@ -1,13 +1,11 @@
 package com.angdroid.refrigerator_manament.presentation.util
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -25,12 +23,10 @@ import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailIngr
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
-import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.Task
 import com.startup.meetiing.presentation.state.UiState
 import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
-import java.io.IOException
 import java.time.LocalDate
 
 

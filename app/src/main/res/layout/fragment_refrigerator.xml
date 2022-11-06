@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:overScrollMode="never"
             android:paddingHorizontal="8dp"
-
+            app:ui_state_category_list="@{ingredientViewModel.ingredient}"
             tools:listitem="@layout/item_category_list" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

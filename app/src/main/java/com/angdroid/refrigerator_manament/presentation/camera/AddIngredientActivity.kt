@@ -13,12 +13,9 @@ import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.AddIngre
 import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodIdType
-import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
-import java.io.ByteArrayOutputStream
 import java.time.LocalDate
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AddIngredientActivity :
     BaseActivity<ActivityAddIngredientBinding>(R.layout.activity_add_ingredient) {
@@ -32,7 +29,6 @@ class AddIngredientActivity :
         initBinding()
         intent?.let {
             addIngredientViewModel.setIntentFoodList(getIngredients())
-            //getIngredients()
         }
         setAppbar()
         initAdapter()
@@ -84,36 +80,16 @@ class AddIngredientActivity :
     }
 
     private fun getIngredients(): List<IngredientType.Food> {
-        val newIngredients = FoodTypeFeatures.values().map {
-            BitmapFactory.decodeResource(resources, it.imageRes)
-        }
-        val nameList = intent.getStringArrayListExtra("NameList")!!
-        val foodList = newIngredients.mapIndexed { index, s ->
-            IngredientType.Food(
-                (index+1).toString(),
-                FoodIdType.valueOf(nameList[index]).foodId,
-                LocalDate.now(),
-                FoodIdType.valueOf(nameList[index]).name,
-                s,
-                FoodIdType.valueOf(nameList[index]).returnCategoryType().toInt(),
-                1
-            )
-        }.toMutableList()
-        foodList.add(
-            0, IngredientType.Food("0", 0, LocalDate.now(), "", null, 0, 0)
+
+        val ingredientsList =
+            intent.getParcelableArrayListExtra<IngredientType.Food>("Ingredients")!!
+        ingredientsList.add(
+            0, IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
             // 맨처음 [직접 추가]아이템용 더미데이터
         )
-        return foodList
+        return ingredientsList.toList()
     }
 
-    private fun bitmapToByteArray(bitmaps: List<Bitmap>): List<ByteArray> {
-        val stream = ByteArrayOutputStream()
-        return bitmaps.map { bitmap ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, stream)
-            bitmap.recycle()
-            stream.toByteArray()
-        }
-    }
     // Byte를 Bitmap으로 변환
     private fun byteArrayToBitmap(byteArrays: List<ByteArray>): List<Bitmap?> {
         return byteArrays.map { BitmapFactory.decodeByteArray(it, 0, it.size) }

@@ -28,7 +28,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
 
-        //setRecipe()
+        setRecipe()
         setNavigation()
         setOnClickListener()
     }

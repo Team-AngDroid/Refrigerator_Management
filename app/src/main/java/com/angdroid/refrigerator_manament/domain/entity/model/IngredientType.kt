@@ -1,6 +1,5 @@
 package com.angdroid.refrigerator_manament.domain.entity.model
 
-import android.graphics.Bitmap
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
@@ -23,7 +22,7 @@ sealed class IngredientType(
         val foodId: Int,
         val expirationDate: LocalDate,
         val name: String,
-        val image: Bitmap?,
+        val image: String,
         override val categoryId: Int,
         var foodCount: Int
     ) : IngredientType(foodId, 0, foodCount, categoryId)

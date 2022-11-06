@@ -135,7 +135,7 @@ class CustomDialog(
                         findFoodId(binding.etIngredient.text.toString()),
                         LocalDate.now(),
                         binding.etIngredient.text.toString(),
-                        null,
+                        "",
                         binding.spinnerCategory.selectedItemPosition + 1,
                         ingredientCount
                     )
