@@ -1,5 +1,7 @@
 package com.angdroid.refrigerator_manament.presentation.util
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.text.SpannableStringBuilder
@@ -41,6 +43,15 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
     }
 }
 
+@BindingAdapter("byteString", "loadDefaultFood")
+fun loadByteCoil(imageView: ImageView, byteString: Bitmap?, loadDefaultFood: String) {
+    if (byteString != null) {
+        imageView.load(byteString)
+    } else if (loadDefaultFood.isNotEmpty()) {
+        imageView.setImageResource(FoodTypeFeatures.valueOf(loadDefaultFood).imageRes)
+    }
+}
+
 @BindingAdapter("loadUri", "loadDefaultFoodName")
 fun loadUriCoil(imageView: ImageView, loadUri: Task<Uri>, loadDefaultFoodName: String) {
     CoroutineScope(Dispatchers.Main).launch {
@@ -64,8 +75,6 @@ fun loadUriCoil(imageView: ImageView, loadUri: Task<Uri>, loadDefaultFoodName: S
             }
         }
     }
-
-
 }
 
 @BindingAdapter("app:load_default_ingredient")
@@ -77,6 +86,7 @@ fun ImageView.loadDefaultIngredient(foodName: String) {
 fun TextView.categoryText(categoryId: Int) {
     text = resources.getText(CategoryType.categoryIdList[categoryId - 1])
 }
+
 
 @BindingAdapter("app:necessary_ingredients")
 fun TextView.necessaryIngredients(ingredients: List<String>) {
