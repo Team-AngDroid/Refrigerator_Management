@@ -30,23 +30,20 @@ class AddIngredientActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initBinding()
         intent?.let {
             addIngredientViewModel.setIntentFoodList(getIngredients())
         }
-        lifecycleScope.launch {
-            try {
-                val imagePath = "$cacheDir/image1" // 내부 저장소에 저장되어 있는 이미지 경로
-                val bm = BitmapFactory.decodeFile(imagePath)
-                binding.imageeView.setImageBitmap(bm) // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
-                Toast.makeText(applicationContext, "파일 로드 성공", Toast.LENGTH_SHORT).show()
-            } catch (e: java.lang.Exception) {
-                Toast.makeText(applicationContext, "파일 로드 실패", Toast.LENGTH_SHORT).show()
-            }
-        }
         setAppbar()
         initAdapter()
+        binding.btnIngredientsAdd.setOnClickListener {
+            try {
+                cacheDir.listFiles()?.map { file -> file.delete() }
+                Toast.makeText(this, "삭제 성공", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "삭제 실패", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun initBinding() {
