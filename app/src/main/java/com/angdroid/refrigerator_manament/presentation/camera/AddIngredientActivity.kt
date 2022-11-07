@@ -14,6 +14,8 @@ import com.angdroid.refrigerator_manament.presentation.camera.adapter.AddIngredi
 import com.angdroid.refrigerator_manament.presentation.camera.viewmodel.AddIngredientViewModel
 import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
+import com.angdroid.refrigerator_manament.presentation.util.safeLet
+import com.angdroid.refrigerator_manament.presentation.util.safeValueOf
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodIdType
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
 import kotlinx.coroutines.launch
@@ -93,14 +95,41 @@ class AddIngredientActivity :
     }
 
     private fun getIngredients(): List<IngredientType.Food> {
+        safeLet(
+            intent.getStringArrayListExtra("ingredients"),
+            intent.getStringArrayListExtra("nameList")
+        ) { fileList, nameList ->
+            val ingredients = fileList.mapIndexed { index, file ->
+                safeValueOf<FoodIdType>(nameList[index])?.let { food ->
+                    IngredientType.Food(
+                        fid = (index + 1).toString(),
+                        foodId = food.foodId,
+                        expirationDate = LocalDate.now(),
+                        name = food.name,
+                        image = file,
+                        categoryId = food.returnCategoryType(),
+                        foodCount = 1
+                    )
+                }
+            }.filterNotNull().toMutableList()
+            ingredients.add(
+                0, IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
+                // 맨처음 [직접 추가]아이템용 더미데이터
+            )
+            Log.e("GetIngredients", ingredients.toString())
+            return ingredients
+        }
+        return emptyList()
+    }
 
-        val ingredientsList =
-            intent.getParcelableArrayListExtra<IngredientType.Food>("Ingredients")!!
-        ingredientsList.add(
-            0, IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
-            // 맨처음 [직접 추가]아이템용 더미데이터
-        )
-        return ingredientsList.toList()
+    private fun fileToBitmapConverter(fileList: List<String>): List<Bitmap> {
+        return try {
+            fileList.map { imagePath ->
+                BitmapFactory.decodeFile("$cacheDir/$imagePath")
+            }
+        } catch (_: java.lang.Exception) {
+            listOf()
+        }
     }
 
     // Byte를 Bitmap으로 변환

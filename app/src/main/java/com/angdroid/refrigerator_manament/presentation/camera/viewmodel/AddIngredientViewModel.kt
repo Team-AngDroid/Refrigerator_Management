@@ -1,6 +1,5 @@
 package com.angdroid.refrigerator_manament.presentation.camera.viewmodel
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,7 +34,7 @@ class AddIngredientViewModel : ViewModel() {
 //            removeItem(currentItem)
         // 디자이너분 말처럼 1일때 마이너스 버튼을 비활성화 시켜야 한다면 1일때 마이너스 시키면 삭제가 아닌
         // 아무런 동작을 해주는게 맞지 않나 싶어서 우선 바꿈
-        if(currentItem.foodCount !=1) {
+        if (currentItem.foodCount != 1) {
             currentList[position] =
                 IngredientType.Food(
                     currentItem.fid,
@@ -66,5 +65,4 @@ class AddIngredientViewModel : ViewModel() {
             )
         _foodList.value = currentList
     }
-
 }
