@@ -1,6 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.util
 
-import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.net.Uri
 import android.text.SpannableStringBuilder
@@ -39,10 +39,10 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
     }
 }
 
-@BindingAdapter("byteString", "loadDefaultFood")
-fun loadByteCoil(imageView: ImageView, byteString: Bitmap?, loadDefaultFood: String) {
-    if (byteString != null) {
-        imageView.load(byteString)
+@BindingAdapter("imagePath", "loadDefaultFood")
+fun loadFileToImageCoil(imageView: ImageView, imagePath: String?, loadDefaultFood: String) {
+    if (imagePath != null) {
+        imageView.load(BitmapFactory.decodeFile("/data/user/0/com.angdroid.refrigerator_manament/cache/$imagePath"))
     } else if (loadDefaultFood.isNotEmpty()) {
         imageView.setImageResource(FoodTypeFeatures.valueOf(loadDefaultFood).imageRes)
     }
