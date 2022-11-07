@@ -1,16 +1,23 @@
 package com.angdroid.refrigerator_manament.presentation.camera
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.Toast
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityCameraBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
 import java.time.LocalDate
+
 
 class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_camera) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +37,7 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
             IngredientType.Food("12", 101, LocalDate.now(), "당근", "", 1, 4),
             IngredientType.Food("13", 102, LocalDate.now(), "오이", "", 1, 4)
         )
+        saveBitmapToJpeg(BitmapFactory.decodeResource(resources, FoodTypeFeatures.계란.imageRes))
         startActivity(
             Intent(this@CameraActivity, AddIngredientActivity::class.java)
                 .apply { putParcelableArrayListExtra("Ingredients", foodList) })
@@ -41,6 +49,19 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
             bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream)
             bitmap.recycle()
             stream.toByteArray()
+        }
+    }
+
+    private fun saveBitmapToJpeg(bitmap: Bitmap) {   // 선택한 이미지 내부 저장소에 저장
+        val tempFile = File(cacheDir, "image1") // 파일 경로와 이름 넣기
+        try {
+            tempFile.createNewFile() // 자동으로 빈 파일을 생성하기
+            val out = FileOutputStream(tempFile) // 파일을 쓸 수 있는 스트림을 준비하기
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out) // compress 함수를 사용해 스트림에 비트맵을 저장하기
+            out.close() // 스트림 닫아주기
+            Toast.makeText(applicationContext, "파일 저장 성공", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(applicationContext, "파일 저장 실패", Toast.LENGTH_SHORT).show()
         }
     }
 

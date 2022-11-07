@@ -4,7 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityAddIngredientBinding
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
@@ -14,6 +16,7 @@ import com.angdroid.refrigerator_manament.presentation.custom.CustomDialog
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodIdType
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.*
 
@@ -29,6 +32,16 @@ class AddIngredientActivity :
         initBinding()
         intent?.let {
             addIngredientViewModel.setIntentFoodList(getIngredients())
+        }
+        lifecycleScope.launch {
+            try {
+                val imagePath = "$cacheDir/image1" // 내부 저장소에 저장되어 있는 이미지 경로
+                val bm = BitmapFactory.decodeFile(imagePath)
+                binding.imageeView.setImageBitmap(bm) // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
+                Toast.makeText(applicationContext, "파일 로드 성공", Toast.LENGTH_SHORT).show()
+            } catch (e: java.lang.Exception) {
+                Toast.makeText(applicationContext, "파일 로드 실패", Toast.LENGTH_SHORT).show()
+            }
         }
         setAppbar()
         initAdapter()
