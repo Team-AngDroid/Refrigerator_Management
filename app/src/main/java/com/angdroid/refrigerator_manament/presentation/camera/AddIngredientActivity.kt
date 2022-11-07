@@ -36,6 +36,7 @@ class AddIngredientActivity :
         }
         setAppbar()
         initAdapter()
+        //TODO 해당 람다에서 추가해놓은 FireStore, Storage 에 접근해야함
         binding.btnIngredientsAdd.setOnClickListener {
             try {
                 cacheDir.listFiles()?.map { file -> file.delete() }
@@ -119,6 +120,9 @@ class AddIngredientActivity :
         return emptyList()
     }
 
+    /**
+     * List<FilePath: String> 타입을 List<Bitmap>으로 변경해주는 Converter
+     */
     private fun fileToBitmapConverter(fileList: List<String>): List<Bitmap> {
         return try {
             fileList.map { imagePath ->
@@ -129,9 +133,10 @@ class AddIngredientActivity :
         }
     }
 
-    // Byte를 Bitmap으로 변환
+    /**
+     * List<ByteArray: Image> 타입을 List<Bitmap>으로 변경해주는 Converter
+     */
     private fun byteArrayToBitmap(byteArrays: List<ByteArray>): List<Bitmap?> {
         return byteArrays.map { BitmapFactory.decodeByteArray(it, 0, it.size) }
-
     }
 }

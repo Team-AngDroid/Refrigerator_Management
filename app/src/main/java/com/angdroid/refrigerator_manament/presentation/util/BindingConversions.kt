@@ -40,8 +40,8 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
 }
 
 @BindingAdapter("imagePath", "loadDefaultFood")
-fun loadFileToImageCoil(imageView: ImageView, imagePath: String?, loadDefaultFood: String) {
-    if (imagePath != null) {
+fun loadFileToImageCoil(imageView: ImageView, imagePath: String, loadDefaultFood: String) {
+    if (imagePath.isNotEmpty()) {
         imageView.load(BitmapFactory.decodeFile("/data/user/0/com.angdroid.refrigerator_manament/cache/$imagePath"))
     } else if (loadDefaultFood.isNotEmpty()) {
         imageView.setImageResource(FoodTypeFeatures.valueOf(loadDefaultFood).imageRes)

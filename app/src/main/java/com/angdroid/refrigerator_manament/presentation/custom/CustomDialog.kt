@@ -112,7 +112,7 @@ class CustomDialog(
     private fun setListener(itemAddListener: (IngredientType.Food) -> Unit) {
 
         binding.etIngredient.addTextChangedListener {
-            activationList[0] = !it!!.isEmpty()
+            activationList[0] = it!!.isNotEmpty()
             checkEnabled()
         }
 
