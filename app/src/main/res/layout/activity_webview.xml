@@ -13,9 +13,10 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/webview_appbar"
             android:layout_width="match_parent"
+            android:elevation="@dimen/sub_space_10"
             android:layout_height="@dimen/app_bar_space"
             app:navigationIcon="@drawable/ic_arrow_black"
-            android:background="@color/primary_skyblue"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
