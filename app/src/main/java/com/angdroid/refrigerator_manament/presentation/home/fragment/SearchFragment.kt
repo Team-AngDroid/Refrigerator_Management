@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
-import com.angdroid.refrigerator_manament.presentation.custom.WebView
+import com.angdroid.refrigerator_manament.presentation.custom.CustomWebView
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
@@ -45,7 +45,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private fun setAdapters() {
         // 두개의 리싸이클러뷰에서 텍스트뷰, 리싸이클러뷰를 두고 visibility와 text 내용을 조절하는 것으로 변경
         detailAdapter = DetailRecipeListAdapter() {
-            startActivity(Intent(requireContext(), WebView::class.java)
+            startActivity(Intent(requireContext(), CustomWebView::class.java)
                 .apply { putExtra("link", it.link) }
             )
         }

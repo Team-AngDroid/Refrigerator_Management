@@ -42,7 +42,7 @@
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name=".presentation.custom.WebView"
+            android:name=".presentation.custom.CustomWebView"
             android:exported="true" />
     </application>
 
