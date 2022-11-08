@@ -1,7 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.home.fragment
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -9,8 +8,8 @@ import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
 import com.angdroid.refrigerator_manament.presentation.custom.CustomWebView
-import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeAdapter
+import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
 import com.angdroid.refrigerator_manament.util.collectFlowWhenStarted
@@ -52,7 +51,9 @@ class RecipeFragment :
 
     private fun setAdapter() {
         recipeAdapter = RecipeAdapter(requireContext()) {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
+            startActivity(Intent(requireContext(), CustomWebView::class.java)
+                .apply { putExtra("link", it.link) }
+            )
         }
         binding.rcvRecipe.adapter = recipeAdapter
     }
