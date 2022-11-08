@@ -2,6 +2,7 @@ package com.angdroid.refrigerator_manament.presentation.custom
 
 import android.os.Bundle
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityWebviewBinding
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
@@ -18,17 +19,22 @@ class CustomWebView : BaseActivity<ActivityWebviewBinding>(R.layout.activity_web
         val link = intent.getStringExtra("link")
         with(binding.webView){
             webViewClient = CustomWebViewClient(this.context)
-            //binding.webView.webChromeClient = WebChromeClient()
-            settings.javaScriptEnabled = true
-            // 만개의 레시피 웹페이자 내부가 javaScript를 통한
-            //동작 동적이 있음 따라서 ture로 설정
-            //binding.webView.settings.allowContentAccess = true
+            webChromeClient = WebChromeClient() // 안정성을 위해서 크로미움 클라이언트도 적용
+            with(settings){
+                javaScriptEnabled = true
+                // 만개의 레시피 웹페이자 내부가 javaScript를 통한
+                //동작 동적이 있음 따라서 ture로 설정
+                allowContentAccess = true
+                // content URI 사용을 위함
+                mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+                // 쿠팡링크등 Dynamic link 허용을 위함
+            }
             loadUrl(link.toString())
         }
+
         binding.webviewAppbar.setNavigationOnClickListener {
             finish()
         }
-
     }
 
 
