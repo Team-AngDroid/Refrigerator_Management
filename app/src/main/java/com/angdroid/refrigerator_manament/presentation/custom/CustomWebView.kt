@@ -17,17 +17,18 @@ class CustomWebView : BaseActivity<ActivityWebviewBinding>(R.layout.activity_web
     private fun getResult() {
         val link = intent.getStringExtra("link")
         with(binding.webView){
-            webViewClient = CustomWebViewClient()
+            webViewClient = CustomWebViewClient(this.context)
             //binding.webView.webChromeClient = WebChromeClient()
             settings.javaScriptEnabled = true
             // 만개의 레시피 웹페이자 내부가 javaScript를 통한
             //동작 동적이 있음 따라서 ture로 설정
-            //binding.webView.settings.allowContentAccess = tru
+            //binding.webView.settings.allowContentAccess = true
             loadUrl(link.toString())
         }
         binding.webviewAppbar.setNavigationOnClickListener {
             finish()
         }
+
     }
 
 
