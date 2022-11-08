@@ -12,15 +12,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class CustomWebView : BaseActivity<ActivityWebviewBinding>(R.layout.activity_webview) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setWebView()
         getResult()
     }
 
-    private fun getResult() {
-        val link = intent.getStringExtra("link")
-        with(binding.webView){
+    private fun setWebView() {
+        with(binding.webView) {
             webViewClient = CustomWebViewClient(this.context)
             webChromeClient = WebChromeClient() // 안정성을 위해서 크로미움 클라이언트도 적용
-            with(settings){
+            with(settings) {
+                loadsImagesAutomatically = true // 이미지 자동 로드
                 javaScriptEnabled = true
                 // 만개의 레시피 웹페이자 내부가 javaScript를 통한
                 //동작 동적이 있음 따라서 ture로 설정
@@ -28,8 +29,8 @@ class CustomWebView : BaseActivity<ActivityWebviewBinding>(R.layout.activity_web
                 // content URI 사용을 위함
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                 // 쿠팡링크등 Dynamic link 허용을 위함
+                cacheMode = WebSettings.LOAD_DEFAULT
             }
-            loadUrl(link.toString())
         }
 
         binding.webviewAppbar.setNavigationOnClickListener {
@@ -37,10 +38,15 @@ class CustomWebView : BaseActivity<ActivityWebviewBinding>(R.layout.activity_web
         }
     }
 
+    private fun getResult() {
+        val link = intent.getStringExtra("link")
+        binding.webView.loadUrl(link.toString())
+    }
+
 
     override fun onBackPressed() {
         // 웹뷰내에서 여러 링크를 오갔을때 backbutton누르면 바로 종료가 아닌 브라우저처럼 동작
-        with(binding.webView){
+        with(binding.webView) {
             val list = this.copyBackForwardList();
             if (list.currentIndex >= 0 && !(this.canGoBack())) {
                 super.onBackPressed();
