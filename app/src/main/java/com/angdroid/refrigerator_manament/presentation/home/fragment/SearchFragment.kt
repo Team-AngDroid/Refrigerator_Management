@@ -2,7 +2,6 @@ package com.angdroid.refrigerator_manament.presentation.home.fragment
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -49,7 +48,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             startActivity(Intent(requireContext(), WebView::class.java)
                 .apply { putExtra("link", it.link) }
             )
-        } // 암시적 인텐트를 통한 링크
+        }
         binding.rcvSearch.adapter = detailAdapter
         binding.searching = true
 

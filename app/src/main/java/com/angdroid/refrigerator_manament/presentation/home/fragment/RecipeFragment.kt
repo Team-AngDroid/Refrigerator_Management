@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentRecipeBinding
+import com.angdroid.refrigerator_manament.presentation.custom.WebView
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.home.adapter.RecipeAdapter
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
@@ -34,19 +35,13 @@ class RecipeFragment :
 
     private fun setListener() {
         binding.cvRecommend1.setOnSingleClickListener {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(recipeViewModel.randomRecipeList.value[0].link)
-                )
+            startActivity(Intent(requireContext(), WebView::class.java)
+                .apply { putExtra("link", recipeViewModel.randomRecipeList.value[0].link) }
             )
         }
         binding.cvRecommend2.setOnSingleClickListener {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(recipeViewModel.randomRecipeList.value[1].link)
-                )
+            startActivity(Intent(requireContext(), WebView::class.java)
+                .apply { putExtra("link", recipeViewModel.randomRecipeList.value[1].link) }
             )
         }
 
