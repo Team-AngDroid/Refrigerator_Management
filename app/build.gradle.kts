@@ -67,4 +67,35 @@ dependencies {
     implementation(ThirdPartyDependencies.gson)
     implementation(KotlinDependencies.kotlinxSerialization)
 
+
+
+    // Object detection feature with bundled default classifier
+    implementation("com.google.mlkit:object-detection:17.0.0")
+    // Object detection feature with custom classifier support
+    implementation("com.google.mlkit:object-detection-custom:17.0.0")
+    // On Device Machine Learnings
+    implementation("com.google.android.odml:image:1.0.0-beta1")
+
+    // CameraX
+    implementation ("androidx.camera:camera-camera2:1.0.0-SNAPSHOT")
+    implementation ("androidx.camera:camera-lifecycle:1.0.0-SNAPSHOT")
+    implementation ("androidx.camera:camera-view:1.0.0-SNAPSHOT")
+
+    // ViewModel and LiveData
+    implementation ("androidx.lifecycle:lifecycle-livedata:2.3.1")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel:2.3.1")
+
+    // Selfie segmentation
+    implementation ("com.google.mlkit:segmentation-selfie:16.0.0-beta4")
+    implementation ("com.google.mlkit:camera:16.0.0-beta3")
+    // Image labeling custom
+    implementation("com.google.mlkit:image-labeling-custom:17.0.1")
+    //    // Or comment the dependency above and uncomment the dependency below to
+    //    // use unbundled model that depends on Google Play Services
+    //    // implementation 'com.google.android.gms:play-services-mlkit-image-labeling-custom:16.0.0-beta4'
+
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.google.guava:guava:27.1-android")
+    // Image labeling
+    implementation("com.google.mlkit:image-labeling:17.0.7")
 }

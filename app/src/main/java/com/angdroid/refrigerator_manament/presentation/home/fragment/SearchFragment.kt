@@ -2,7 +2,6 @@ package com.angdroid.refrigerator_manament.presentation.home.fragment
 
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -12,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.FragmentSearchBinding
+import com.angdroid.refrigerator_manament.presentation.custom.CustomWebView
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
@@ -45,8 +45,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private fun setAdapters() {
         // 두개의 리싸이클러뷰에서 텍스트뷰, 리싸이클러뷰를 두고 visibility와 text 내용을 조절하는 것으로 변경
         detailAdapter = DetailRecipeListAdapter() {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.link)))
-        } // 암시적 인텐트를 통한 링크
+            startActivity(Intent(requireContext(), CustomWebView::class.java)
+                .apply { putExtra("link", it.link) }
+            )
+        }
         binding.rcvSearch.adapter = detailAdapter
         binding.searching = true
 
