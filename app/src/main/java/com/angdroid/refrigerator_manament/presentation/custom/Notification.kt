@@ -11,7 +11,7 @@ class Notification(private val context: Context) {
     init {
         with(context) {
             val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel))
-                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setSmallIcon(R.drawable.ic_refrigerator)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.notification_sub_title))
                 .setStyle(
