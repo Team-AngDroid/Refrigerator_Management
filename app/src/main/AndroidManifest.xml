@@ -45,6 +45,9 @@
             android:name=".presentation.home.HomeActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".presentation.custom.CustomWebView"
+            android:exported="true" />
     </application>
 
 </manifest>
