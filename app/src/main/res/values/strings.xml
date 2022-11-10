@@ -49,7 +49,7 @@
     <string name="food_count">%d개</string>
     <string name="search_empty">검색결과가 없습니다.</string>
     <string name="search_recipe_intro">레시피를 검색해보세요😋</string>
-      <string name="title_dynamicfeature">CustomView</string>
+    <string name="title_dynamicfeature">CustomView</string>
 
     <string name="java_entry_title" translatable="false">Run the ML Kit quickstart written in Java</string>
     <string name="kotlin_entry_title" translatable="false">Run the ML Kit quickstart written in Kotlin</string>
@@ -205,5 +205,11 @@
     <string name="pref_group_title_face_mesh" translatable="false">Face Mesh Detection</string>
     <string name="pref_title_face_mesh_use_case" translatable="false">Use Case</string>
     <string name="pref_key_face_mesh_use_case" translatable="false">face_mesh_use_case</string>
+
+    <!-- notification -->
+    <string name="notification_channel">Expiration</string>
+    <string name="notification_title">Fridge</string>
+    <string name="notification_sub_title">유통기한이 임박한 식재료가 있어요!</string>
+    <string name="notification_expiration">유통기한이 임박한 식재료가 있어요! \n 내 냉장고에서 확인해 볼까요?</string>
 
 </resources>
