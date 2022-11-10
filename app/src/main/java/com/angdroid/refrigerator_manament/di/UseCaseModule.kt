@@ -24,10 +24,9 @@ abstract class UseCaseModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun bindToSetUserFoodDetail(addUserFoodInfoUseCaseImpl: AddUserFoodInfoUseCaseImpl): AddUserFoodInfoUseCase
+    abstract fun bindToAddUserFoodInfo(addUserFoodInfoUseCaseImpl: AddUserFoodInfoUseCaseImpl): AddUserFoodInfoUseCase
 
     @Binds
     @ViewModelScoped
     abstract fun bindToEnterRefrigeratorPage(enterRefrigeratorPageUseCaseImpl: EnterRefrigeratorPageUseCaseImpl): EnterRefrigeratorPageUseCase
-
 }
