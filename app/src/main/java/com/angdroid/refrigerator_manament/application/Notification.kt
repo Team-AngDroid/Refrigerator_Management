@@ -14,7 +14,6 @@ import com.angdroid.refrigerator_manament.presentation.home.HomeActivity
 class Notification(private val context: Context) {
     init {
         with(context) {
-
             //TODO HOME으로 갈지 Splash로 갈지 고민
             val resultIntent = Intent(context, HomeActivity::class.java)
             // Create the TaskStackBuilder

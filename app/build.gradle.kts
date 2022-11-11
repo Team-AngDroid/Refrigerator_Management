@@ -100,5 +100,5 @@ dependencies {
     implementation("com.google.guava:guava:27.1-android")
     // Image labeling
     implementation("com.google.mlkit:image-labeling:17.0.7")
-    implementation ("com.google.firebase:firebase-messaging:23.1.0")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.0.0")
 }
