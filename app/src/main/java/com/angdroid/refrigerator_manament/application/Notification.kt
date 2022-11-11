@@ -9,23 +9,26 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.angdroid.refrigerator_manament.R
+import com.angdroid.refrigerator_manament.presentation.SplashActivity
 import com.angdroid.refrigerator_manament.presentation.home.HomeActivity
 
 class Notification(private val context: Context) {
     init {
         with(context) {
-            //TODO HOME으로 갈지 Splash로 갈지 고민
-            val resultIntent = Intent(context, HomeActivity::class.java)
-            // Create the TaskStackBuilder
-            val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(this).run {
-                // Add the intent, which inflates the back stack
-                addNextIntentWithParentStack(resultIntent)
-                // Get the PendingIntent containing the entire back stack
-                getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE)
-            }
+            val builder = setBuilder()
+            createNotificationChannel()
 
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(1, builder.build())
+        }
+    }
 
-            val builder = NotificationCompat.Builder(this, getString(R.string.notification_channel))
+    private fun setBuilder(): NotificationCompat.Builder{
+        val resultPendingIntent = setPendingIntent()
+
+        return with(context){
+            NotificationCompat.Builder(this, getString(R.string.notification_channel))
                 .setSmallIcon(R.drawable.ic_refrigerator)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.notification_sub_title))
@@ -35,12 +38,16 @@ class Notification(private val context: Context) {
                 )
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(resultPendingIntent)
+        }
+    }
 
+    private fun setPendingIntent():PendingIntent{
+        //TODO HOME으로 갈지 Splash로 갈지 고민 Splash가 가장 깔끔하다고 생각
+        val resultIntent = Intent(context, SplashActivity::class.java)
 
-            createNotificationChannel()
-            val notificationManager: NotificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.notify(1, builder.build())
+        return TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(resultIntent)
+            getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE)
         }
     }
 
