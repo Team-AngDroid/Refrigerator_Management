@@ -12,9 +12,9 @@ class UserMapper : BaseMapper<List<FoodDto>, List<IngredientType.Food>> {
             IngredientType.Food(
                 dto.id,
                 dto.foodId,
-                LocalDate.parse(dto.expirationDate?:LocalDate.now().toString(), DateTimeFormatter.ISO_DATE),
+                LocalDate.parse(dto.expirationDate, DateTimeFormatter.ISO_DATE) ?: LocalDate.now(),
                 dto.name,
-                dto.image?:"",
+                dto.image ?: "",
                 dto.categoryId,
                 dto.foodCount
             )

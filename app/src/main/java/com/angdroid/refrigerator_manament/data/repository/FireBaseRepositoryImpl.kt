@@ -2,6 +2,7 @@ package com.angdroid.refrigerator_manament.data.repository
 
 import android.util.Log
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
+import com.angdroid.refrigerator_manament.data.controller.StorageController
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
 import com.angdroid.refrigerator_manament.data.datasource.user.UserInfoDataSource
 import com.angdroid.refrigerator_manament.data.dto.FoodDto
@@ -16,6 +17,7 @@ import java.time.LocalDate
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(
+    private val storageController: StorageController,
     private val foodInfoController: FoodInfoController,
     private val userInfoDataSource: UserInfoDataSource,
     private val recipeDataSource: RecipeDataSource,
@@ -80,7 +82,7 @@ class FireBaseRepositoryImpl @Inject constructor(
                     ((result["foodCount"] as Long).toInt())
                 )
             }).filter { it.expirationDate >= now }.run {
-                userInfoDataSource.setFoodInfo(userMapper.mapToDto(this))
+                setFoodInfo(this)
                 return this as ArrayList<IngredientType>
             }
         }
@@ -103,16 +105,32 @@ class FireBaseRepositoryImpl @Inject constructor(
         }).filter { item -> item.name == ingredient }
 
     override suspend fun addIngredients(
-        ingredients: List<IngredientType>,
-        onApiResult: (Boolean) -> Unit
-    ) {/*
-        App.fireStoreUserReference.update("foodInfo",FieldValue.arrayUnion()
-        )
-            .addOnSuccessListener {
-                onApiResult(true)
-            }.addOnFailureListener { e ->
-                onApiResult(false)
-                throw Exception(e.message)
-            } 나중에 할래..*/
+        ingredients: List<IngredientType.Food>
+    ) {
+        userInfoDataSource.getUserInfo().await().let {
+            UserMapper().mapToEntity((it.data?.get("foodInfo") as java.util.ArrayList<java.util.HashMap<String, *>>).map { result ->
+                FoodDto(
+                    (result["id"] as String),
+                    ((result["foodId"] as Long).toInt()),
+                    (result["expirationDate"] as String),
+                    (result["name"] as String),
+                    (result["image"] as String?),
+                    ((result["categoryId"] as Long).toInt()),
+                    ((result["foodCount"] as Long).toInt())
+                )
+            }).filter { it.expirationDate >= LocalDate.now() }.run {
+                userInfoDataSource.setFoodInfo(
+                    UserMapper().mapToDto(this.plus(ingredients))
+                )
+            }
+        }
+    }
+
+    override suspend fun upLoadFoodImage(paths: List<String>, byteArrayImages: List<ByteArray?>) {
+        storageController.upLoadFoodImage(paths, byteArrayImages)
+    }
+
+    override suspend fun setFoodInfo(foodList: List<IngredientType.Food>) {
+        userInfoDataSource.setFoodInfo(userMapper.mapToDto(foodList))
     }
 }

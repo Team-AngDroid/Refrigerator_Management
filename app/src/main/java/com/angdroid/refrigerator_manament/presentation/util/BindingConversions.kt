@@ -1,5 +1,6 @@
 package com.angdroid.refrigerator_manament.presentation.util
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -12,18 +13,25 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
+import com.angdroid.refrigerator_manament.BuildConfig
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.domain.entity.RecipeEntity
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
-import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
 import com.angdroid.refrigerator_manament.domain.util.CategoryType
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailIngredientListAdapter
 import com.angdroid.refrigerator_manament.presentation.detail.adapter.DetailRecipeListAdapter
 import com.angdroid.refrigerator_manament.presentation.home.adapter.CategoryListAdapter
+import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.startup.meetiing.presentation.state.UiState
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 import java.time.LocalDate
 
+private val storageInstance: FirebaseStorage by lazy { Firebase.storage }
 
 @BindingAdapter("app:load_remote_coil_corner")
 fun ImageView.loadRemoteCoilCorner(url: String) {
@@ -34,9 +42,31 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
     }
 }
 
+@BindingAdapter("imagePath", "loadDefaultFood")
+fun loadFileToImageCoil(imageView: ImageView, imagePath: String, loadDefaultFood: String) {
+    if (imagePath.isNotEmpty()) {
+        imageView.load(BitmapFactory.decodeFile("/data/user/0/com.angdroid.refrigerator_manament/cache/$imagePath"))
+    } else if (loadDefaultFood.isNotEmpty()) {
+        imageView.setImageResource(FoodTypeFeatures.valueOf(loadDefaultFood).imageRes)
+    }
+}
+
 @BindingAdapter("app:load_default_ingredient")
 fun ImageView.loadDefaultIngredient(foodName: String) {
     this.setImageResource(FoodTypeFeatures.valueOf(foodName).imageRes)
+}
+
+@BindingAdapter("loadPath", "name")
+fun loadPathCoil(imageView: ImageView, loadPath: String, name: String) {
+    if (loadPath.isNotEmpty()) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val uri =
+                storageInstance.getReference("${BuildConfig.USER_ID}/$loadPath").downloadUrl.await()
+            imageView.load(uri)
+        }
+    } else {
+        imageView.setImageResource(FoodTypeFeatures.valueOf(name).imageRes)
+    }
 }
 
 @BindingAdapter("app:category_text")

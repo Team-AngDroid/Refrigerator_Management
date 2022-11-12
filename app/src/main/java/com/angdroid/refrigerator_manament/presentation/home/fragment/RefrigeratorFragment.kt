@@ -14,12 +14,12 @@ import com.angdroid.refrigerator_manament.presentation.util.BaseFragment
 import com.angdroid.refrigerator_manament.presentation.util.getSpanSizeLookUp
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class RefrigeratorFragment :
     BaseFragment<FragmentRefrigeratorBinding>(R.layout.fragment_refrigerator) {
     private lateinit var adapter: CategoryListAdapter
     private val ingredientViewModel: IngredientViewModel by viewModels()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

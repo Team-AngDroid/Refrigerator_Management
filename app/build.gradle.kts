@@ -8,7 +8,6 @@ plugins {
     id("kotlin-kapt")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
-
 }
 
 val properties = Properties()
@@ -18,8 +17,6 @@ android {
     namespace = DefaultConfig.APPLICATION_ID
     compileSdk = DefaultConfig.COMPILE_SDK
 
-    val properties = Properties()
-    properties.load(project.rootProject.file("local.properties").inputStream())
     defaultConfig {
         applicationId = DefaultConfig.APPLICATION_ID
         minSdk = DefaultConfig.MIN_SDK
@@ -49,6 +46,7 @@ android {
         viewBinding = true
     }
 }
+
 dependencies {
     addFireBaseDependencies()
     addAndroidXDependencies()
