@@ -12,7 +12,11 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.presentation.SplashActivity
 import com.angdroid.refrigerator_manament.presentation.home.HomeActivity
 
-class Notification(private val context: Context) {
+class Notification(
+    private val context: Context,
+    private val title: String,
+    private val body: String
+) {
     init {
         with(context) {
             val builder = setBuilder()
@@ -24,24 +28,24 @@ class Notification(private val context: Context) {
         }
     }
 
-    private fun setBuilder(): NotificationCompat.Builder{
+    private fun setBuilder(): NotificationCompat.Builder {
         val resultPendingIntent = setPendingIntent()
 
-        return with(context){
+        return with(context) {
             NotificationCompat.Builder(this, getString(R.string.notification_channel))
-                .setSmallIcon(R.drawable.group_1221)
-                .setContentTitle(getString(R.string.notification_title))
-                .setContentText(getString(R.string.notification_sub_title))
+                .setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle(title)
+                .setContentText(body)
                 .setStyle(
                     NotificationCompat.BigTextStyle()
-                        .bigText(getString(R.string.notification_expiration))
+                        .bigText(body) // 줄넘김을 위해서 확장 알림으로 설정
                 )
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(resultPendingIntent)
         }
     }
 
-    private fun setPendingIntent():PendingIntent{
+    private fun setPendingIntent(): PendingIntent {
         //TODO HOME으로 갈지 Splash로 갈지 고민 Splash가 가장 깔끔하다고 생각
         val resultIntent = Intent(context, SplashActivity::class.java)
 
