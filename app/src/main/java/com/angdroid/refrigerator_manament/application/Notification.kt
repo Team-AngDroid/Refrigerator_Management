@@ -29,7 +29,7 @@ class Notification(private val context: Context) {
 
         return with(context){
             NotificationCompat.Builder(this, getString(R.string.notification_channel))
-                .setSmallIcon(R.drawable.ic_refrigerator)
+                .setSmallIcon(R.drawable.group_1221)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.notification_sub_title))
                 .setStyle(

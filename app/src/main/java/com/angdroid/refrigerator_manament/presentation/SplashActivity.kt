@@ -16,9 +16,6 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        //TODO 호출 시점은 좀 고민해봐야 할듯
-        Notification(this)
-
         val intent = Intent(this, HomeActivity::class.java)
         lifecycleScope.launch {
             delay(1500)
