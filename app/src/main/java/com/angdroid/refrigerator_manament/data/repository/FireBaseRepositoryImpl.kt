@@ -1,6 +1,7 @@
 package com.angdroid.refrigerator_manament.data.repository
 
 import android.util.Log
+import com.angdroid.refrigerator_manament.application.App
 import com.angdroid.refrigerator_manament.data.controller.FoodInfoController
 import com.angdroid.refrigerator_manament.data.controller.StorageController
 import com.angdroid.refrigerator_manament.data.datasource.recipe.RecipeDataSource
@@ -68,10 +69,10 @@ class FireBaseRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getFoodList(): ArrayList<IngredientType> {
-        val now = LocalDate.now()
-        userInfoDataSource.getUserInfo().await().let {
-            userMapper.mapToEntity((it.data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
+    override suspend fun getFoodList(): ArrayList<IngredientType>? =
+        userInfoDataSource.getUserInfo().await().let { documents ->
+            val now = LocalDate.now()
+            (documents.data?.get("foodInfo") as ArrayList<HashMap<String, *>>?)?.map { result ->
                 FoodDto(
                     (result["id"] as String),
                     ((result["foodId"] as Long).toInt()),
@@ -81,28 +82,33 @@ class FireBaseRepositoryImpl @Inject constructor(
                     ((result["categoryId"] as Long).toInt()),
                     ((result["foodCount"] as Long).toInt())
                 )
-            }).filter { it.expirationDate >= now }.run {
-                setFoodInfo(this)
-                return this as ArrayList<IngredientType>
+            }?.let { dto ->
+                userMapper.mapToEntity(dto).filter { it.expirationDate >= now }.run {
+                    setFoodInfo(this)
+                    this as ArrayList<IngredientType>
+                }
             }
         }
-    }
+
 
     override suspend fun getFood(
         ingredient: String
-    ) = userMapper.mapToEntity(
-        (userInfoDataSource.getUserInfo()
-            .await().data?.get("foodInfo") as ArrayList<HashMap<String, *>>).map { result ->
-            FoodDto(
-                (result["id"] as String),
-                ((result["foodId"] as Long).toInt()),
-                (result["expirationDate"] as String),
-                (result["name"] as String),
-                (result["image"] as String?),
-                ((result["categoryId"] as Long).toInt()),
-                ((result["foodCount"] as Long).toInt())
-            )
-        }).filter { item -> item.name == ingredient }
+    ) = (userInfoDataSource.getUserInfo()
+        .await().data?.get("foodInfo") as ArrayList<HashMap<String, *>>?)?.map { result ->
+        FoodDto(
+            (result["id"] as String),
+            ((result["foodId"] as Long).toInt()),
+            (result["expirationDate"] as String),
+            (result["name"] as String),
+            (result["image"] as String?),
+            ((result["categoryId"] as Long).toInt()),
+            ((result["foodCount"] as Long).toInt())
+        )
+    }?.let {
+        userMapper.mapToEntity(
+            it
+        ).filter { item -> item.name == ingredient }
+    }
 
     override suspend fun addIngredients(
         ingredients: List<IngredientType.Food>
