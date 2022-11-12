@@ -12,6 +12,7 @@ import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
 import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.camera.CameraXSourceDemoActivity
+import com.angdroid.refrigerator_manament.presentation.home.fragment.RefrigeratorFragment
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
@@ -37,12 +38,18 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private fun setRecipe() {
         // 해당 작업을 액티비티에서 해준 이유
         // fragment에서 해당 로직을 해준다면, 프래그먼트를 전환할때 마다 레시피가 랜덤하게 호출되고
-        // 그렇게 되면 서버호출이 과도하게 많아진다는 느낌이 들어서 액티비티에서만 random Recipe를 호출해주고 
+        // 그렇게 되면 서버호출이 과도하게 많아진다는 느낌이 들어서 액티비티에서만 random Recipe를 호출해주고
         // 프래그먼트 전환간 서버호출이 발생하지 않도록 조절
         val recipeSet = mutableSetOf<String>()
         val foodSet = mutableSetOf<String>()
         while (recipeSet.size < 2) {
-            recipeSet.add(FoodIdType.values()[(0 until FoodIdType.values().size).random(Random(System.nanoTime()))].name)
+            recipeSet.add(
+                FoodIdType.values()[(0 until FoodIdType.values().size).random(
+                    Random(
+                        System.nanoTime()
+                    )
+                )].name
+            )
             foodSet.add(FoodIdType.values()[(0 until FoodIdType.values().size).random(Random(System.nanoTime()))].name)
         }
         recipeViewModel.getRandomRecipe(recipeSet.toList()) // 랜덤 레시피 두개 받아오는 작업
@@ -64,6 +71,15 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                 R.id.fragment_refrigerator -> destination.label
                 R.id.fragment_search -> destination.label
                 else -> throw IllegalAccessException("Error.NavController")
+            }
+        }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        when (binding.bottomNavHome.selectedItemId) {
+            R.id.fragment_refrigerator -> {
+                supportFragmentManager.findFragmentById(R.id.nav_container)?.childFragmentManager?.fragments?.let { (it[0] as RefrigeratorFragment).reFreshState() }
             }
         }
     }
@@ -106,7 +122,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             1000 -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startActivity(
-                        Intent(this, CameraXSourceDemoActivity::class.java)
+                        Intent(this, CameraActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                     )
                 } else

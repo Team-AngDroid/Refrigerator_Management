@@ -1,7 +1,9 @@
 package com.angdroid.refrigerator_manament.presentation.home.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.domain.usecase.EnterRefrigeratorPageUseCase
 import com.startup.meetiing.presentation.state.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,6 +20,7 @@ class IngredientViewModel @Inject constructor(
 ) : ViewModel() {
     private val _ingredient = MutableStateFlow<UiState>(UiState.Init)
     val ingredient get() = _ingredient.asStateFlow()
+
     init {
         viewModelScope.launch {
             enterRefrigeratorPageUseCase().onStart {
@@ -25,7 +28,19 @@ class IngredientViewModel @Inject constructor(
             }.catch {
                 _ingredient.value = UiState.Error(this.toString())
             }.collect { collect ->
-                if (collect.isEmpty()) {
+                if (collect == null) {
+                    _ingredient.value = UiState.Empty(true)
+                } else {
+                    _ingredient.value = UiState.Success(collect)
+                }
+            }
+        }
+    }
+
+    fun reFreshFlow() {
+        viewModelScope.launch {
+            enterRefrigeratorPageUseCase().collect { collect ->
+                if (collect == null) {
                     _ingredient.value = UiState.Empty(true)
                 } else {
                     _ingredient.value = UiState.Success(collect)

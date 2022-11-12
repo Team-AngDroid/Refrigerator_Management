@@ -27,6 +27,9 @@ class RefrigeratorFragment :
         binding.ingredientViewModel = ingredientViewModel
         setAdapter()
     }
+    fun reFreshState(){
+        ingredientViewModel.reFreshFlow()
+    }
 
     private fun setAdapter() {
         adapter = CategoryListAdapter { item ->
