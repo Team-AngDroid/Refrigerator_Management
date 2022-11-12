@@ -60,6 +60,7 @@ object FireBaseDependencies {
         "com.google.firebase:firebase-messaging-ktx:${Versions.fireBaseMessaging}"
     const val firebaseBom = "com.google.firebase:firebase-bom:${Versions.fireBaseBom}"
     const val analytics = "com.google.firebase:firebase-analytics-ktx"
+    const val storage = "com.google.firebase:firebase-storage-ktx:${Versions.fireStorage}"
 }
 
 object KaptDependencies {

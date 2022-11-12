@@ -8,12 +8,12 @@ enum class FoodIdType(val foodId: Int) {
     치즈(115), 새우(116), 오징어(117), 고등어(118);
 
     fun returnCategoryType() = when (foodId) {
-        in 101..103 -> "1"
-        in 104..111 -> "2"
-        in 112..113 -> "3"
-        in 114..115 -> "4"
-        in 116..118 -> "5"
-        else -> "0"
+        in 101..103 -> 1
+        in 104..111 -> 2
+        in 112..113 -> 3
+        in 114..115 -> 4
+        in 116..118 -> 5
+        else -> 0
     }
     fun returnCategoryText() = when (foodId) {
         in 101..103 -> "채소"

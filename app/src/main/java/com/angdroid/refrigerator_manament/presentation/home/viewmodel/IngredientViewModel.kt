@@ -1,6 +1,5 @@
 package com.angdroid.refrigerator_manament.presentation.home.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.angdroid.refrigerator_manament.domain.usecase.EnterRefrigeratorPageUseCase
@@ -19,7 +18,6 @@ class IngredientViewModel @Inject constructor(
 ) : ViewModel() {
     private val _ingredient = MutableStateFlow<UiState>(UiState.Init)
     val ingredient get() = _ingredient.asStateFlow()
-
     init {
         viewModelScope.launch {
             enterRefrigeratorPageUseCase().onStart {

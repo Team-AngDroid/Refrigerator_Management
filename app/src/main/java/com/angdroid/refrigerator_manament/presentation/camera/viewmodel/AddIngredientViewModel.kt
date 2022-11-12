@@ -1,15 +1,34 @@
 package com.angdroid.refrigerator_manament.presentation.camera.viewmodel
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
+import com.angdroid.refrigerator_manament.domain.usecase.AddUserFoodInfoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
+import javax.inject.Inject
 
-class AddIngredientViewModel : ViewModel() {
+@HiltViewModel
+class AddIngredientViewModel @Inject constructor(private val addUserFoodImageUseCase: AddUserFoodInfoUseCase) :
+    ViewModel() {
 
     private val _foodList = MutableStateFlow<List<IngredientType.Food>>(emptyList())
-    val foodList get() = _foodList
+    val foodList get() = _foodList.asStateFlow()
 
+    fun setFoodList(cacheDir: File) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) { addUserFoodImageUseCase(foodList.value.filter { it.fid != "0" }) }
+            try {
+                cacheDir.listFiles()?.map { file -> file.delete() }
+            } catch (_: Exception) {
+            }
+        }
+    }
 
     fun setIntentFoodList(intentList: List<IngredientType.Food>) {
         _foodList.value = intentList
@@ -30,12 +49,7 @@ class AddIngredientViewModel : ViewModel() {
     fun minusItemCount(currentItem: IngredientType.Food) {
         val currentList = _foodList.value.toMutableList()
         val position = _foodList.value.indexOf(currentItem)
-        //adapter는 position을 기억하고 있다. 그래서 이전 position 가져오게 된당
-//        if (currentItem.foodCount == 1)
-//            removeItem(currentItem)
-        // 디자이너분 말처럼 1일때 마이너스 버튼을 비활성화 시켜야 한다면 1일때 마이너스 시키면 삭제가 아닌
-        // 아무런 동작을 해주는게 맞지 않나 싶어서 우선 바꿈
-        if(currentItem.foodCount !=1) {
+        if (currentItem.foodCount != 1) {
             currentList[position] =
                 IngredientType.Food(
                     currentItem.fid,
@@ -53,7 +67,6 @@ class AddIngredientViewModel : ViewModel() {
     fun plusItemCount(currentItem: IngredientType.Food) {
         val currentList = _foodList.value.toMutableList()
         val position = _foodList.value.indexOf(currentItem)
-        //adapter는 position을 기억하고 있다. 그래서 이전 position 가져오게 된당
         currentList[position] =
             IngredientType.Food(
                 currentItem.fid,
@@ -66,5 +79,4 @@ class AddIngredientViewModel : ViewModel() {
             )
         _foodList.value = currentList
     }
-
 }

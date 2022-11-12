@@ -45,7 +45,8 @@ fun DependencyHandlerScope.addFireBaseDependencies() {
     implementations(
         FireBaseDependencies.firebaseFireStore,
         FireBaseDependencies.firebaseBom,
-        FireBaseDependencies.firebaseMessaging
+        FireBaseDependencies.firebaseMessaging,
+        FireBaseDependencies.storage
     )
     platform(FireBaseDependencies.analytics)
 }

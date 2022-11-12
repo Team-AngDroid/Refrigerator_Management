@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
 import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
+import com.angdroid.refrigerator_manament.presentation.camera.CameraXSourceDemoActivity
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
 import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
@@ -129,7 +130,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             1000 -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startActivity(
-                        Intent(this, CameraActivity::class.java)
+                        Intent(this, CameraXSourceDemoActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                     )
                 } else

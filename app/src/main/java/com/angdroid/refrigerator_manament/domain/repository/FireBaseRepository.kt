@@ -11,7 +11,8 @@ interface FireBaseRepository {
     suspend fun getFoodList(): ArrayList<IngredientType>
     suspend fun getFood(ingredient: String): List<IngredientType.Food>
     suspend fun addIngredients(
-        ingredients: List<IngredientType>,
-        onApiResult: (Boolean) -> Unit
+        ingredients: List<IngredientType.Food>
     )
+    suspend fun upLoadFoodImage(paths: List<String>, byteArrayImages: List<ByteArray?>)
+    suspend fun setFoodInfo(foodList: List<IngredientType.Food>)
 }
