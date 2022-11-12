@@ -12,7 +12,7 @@ class AddUserFoodInfoUseCaseImpl @Inject constructor(private val fireBaseReposit
     AddUserFoodInfoUseCase {
     override suspend fun invoke(
         ingredients: List<IngredientType.Food>
-    ) {
+    ) :Boolean{
         val images = ingredients.map { food ->
             if (food.image != "" && food.image != null) {
                 val bitmap =
@@ -26,19 +26,8 @@ class AddUserFoodInfoUseCaseImpl @Inject constructor(private val fireBaseReposit
             }
         }
 
-        val imagePath =
-            images.map { if (it != null) UUID.nameUUIDFromBytes(it).toString() else "" }
-        fireBaseRepository.upLoadFoodImage(imagePath, images)
-        fireBaseRepository.addIngredients(ingredients.mapIndexed { index, food ->
-            IngredientType.Food(
-                UUID.randomUUID().toString(),
-                food.foodId,
-                food.expirationDate,
-                food.name,
-                imagePath[index],
-                food.categoryId,
-                food.foodCount
-            )
-        })
+        fireBaseRepository.upLoadFoodImage(ingredients.map { it.image }, images)
+        fireBaseRepository.addIngredients(ingredients)
+        return true
     }
 }

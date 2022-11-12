@@ -107,22 +107,19 @@ class FireBaseRepositoryImpl @Inject constructor(
     override suspend fun addIngredients(
         ingredients: List<IngredientType.Food>
     ) {
-        userInfoDataSource.getUserInfo().await().let {
-            UserMapper().mapToEntity((it.data?.get("foodInfo") as java.util.ArrayList<java.util.HashMap<String, *>>).map { result ->
-                FoodDto(
-                    (result["id"] as String),
-                    ((result["foodId"] as Long).toInt()),
-                    (result["expirationDate"] as String),
-                    (result["name"] as String),
-                    (result["image"] as String?),
-                    ((result["categoryId"] as Long).toInt()),
-                    ((result["foodCount"] as Long).toInt())
-                )
-            }).filter { it.expirationDate >= LocalDate.now() }.run {
-                userInfoDataSource.setFoodInfo(
-                    UserMapper().mapToDto(this.plus(ingredients))
-                )
-            }
+        (userInfoDataSource.getUserInfo()
+            .await().data?.get("foodInfo") as ArrayList<HashMap<String, *>>?)?.map { result ->
+            FoodDto(
+                (result["id"] as String),
+                ((result["foodId"] as Long).toInt()),
+                (result["expirationDate"] as String),
+                (result["name"] as String),
+                (result["image"] as String?),
+                ((result["categoryId"] as Long).toInt()),
+                ((result["foodCount"] as Long).toInt())
+            )
+        }.let {
+            userInfoDataSource.setFoodInfo((it ?: listOf()).plus(userMapper.mapToDto(ingredients)))
         }
     }
 
