@@ -2,6 +2,8 @@ package com.angdroid.refrigerator_manament.presentation.home
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -33,6 +35,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
+        intent?.let {
+            binding.ivBitmap.setImageBitmap(it.getByteArrayExtra("img")
+                ?.let { it1 -> byteArrayToBitmap(it1) })
+        }
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w("TAG", "Fetching FCM registration token failed", task.exception)
@@ -74,6 +80,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         recipeViewModel.getIngredientRecipe(foodSet.toList()) // 랜덤 재료 레시피를 받아오는 작업
     }
 
+    private fun byteArrayToBitmap(byteArray:ByteArray): Bitmap? {
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    }
     private fun setNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_container) as NavHostFragment
@@ -140,7 +149,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             1000 -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startActivity(
-                        Intent(this, CameraActivity::class.java)
+                        Intent(this, CameraXSourceDemoActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                     )
                 } else

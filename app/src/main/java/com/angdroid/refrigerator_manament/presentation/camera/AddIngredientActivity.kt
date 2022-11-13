@@ -3,6 +3,7 @@ package com.angdroid.refrigerator_manament.presentation.camera
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import com.angdroid.refrigerator_manament.BuildConfig
 import com.angdroid.refrigerator_manament.R
@@ -107,28 +108,32 @@ class AddIngredientActivity :
 
     private fun getIngredients(): List<IngredientType.Food> {
         safeLet(
-            intent.getStringArrayListExtra("ingredients"),
-            intent.getStringArrayListExtra("nameList")
-        ) { fileList, nameList ->
-            val ingredients = fileList.mapIndexed { index, file ->
-                safeValueOf<FoodIdType>(nameList[index])?.let { food ->
-                    IngredientType.Food(
-                        fid = UUID.randomUUID().toString(), //fid는 그냥 랜덤 돌림
-                        foodId = food.foodId,
-                        expirationDate = LocalDate.now()
-                            .plusDays(DefaultExpirationDate.valueOf(food.name).expiration.toLong()), //해당 Food의 Default 유통기한 긁어오기
-                        name = food.name,
-                        image = file,
-                        categoryId = food.returnCategoryType(),
-                        foodCount = 1
-                    )
-                }
-            }.filterNotNull().toMutableList()
+            intent.getStringExtra("img"),
+            intent.getStringExtra("label")
+        ) { file, nameList ->
+            val ingredients = mutableListOf<IngredientType.Food>()
+            safeValueOf<FoodIdType>(nameList)?.let { food ->
+                IngredientType.Food(
+                    fid = UUID.randomUUID().toString(), //fid는 그냥 랜덤 돌림
+                    foodId = food.foodId,
+                    expirationDate = LocalDate.now()
+                        .plusDays(DefaultExpirationDate.valueOf(food.name).expiration.toLong()), //해당 Food의 Default 유통기한 긁어오기
+                    name = food.name,
+                    image = file,
+                    categoryId = food.returnCategoryType(),
+                    foodCount = 1
+                )
+            }?.let {
+                ingredients.add(
+                    it
+                )
+            }
+
             ingredients.add(
                 0, IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)
                 // 맨처음 [직접 추가]아이템용 더미데이터
             )
-            return ingredients
+            return ingredients.toList()
         }
         return listOf(
             IngredientType.Food(
