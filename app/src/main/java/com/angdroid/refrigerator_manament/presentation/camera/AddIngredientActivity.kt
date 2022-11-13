@@ -50,7 +50,9 @@ class AddIngredientActivity :
         setAppbar()
         initAdapter()
         binding.btnIngredientsAdd.setOnClickListener {
-            addIngredientViewModel.setFoodList(cacheDir)
+            addIngredientViewModel.setFoodList(cacheDir) { success ->
+                if (success) finish()
+            }
         }
     }
 
@@ -63,6 +65,10 @@ class AddIngredientActivity :
         binding.appbarIngredient.topAppbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.top_back -> {
+                    try {
+                        cacheDir.listFiles()?.map { file -> file.delete() }
+                    } catch (_: Exception) {
+                    }
                     finish()
                     true
                 }
@@ -124,7 +130,17 @@ class AddIngredientActivity :
             )
             return ingredients
         }
-        return listOf(IngredientType.Food("0", 0, LocalDate.now(), "", "", 0, 0)) //아무것도 없어도 직접 추가는 add 되게
+        return listOf(
+            IngredientType.Food(
+                "0",
+                0,
+                LocalDate.now(),
+                "",
+                "",
+                0,
+                0
+            )
+        ) //아무것도 없어도 직접 추가는 add 되게
     }
 
     /**

@@ -20,13 +20,15 @@ class AddIngredientViewModel @Inject constructor(private val addUserFoodImageUse
     private val _foodList = MutableStateFlow<List<IngredientType.Food>>(emptyList())
     val foodList get() = _foodList.asStateFlow()
 
-    fun setFoodList(cacheDir: File) {
+    fun setFoodList(cacheDir: File, success:(Boolean)->Unit) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) { addUserFoodImageUseCase(foodList.value.filter { it.fid != "0" }) }
             try {
                 cacheDir.listFiles()?.map { file -> file.delete() }
             } catch (_: Exception) {
+                success(false)
             }
+            success(true)
         }
     }
 

@@ -45,7 +45,10 @@ fun ImageView.loadRemoteCoilCorner(url: String) {
 @BindingAdapter("imagePath", "loadDefaultFood")
 fun loadFileToImageCoil(imageView: ImageView, imagePath: String, loadDefaultFood: String) {
     if (imagePath.isNotEmpty()) {
-        imageView.load(BitmapFactory.decodeFile("/data/user/0/com.angdroid.refrigerator_manament/cache/$imagePath"))
+        imageView.load(BitmapFactory.decodeFile("/data/user/0/com.angdroid.refrigerator_manament/cache/$imagePath")){
+            placeholder(FoodTypeFeatures.valueOf(loadDefaultFood).imageRes)
+            crossfade(true)
+        }
     } else if (loadDefaultFood.isNotEmpty()) {
         imageView.setImageResource(FoodTypeFeatures.valueOf(loadDefaultFood).imageRes)
     }
@@ -62,7 +65,10 @@ fun loadPathCoil(imageView: ImageView, loadPath: String, name: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val uri =
                 storageInstance.getReference("${BuildConfig.USER_ID}/$loadPath").downloadUrl.await()
-            imageView.load(uri)
+            imageView.load(uri){
+                placeholder(FoodTypeFeatures.valueOf(name).imageRes)
+                crossfade(true)
+            }
         }
     } else {
         imageView.setImageResource(FoodTypeFeatures.valueOf(name).imageRes)

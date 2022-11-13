@@ -12,6 +12,7 @@ import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatur
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.util.*
 
 
 class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_camera) {
@@ -55,8 +56,8 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
     private fun saveBitmapToJpeg(bitmaps: List<Bitmap>): ArrayList<String> {
         try {
             val fileList = bitmaps.mapIndexed { index, bitmap ->
-                Log.e("Save Bitmap Image", cacheDir.absolutePath)
-                val tempFile = File(cacheDir, "imageTemp$index") // 파일 경로와 이름 넣기
+                val path = UUID.randomUUID().toString()
+                val tempFile = File(cacheDir, path) // 파일 경로와 이름 넣기
                 tempFile.createNewFile() // 자동으로 빈 파일을 생성하기
                 val out = FileOutputStream(tempFile) // 파일을 쓸 수 있는 스트림을 준비하기
                 bitmap.compress(
@@ -64,9 +65,9 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
                     80,
                     out
                 ) // compress 함수를 사용해 스트림에 비트맵을 저장하기 압축률은 80퍼센트 정도만,, 100퍼센트는 좀 클 것 같으니
-                bitmap.recycle()
+                if (!bitmap.isRecycled) bitmap.recycle()
                 out.close() // 스트림 닫아주기
-                "imageTemp$index"
+                path
             }
             Log.e("GetIngredients", fileList.toString())
             return fileList as ArrayList<String>

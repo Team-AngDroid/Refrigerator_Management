@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
  * 마이노 식재료 Detail
  */
 interface GetUserFoodDetailListUseCase {
-    operator fun invoke(ingredient:String): Flow<List<IngredientType.Food>>
+    operator fun invoke(ingredient:String): Flow<List<IngredientType.Food>?>
 }

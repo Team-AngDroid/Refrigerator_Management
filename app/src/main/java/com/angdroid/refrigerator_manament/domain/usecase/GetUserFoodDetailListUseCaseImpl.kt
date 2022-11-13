@@ -7,5 +7,5 @@ import javax.inject.Inject
 class GetUserFoodDetailListUseCaseImpl @Inject constructor(private val fireBaseRepository: FireBaseRepository) :
     GetUserFoodDetailListUseCase {
     override fun invoke(ingredient: String) =
-        flow { emit(fireBaseRepository.getFood(ingredient).sortedBy { it.expirationDate }) }
+        flow { emit(fireBaseRepository.getFood(ingredient)?.sortedBy { it.expirationDate }) }
 }

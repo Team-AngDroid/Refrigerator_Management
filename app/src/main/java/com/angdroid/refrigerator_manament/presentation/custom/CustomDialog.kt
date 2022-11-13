@@ -14,9 +14,11 @@ import com.angdroid.refrigerator_manament.databinding.DialogAddIngredientsBindin
 import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
 import com.angdroid.refrigerator_manament.presentation.util.makeToast
+import com.angdroid.refrigerator_manament.presentation.util.types.DefaultExpirationDate
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodTypeFeatures
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodIdType
 import java.time.LocalDate
+import java.util.UUID
 
 
 class CustomDialog(
@@ -131,9 +133,10 @@ class CustomDialog(
             if (activationList.all { it } && checkFoodName(binding.etIngredient.text.toString())) {
                 itemAddListener(
                     IngredientType.Food(
-                        "123",
+                        UUID.randomUUID().toString(),
                         findFoodId(binding.etIngredient.text.toString()),
-                        LocalDate.now(),
+                        LocalDate.now()
+                            .plusDays(DefaultExpirationDate.valueOf(binding.etIngredient.text.toString()).expiration.toLong()),
                         binding.etIngredient.text.toString(),
                         "",
                         binding.spinnerCategory.selectedItemPosition + 1,

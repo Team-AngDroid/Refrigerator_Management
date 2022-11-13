@@ -7,5 +7,5 @@ import com.angdroid.refrigerator_manament.domain.entity.model.IngredientType
  * 식재료 추가
  */
 interface AddUserFoodInfoUseCase {
-    suspend operator fun invoke(ingredients: List<IngredientType.Food>)
+    suspend operator fun invoke(ingredients: List<IngredientType.Food>):Boolean
 }

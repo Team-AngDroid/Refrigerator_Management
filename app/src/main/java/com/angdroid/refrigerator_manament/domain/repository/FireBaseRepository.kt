@@ -8,8 +8,8 @@ interface FireBaseRepository {
     suspend fun getIngredientRecipe(ingredient: String): List<RecipeEntity>
     suspend fun getSearchRecipe(name: String): List<RecipeEntity>
     suspend fun getRecipeNameList(): List<String>
-    suspend fun getFoodList(): ArrayList<IngredientType>
-    suspend fun getFood(ingredient: String): List<IngredientType.Food>
+    suspend fun getFoodList(): ArrayList<IngredientType>?
+    suspend fun getFood(ingredient: String): List<IngredientType.Food>?
     suspend fun addIngredients(
         ingredients: List<IngredientType.Food>
     )
