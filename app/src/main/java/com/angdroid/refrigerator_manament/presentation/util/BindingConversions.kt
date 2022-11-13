@@ -12,6 +12,7 @@ import androidx.annotation.ColorInt
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.request.CachePolicy
 import coil.transform.RoundedCornersTransformation
 import com.angdroid.refrigerator_manament.BuildConfig
 import com.angdroid.refrigerator_manament.R
@@ -66,8 +67,9 @@ fun loadPathCoil(imageView: ImageView, loadPath: String, name: String) {
             val uri =
                 storageInstance.getReference("${BuildConfig.USER_ID}/$loadPath").downloadUrl.await()
             imageView.load(uri){
-                placeholder(FoodTypeFeatures.valueOf(name).imageRes)
                 crossfade(true)
+                //placeholder(FoodTypeFeatures.valueOf(name).imageRes)
+                memoryCachePolicy(CachePolicy.DISABLED)
             }
         }
     } else {
