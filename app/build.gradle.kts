@@ -68,7 +68,6 @@ dependencies {
     implementation(KotlinDependencies.kotlinxSerialization)
 
 
-
     // Object detection feature with bundled default classifier
     implementation("com.google.mlkit:object-detection:17.0.0")
     // Object detection feature with custom classifier support
