@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.NavHostFragment
@@ -18,7 +19,10 @@ import com.angdroid.refrigerator_manament.presentation.util.BaseActivity
 import com.angdroid.refrigerator_manament.presentation.util.makeSnackbar
 import com.angdroid.refrigerator_manament.presentation.util.setOnSingleClickListener
 import com.angdroid.refrigerator_manament.presentation.util.types.FoodIdType
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -29,6 +33,20 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.lifecycleOwner = this
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = token.toString()
+            Log.d("TAG", msg)
+        })
+
 
         setRecipe()
         setNavigation()
