@@ -35,7 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="140dp"
                 android:scaleType="fitXY"
-                app:load_default_ingredient="@{food.name}"
+                loadPath="@{food.image}"
+                name="@{food.name}"
                 tools:src="@drawable/apple" />
         </androidx.cardview.widget.CardView>
 

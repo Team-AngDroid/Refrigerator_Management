@@ -35,7 +35,11 @@ class DetailViewModel @Inject constructor(
             getUserFoodDetailListUseCase(ingredient).onStart {
             }.catch {
             }.collect {
-                _foodList.value = UiState.Success(it)
+                if (it != null) {
+                    _foodList.value = UiState.Success(it)
+                } else {
+                    _foodList.value = UiState.Empty(true)
+                }
             }
         }
     }

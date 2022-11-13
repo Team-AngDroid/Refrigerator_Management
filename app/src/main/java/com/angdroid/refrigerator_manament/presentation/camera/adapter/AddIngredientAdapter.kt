@@ -68,7 +68,7 @@ class AddIngredientAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(position).fid.toInt() == 0) SELF else INGREDIENTS
+        return if (getItem(position).fid == "0") SELF else INGREDIENTS
         //fid가 0인 더미데이터를 넣어줘서 [직접추가]아이템이 나오도록
 
         // return if (position == currentList.size - 1) SELF else INGREDIENTS

@@ -5,5 +5,5 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 interface EnterRefrigeratorPageUseCase {
-    suspend operator fun invoke():Flow<List<IngredientType>>
+    suspend operator fun invoke():Flow<List<IngredientType>?>
 }
