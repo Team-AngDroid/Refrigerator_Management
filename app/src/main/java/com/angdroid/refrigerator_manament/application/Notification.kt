@@ -10,7 +10,6 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.presentation.SplashActivity
-import com.angdroid.refrigerator_manament.presentation.home.HomeActivity
 
 class Notification(
     private val context: Context,
@@ -40,8 +39,8 @@ class Notification(
                     NotificationCompat.BigTextStyle()
                         .bigText(body) // 줄넘김을 위해서 확장 알림으로 설정
                 )
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setContentIntent(resultPendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setFullScreenIntent(resultPendingIntent , true)
         }
     }
 
@@ -59,13 +58,17 @@ class Notification(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.notification_channel)
             val descriptionText = "Description"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel = NotificationChannel(
                 context.getString(R.string.notification_channel),
                 name,
                 importance
             ).apply {
                 description = descriptionText
+                setShowBadge(true)
+                enableVibration(true)
+                enableLights(true)
+                lockscreenVisibility = android.app.Notification.VISIBILITY_PUBLIC
             }
             val notificationManager: NotificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
