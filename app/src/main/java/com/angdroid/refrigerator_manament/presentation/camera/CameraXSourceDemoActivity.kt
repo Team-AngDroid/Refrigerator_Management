@@ -120,7 +120,6 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vision_cameraxsource_demo)
-
         //카메라 권한 체크 및 요청
         if (!allRuntimePermissionsGranted()) {
             getRuntimePermissions()
@@ -129,7 +128,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         graphicOverlay = findViewById(R.id.graphic_overlay)
         val facingSwitch = findViewById<ToggleButton>(R.id.facing_switch)
         facingSwitch.setOnCheckedChangeListener(this)
-        val settingsButton = findViewById<ImageView>(R.id.settings_button)
+        /*val settingsButton = findViewById<ImageView>(R.id.settings_button)
         settingsButton.setOnClickListener {
             val intent = Intent(applicationContext, SettingsActivity::class.java)
             intent.putExtra(
@@ -137,7 +136,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
                 SettingsActivity.LaunchSource.CAMERAXSOURCE_DEMO
             )
             startActivity(intent)
-        }
+        }*/
         button = findViewById(R.id.detector)
         button!!.setOnClickListener {
             val intent = Intent(this, AddIngredientActivity::class.java)
@@ -209,33 +208,39 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
             needUpdateGraphicOverlayImageSourceInfo = false
         }
         for (obj in results) {
-            graphicOverlay!!.add(ObjectGraphic(graphicOverlay!!, obj))
-            obj.labels.forEach {
-                if (it.confidence * 100 > 90.0f) { // 정확도 90퍼 이상일 경우 페이지 이동
-                    //Log.d(ContentValues.TAG, "신뢰도 : " + (it.confidence * 100).toString())
-                    //completeDetection()
+            if (obj.labels[0].confidence * 100 >= 80.0f) {
 
-                    val elapsedRealtime = SystemClock.elapsedRealtime()
-                    if ((elapsedRealtime - lastClickTime) < 1000) {
-                        return@forEach
-                    }
+                graphicOverlay!!.add(ObjectGraphic(graphicOverlay!!, obj))
+                obj.labels.forEach {
+                    if (it.confidence * 100 > 90.0f) { // 정확도 90퍼 이상일 경우 페이지 이동
+                        //Log.d(ContentValues.TAG, "신뢰도 : " + (it.confidence * 100).toString())
+                        //completeDetection()
 
-                    previewView?.let {
-                        tempBitmap = viewToBitmap(
-                            previewView?.bitmap!!,
-                            obj.boundingBox.left, obj.boundingBox.top,
-                            obj.boundingBox.width().dpToPx(this),
-                            obj.boundingBox.height().dpToPx(this)
-                        )
-                        tempLabel = obj.labels[0].text
-                        button!!.isEnabled = true
-                        lastClickTime = elapsedRealtime
+                        val elapsedRealtime = SystemClock.elapsedRealtime()
+                        if ((elapsedRealtime - lastClickTime) < 1000) {
+                            return@forEach
+                        }
+
+                        previewView?.let {
+                            tempBitmap = viewToBitmap(
+                                previewView?.bitmap!!,
+                                obj.boundingBox.left, obj.boundingBox.top,
+                                obj.boundingBox.width().dpToPx(this),
+                                obj.boundingBox.height().dpToPx(this)
+                            )
+                            tempLabel = obj.labels[0].text
+                            button!!.isEnabled = true
+                            lastClickTime = elapsedRealtime
+                        }
+                    } else {
+                        button!!.isEnabled = false
+                        tempBitmap = null
+                        tempLabel = null
                     }
-                } else {
-                    button!!.isEnabled = false
-                    tempBitmap = null
-                    tempLabel = null
                 }
+
+            }else{
+                button!!.isEnabled = false
             }
         }
         graphicOverlay!!.add(InferenceInfoGraphic(graphicOverlay!!))

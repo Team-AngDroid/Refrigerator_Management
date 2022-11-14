@@ -6,14 +6,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.databinding.ActivityHomeBinding
-import com.angdroid.refrigerator_manament.presentation.camera.CameraActivity
 import com.angdroid.refrigerator_manament.presentation.camera.CameraXSourceDemoActivity
 import com.angdroid.refrigerator_manament.presentation.home.fragment.RefrigeratorFragment
 import com.angdroid.refrigerator_manament.presentation.home.viewmodel.RecipeViewModel
@@ -24,7 +22,6 @@ import com.angdroid.refrigerator_manament.presentation.util.types.FoodIdType
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -50,7 +47,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
             // Log and toast
             val msg = token.toString()
-            Log.d("TAG", msg)
+            Log.e("TAG", msg)
         })
 
 
