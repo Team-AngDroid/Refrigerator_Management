@@ -113,7 +113,7 @@ class ObjectGraphic constructor(
     yLabelOffset += lineHeight
     for (label in detectedObject.labels) {
       canvas.drawText(
-        label.text + " (index: " + label.index + ")",
+        label.text,
         rect.left,
         rect.top + yLabelOffset,
         textPaints[colorID]
