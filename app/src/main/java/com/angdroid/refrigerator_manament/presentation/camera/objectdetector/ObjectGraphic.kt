@@ -24,6 +24,7 @@ import android.graphics.RectF
 import android.util.Log
 import com.angdroid.refrigerator_manament.presentation.camera.CameraXSourceDemoActivity
 import com.angdroid.refrigerator_manament.presentation.camera.util.GraphicOverlay
+import com.angdroid.refrigerator_manament.presentation.util.types.FoodConverter
 import com.google.mlkit.vision.objects.DetectedObject
 import java.util.Locale
 import kotlin.math.abs
@@ -70,7 +71,7 @@ class ObjectGraphic constructor(
     // Calculate width and height of label box
     for (label in detectedObject.labels) {
       textWidth =
-        max(textWidth, textPaints[colorID].measureText(label.text))
+        max(textWidth, textPaints[colorID].measureText(FoodConverter.valueOf(label.text).label))
       textWidth = max(
         textWidth,
         textPaints[colorID].measureText(
@@ -113,7 +114,7 @@ class ObjectGraphic constructor(
     yLabelOffset += lineHeight
     for (label in detectedObject.labels) {
       canvas.drawText(
-        label.text,
+        FoodConverter.valueOf(label.text).label,
         rect.left,
         rect.top + yLabelOffset,
         textPaints[colorID]
