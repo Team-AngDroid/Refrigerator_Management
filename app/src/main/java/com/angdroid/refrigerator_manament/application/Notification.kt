@@ -58,7 +58,7 @@ class Notification(
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.notification_channel)
             val descriptionText = "Description"
-            val importance = NotificationManager.IMPORTANCE_HIGH
+            val importance = NotificationManager.IMPORTANCE_MAX
             val channel = NotificationChannel(
                 context.getString(R.string.notification_channel),
                 name,
