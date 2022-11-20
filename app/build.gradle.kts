@@ -26,6 +26,7 @@ android {
 
         testInstrumentationRunner = DefaultConfig.TEST_INSTRUMENTATION_RUNNER
         buildConfigField("String", "USER_ID", properties.getProperty("USER_ID"))
+        buildConfigField("String", "CUSTOM_MODEL", properties.getProperty("CUSTOM_MODEL"))
     }
 
     buildTypes {

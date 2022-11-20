@@ -37,6 +37,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.angdroid.refrigerator_manament.BuildConfig
 import com.angdroid.refrigerator_manament.R
 import com.angdroid.refrigerator_manament.presentation.camera.util.GraphicOverlay
 import com.angdroid.refrigerator_manament.presentation.util.dpToPx
@@ -306,8 +307,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
     override fun onResume() {
         super.onResume()
         if (cameraXSource != null &&
-            PreferenceUtils.getCustomObjectDetectorOptionsForLivePreview(this, localModel)
-                .equals(customObjectDetectorOptions) &&
+            PreferenceUtils.getCustomObjectDetectorOptionsForLivePreview(this, localModel) == customObjectDetectorOptions &&
             PreferenceUtils.getCameraXTargetResolution(
                 applicationContext,
                 lensFacing
@@ -360,7 +360,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         private const val TAG = "EntryChoiceActivity"
         private const val PERMISSION_REQUESTS = 1
         private val localModel: LocalModel =
-            LocalModel.Builder().setAssetFilePath("custom_models/converted_model.tflite").build()
+            LocalModel.Builder().setAssetFilePath(BuildConfig.CUSTOM_MODEL).build()
         private val REQUIRED_RUNTIME_PERMISSIONS =
             arrayOf(
                 Manifest.permission.CAMERA,

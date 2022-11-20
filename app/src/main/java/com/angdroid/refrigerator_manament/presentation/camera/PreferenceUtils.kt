@@ -38,35 +38,12 @@ object PreferenceUtils {
         return sharedPreferences.getBoolean(prefKey, false)
     }
 
-    private fun getObjectDetectorOptions(
-        context: Context,
-        @StringRes prefKeyForMultipleObjects: Int,
-        @StringRes prefKeyForClassification: Int,
-        @ObjectDetectorOptionsBase.DetectorMode mode: Int
-    ): ObjectDetectorOptions {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val enableMultipleObjects =
-            sharedPreferences.getBoolean(context.getString(prefKeyForMultipleObjects), false)
-        val enableClassification =
-            sharedPreferences.getBoolean(context.getString(prefKeyForClassification), true)
-        val builder = ObjectDetectorOptions.Builder().setDetectorMode(mode)
-        if (enableMultipleObjects) {
-            builder.enableMultipleObjects()
-        }
-        if (enableClassification) {
-            builder.enableClassification()
-        }
-        return builder.build()
-    }
-
     fun getCustomObjectDetectorOptionsForLivePreview(
         context: Context, localModel: LocalModel
     ): CustomObjectDetectorOptions {
         return getCustomObjectDetectorOptions(
             context,
             localModel,
-            R.string.pref_key_live_preview_object_detector_enable_multiple_objects,
-            R.string.pref_key_live_preview_object_detector_enable_classification,
             CustomObjectDetectorOptions.STREAM_MODE
         )
     }
@@ -74,15 +51,11 @@ object PreferenceUtils {
     private fun getCustomObjectDetectorOptions(
         context: Context,
         localModel: LocalModel,
-        @StringRes prefKeyForMultipleObjects: Int,
-        @StringRes prefKeyForClassification: Int,
         @ObjectDetectorOptionsBase.DetectorMode mode: Int
     ): CustomObjectDetectorOptions {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val enableMultipleObjects =
-            sharedPreferences.getBoolean(context.getString(prefKeyForMultipleObjects), false)
-        val enableClassification =
-            sharedPreferences.getBoolean(context.getString(prefKeyForClassification), true)
+        val enableMultipleObjects =false
+        val enableClassification =true
         val builder = CustomObjectDetectorOptions.Builder(localModel).setDetectorMode(mode)
         if (enableMultipleObjects) {
             builder.enableMultipleObjects()
