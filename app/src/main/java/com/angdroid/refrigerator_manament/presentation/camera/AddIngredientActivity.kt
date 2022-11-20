@@ -36,8 +36,6 @@ class AddIngredientActivity :
     private lateinit var adapter: AddIngredientAdapter
     private val addIngredientViewModel: AddIngredientViewModel by viewModels()
     private lateinit var foodInfoDataSource: UserInfoDataSource
-    private val storageInstance: FirebaseStorage by lazy { Firebase.storage }
-    private val currentUserRef = storageInstance.reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -16,13 +16,6 @@ import com.angdroid.refrigerator_manament.R
 
 /** Utility class to retrieve shared preferences.  */
 object PreferenceUtils {
-    private val POSE_DETECTOR_PERFORMANCE_MODE_FAST = 1
-    fun saveString(context: Context, @StringRes prefKeyId: Int, value: String) {
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putString(context.getString(prefKeyId), value)
-            .apply()
-    }
 
     @RequiresApi(VERSION_CODES.LOLLIPOP)
     fun getCameraXTargetResolution(context: Context, lensfacing: Int): Size? {
@@ -45,24 +38,6 @@ object PreferenceUtils {
         return sharedPreferences.getBoolean(prefKey, false)
     }
 
-    fun getObjectDetectorOptionsForStillImage(context: Context): ObjectDetectorOptions {
-        return getObjectDetectorOptions(
-            context,
-            R.string.pref_key_still_image_object_detector_enable_multiple_objects,
-            R.string.pref_key_still_image_object_detector_enable_classification,
-            ObjectDetectorOptions.SINGLE_IMAGE_MODE
-        )
-    }
-
-    fun getObjectDetectorOptionsForLivePreview(context: Context): ObjectDetectorOptions {
-        return getObjectDetectorOptions(
-            context,
-            R.string.pref_key_live_preview_object_detector_enable_multiple_objects,
-            R.string.pref_key_live_preview_object_detector_enable_classification,
-            ObjectDetectorOptions.STREAM_MODE
-        )
-    }
-
     private fun getObjectDetectorOptions(
         context: Context,
         @StringRes prefKeyForMultipleObjects: Int,
@@ -82,18 +57,6 @@ object PreferenceUtils {
             builder.enableClassification()
         }
         return builder.build()
-    }
-
-    fun getCustomObjectDetectorOptionsForStillImage(
-        context: Context, localModel: LocalModel
-    ): CustomObjectDetectorOptions {
-        return getCustomObjectDetectorOptions(
-            context,
-            localModel,
-            R.string.pref_key_still_image_object_detector_enable_multiple_objects,
-            R.string.pref_key_still_image_object_detector_enable_classification,
-            CustomObjectDetectorOptions.SINGLE_IMAGE_MODE
-        )
     }
 
     fun getCustomObjectDetectorOptionsForLivePreview(
@@ -128,81 +91,6 @@ object PreferenceUtils {
             builder.enableClassification().setMaxPerObjectLabelCount(1)
         }
         return builder.build()
-    }
-
-    fun shouldGroupRecognizedTextInBlocks(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_group_recognized_text_in_blocks)
-        return sharedPreferences.getBoolean(prefKey, false)
-    }
-
-    fun showLanguageTag(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_show_language_tag)
-        return sharedPreferences.getBoolean(prefKey, false)
-    }
-
-    fun shouldShowTextConfidence(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_show_text_confidence)
-        return sharedPreferences.getBoolean(prefKey, false)
-    }
-
-    fun preferGPUForPoseDetection(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_pose_detector_prefer_gpu)
-        return sharedPreferences.getBoolean(prefKey, true)
-    }
-
-    fun shouldShowPoseDetectionInFrameLikelihoodLivePreview(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey =
-            context.getString(R.string.pref_key_live_preview_pose_detector_show_in_frame_likelihood)
-        return sharedPreferences.getBoolean(prefKey, true)
-    }
-
-    fun shouldShowPoseDetectionInFrameLikelihoodStillImage(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey =
-            context.getString(R.string.pref_key_still_image_pose_detector_show_in_frame_likelihood)
-        return sharedPreferences.getBoolean(prefKey, true)
-    }
-
-    fun shouldPoseDetectionVisualizeZ(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_pose_detector_visualize_z)
-        return sharedPreferences.getBoolean(prefKey, true)
-    }
-
-    fun shouldPoseDetectionRescaleZForVisualization(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_pose_detector_rescale_z)
-        return sharedPreferences.getBoolean(prefKey, true)
-    }
-
-    fun shouldPoseDetectionRunClassification(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_pose_detector_run_classification)
-        return sharedPreferences.getBoolean(prefKey, false)
-    }
-
-    fun shouldSegmentationEnableRawSizeMask(context: Context): Boolean {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(R.string.pref_key_segmentation_raw_size_mask)
-        return sharedPreferences.getBoolean(prefKey, false)
-    }
-
-    /**
-     * Mode type preference is backed by [android.preference.ListPreference] which only support
-     * storing its entry value as string type, so we need to retrieve as string and then convert to
-     * integer.
-     */
-    private fun getModeTypePreferenceValue(
-        context: Context, @StringRes prefKeyResId: Int, defaultValue: Int
-    ): Int {
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val prefKey = context.getString(prefKeyResId)
-        return sharedPreferences.getString(prefKey, defaultValue.toString())!!.toInt()
     }
 
     fun isCameraLiveViewportEnabled(context: Context): Boolean {
