@@ -39,10 +39,6 @@
             android:name=".presentation.camera.AddIngredientActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.camera.CameraActivity"
-            android:exported="true" />
-        <activity android:name=".presentation.camera.SettingsActivity" />
-        <activity
             android:name=".presentation.camera.CameraXSourceDemoActivity"
             android:exported="true" />
         <activity
