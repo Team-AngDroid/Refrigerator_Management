@@ -128,15 +128,6 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         graphicOverlay = findViewById(R.id.graphic_overlay)
         val facingSwitch = findViewById<ToggleButton>(R.id.facing_switch)
         facingSwitch.setOnCheckedChangeListener(this)
-        /*val settingsButton = findViewById<ImageView>(R.id.settings_button)
-        settingsButton.setOnClickListener {
-            val intent = Intent(applicationContext, SettingsActivity::class.java)
-            intent.putExtra(
-                SettingsActivity.EXTRA_LAUNCH_SOURCE,
-                SettingsActivity.LaunchSource.CAMERAXSOURCE_DEMO
-            )
-            startActivity(intent)
-        }*/
         button = findViewById(R.id.detector)
         button!!.setOnClickListener {
             val intent = Intent(this, AddIngredientActivity::class.java)
@@ -149,9 +140,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
             finish()
 
         }
-        //import com.google.mlkit.vision.camera.DetectionTaskCallback
     }
-
 
     override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
         if (lensFacing == CameraSourceConfig.CAMERA_FACING_FRONT) {
@@ -161,7 +150,6 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         }
         createThenStartCameraXSource()
     }
-
 
     private fun createThenStartCameraXSource() {
         if (cameraXSource != null) {
@@ -213,9 +201,6 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
                 graphicOverlay!!.add(ObjectGraphic(graphicOverlay!!, obj))
                 obj.labels.forEach {
                     if (it.confidence * 100 > 90.0f) { // 정확도 90퍼 이상일 경우 페이지 이동
-                        //Log.d(ContentValues.TAG, "신뢰도 : " + (it.confidence * 100).toString())
-                        //completeDetection()
-
                         val elapsedRealtime = SystemClock.elapsedRealtime()
                         if ((elapsedRealtime - lastClickTime) < 1000) {
                             return@forEach
@@ -317,7 +302,6 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         }
     }
 
-
     @Override
     override fun onResume() {
         super.onResume()
@@ -325,27 +309,17 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
             PreferenceUtils.getCustomObjectDetectorOptionsForLivePreview(this, localModel)
                 .equals(customObjectDetectorOptions) &&
             PreferenceUtils.getCameraXTargetResolution(
-                getApplicationContext(),
+                applicationContext,
                 lensFacing
             ) != null &&
             (Objects.requireNonNull(
-                PreferenceUtils.getCameraXTargetResolution(getApplicationContext(), lensFacing)
+                PreferenceUtils.getCameraXTargetResolution(applicationContext, lensFacing)
             ) == targetResolution)
         ) {
             cameraXSource!!.start()
         } else {
             createThenStartCameraXSource()
         }
-    }
-
-    @JvmName("onDetectionTaskSuccess1")
-    private fun onDetectionTaskSuccess(results: List<DetectedObject?>?) {
-        TODO("Not yet implemented")
-    }
-
-    @JvmName("onDetectionTaskFailure1")
-    private fun onDetectionTaskFailure(e: java.lang.Exception?) {
-        TODO("Not yet implemented")
     }
 
     override fun onPause() {
@@ -382,9 +356,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         Log.d(TAG, error)
     }
 
-
     companion object {
-
         private const val TAG = "EntryChoiceActivity"
         private const val PERMISSION_REQUESTS = 1
         private val localModel: LocalModel =
@@ -396,6 +368,5 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
     }
-
 }
 
