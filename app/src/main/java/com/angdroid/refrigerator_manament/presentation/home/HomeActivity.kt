@@ -41,7 +41,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                 Log.w("TAG", "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
-
             // Get new FCM registration token
             val token = task.result
 
@@ -49,8 +48,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             val msg = token.toString()
             Log.e("TAG", msg)
         })
-
-
         setRecipe()
         setNavigation()
         setOnClickListener()
@@ -65,7 +62,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         val foodSet = mutableSetOf<String>()
         while (recipeSet.size < 2) {
             recipeSet.add(
-                FoodIdType.values()[(0 until FoodIdType.values().size).random(
+                FoodIdType.values()[listOf(0, 1, 4, 5, 6, 13).random(
                     Random(
                         System.nanoTime()
                     )

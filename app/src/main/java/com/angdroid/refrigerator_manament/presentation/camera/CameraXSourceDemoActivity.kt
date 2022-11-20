@@ -208,7 +208,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
             needUpdateGraphicOverlayImageSourceInfo = false
         }
         for (obj in results) {
-            if (obj.labels[0].confidence * 100 >= 80.0f) {
+            if (obj.labels[0].confidence * 100 >= 88.0f) {
 
                 graphicOverlay!!.add(ObjectGraphic(graphicOverlay!!, obj))
                 obj.labels.forEach {
