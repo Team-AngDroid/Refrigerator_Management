@@ -1,19 +1,3 @@
-/*
- * Copyright 2021 Google LLC. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.angdroid.refrigerator_manament.presentation.camera
 
 import android.Manifest
@@ -28,7 +12,6 @@ import android.os.SystemClock
 import android.util.Log
 import android.util.Size
 import android.widget.CompoundButton
-import android.widget.ImageView
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.annotation.RequiresApi
@@ -130,7 +113,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         val facingSwitch = findViewById<ToggleButton>(R.id.facing_switch)
         facingSwitch.setOnCheckedChangeListener(this)
         button = findViewById(R.id.detector)
-        button!!.setOnClickListener {
+        button?.setOnClickListener {
             val intent = Intent(this, AddIngredientActivity::class.java)
             intent.putExtra("img", tempBitmap?.let { it1 -> saveBitmapToJpeg(it1) })
             intent.putExtra(
@@ -153,12 +136,9 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
     }
 
     private fun createThenStartCameraXSource() {
-        if (cameraXSource != null) {
-            cameraXSource!!.close()
-        }
+        cameraXSource?.close()
         customObjectDetectorOptions =
             PreferenceUtils.getCustomObjectDetectorOptionsForLivePreview(
-                applicationContext,
                 localModel
             )
         val objectDetector: ObjectDetector =
@@ -178,28 +158,28 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
         }
         cameraXSource = CameraXSource(builder.build(), previewView!!)
         needUpdateGraphicOverlayImageSourceInfo = true
-        cameraXSource!!.start()
+        cameraXSource?.start()
     }
 
     private fun onDetectionTaskSuccess(results: List<DetectedObject>) {
-        graphicOverlay!!.clear()
+        graphicOverlay?.clear()
         if (needUpdateGraphicOverlayImageSourceInfo) {
-            val size: Size = cameraXSource!!.previewSize!!
+            val size: Size = cameraXSource?.previewSize!!
             val isImageFlipped =
-                cameraXSource!!.cameraFacing == CameraSourceConfig.CAMERA_FACING_FRONT
+                cameraXSource?.cameraFacing == CameraSourceConfig.CAMERA_FACING_FRONT
             if (isPortraitMode()) {
                 // Swap width and height sizes when in portrait, since it will be rotated by
                 // 90 degrees. The camera preview and the image being processed have the same size.
-                graphicOverlay!!.setImageSourceInfo(size.height, size.width, isImageFlipped)
+                graphicOverlay?.setImageSourceInfo(size.height, size.width, isImageFlipped)
             } else {
-                graphicOverlay!!.setImageSourceInfo(size.width, size.height, isImageFlipped)
+                graphicOverlay?.setImageSourceInfo(size.width, size.height, isImageFlipped)
             }
             needUpdateGraphicOverlayImageSourceInfo = false
         }
         for (obj in results) {
             if (obj.labels[0].confidence * 100 >= 88.0f) {
 
-                graphicOverlay!!.add(ObjectGraphic(graphicOverlay!!, obj))
+                graphicOverlay?.add(ObjectGraphic(graphicOverlay!!, obj))
                 obj.labels.forEach {
                     if (it.confidence * 100 > 90.0f) { // 정확도 90퍼 이상일 경우 페이지 이동
                         val elapsedRealtime = SystemClock.elapsedRealtime()
@@ -215,22 +195,22 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
                                 obj.boundingBox.height().dpToPx(this)
                             )
                             tempLabel = obj.labels[0].text
-                            button!!.isEnabled = true
+                            button?.isEnabled = true
                             lastClickTime = elapsedRealtime
                         }
                     } else {
-                        button!!.isEnabled = false
+                        button?.isEnabled = false
                         tempBitmap = null
                         tempLabel = null
                     }
                 }
 
-            }else{
-                button!!.isEnabled = false
+            } else {
+                button?.isEnabled = false
             }
         }
-        graphicOverlay!!.add(InferenceInfoGraphic(graphicOverlay!!))
-        graphicOverlay!!.postInvalidate()
+        graphicOverlay?.add(InferenceInfoGraphic(graphicOverlay!!))
+        graphicOverlay?.postInvalidate()
     }
 
     private fun viewToBitmap(bitmap: Bitmap, left: Int, top: Int, width: Int, height: Int): Bitmap {
@@ -307,7 +287,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
     override fun onResume() {
         super.onResume()
         if (cameraXSource != null &&
-            PreferenceUtils.getCustomObjectDetectorOptionsForLivePreview(this, localModel) == customObjectDetectorOptions &&
+            PreferenceUtils.getCustomObjectDetectorOptionsForLivePreview(localModel) == customObjectDetectorOptions &&
             PreferenceUtils.getCameraXTargetResolution(
                 applicationContext,
                 lensFacing
@@ -316,7 +296,7 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
                 PreferenceUtils.getCameraXTargetResolution(applicationContext, lensFacing)
             ) == targetResolution)
         ) {
-            cameraXSource!!.start()
+            cameraXSource?.start()
         } else {
             createThenStartCameraXSource()
         }
@@ -324,16 +304,12 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
 
     override fun onPause() {
         super.onPause()
-        if (cameraXSource != null) {
-            cameraXSource!!.stop()
-        }
+        cameraXSource?.stop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (cameraXSource != null) {
-            cameraXSource!!.stop()
-        }
+        cameraXSource?.stop()
     }
 
     private fun isPortraitMode(): Boolean {
@@ -343,11 +319,11 @@ class CameraXSourceDemoActivity : AppCompatActivity(), CompoundButton.OnCheckedC
 
 
     private fun onDetectionTaskFailure(e: Exception) {
-        graphicOverlay!!.clear()
-        graphicOverlay!!.postInvalidate()
+        graphicOverlay?.clear()
+        graphicOverlay?.postInvalidate()
         val error = "Failed to process. Error: " + e.localizedMessage
         Toast.makeText(
-            graphicOverlay!!.context, """
+            graphicOverlay?.context, """
    $error
    Cause: ${e.cause}
    """.trimIndent(), Toast.LENGTH_SHORT
