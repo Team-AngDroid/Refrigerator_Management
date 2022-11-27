@@ -44,6 +44,7 @@
             android:layout_width="@dimen/app_bar_space"
             android:layout_height="@dimen/app_bar_space"
             android:layout_marginBottom="36dp"
+            android:outlineProvider="none"
             android:backgroundTint="@color/primary_skyblue"
             android:contentDescription="@string/floating_btn"
             android:src="@drawable/ic_add_food"
