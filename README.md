@@ -1,5 +1,8 @@
 # Refrigerator_Management
-for Graduation Project
+## for Graduation Project
+![background](https://user-images.githubusercontent.com/15981307/206891369-3e21265e-1263-4197-97ee-440de98eb666.png)
+
+![Group 34330](https://user-images.githubusercontent.com/15981307/206891374-1bc1ae99-2f6b-446d-91f4-dab4108b7897.png)
 
 # 식재료 관리, 레시피 검색
 ![시연](https://user-images.githubusercontent.com/70648111/206858535-f7c34960-2be5-4ce0-9224-927883482cfd.gif)
